@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Shell11.Views.SettingPages.About"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Shell11.Views.SettingPages"
+             mc:Ignorable="d"
+             Margin="{StaticResource SettingsPageMargin}"
+             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel>
+        <Expander>
+            <Expander.Header>
+                <DockPanel Margin="8 12">
+                    <Image Margin="0 0 18 0" Height="28" Source="/Assets/logo.png"/>
+                    <TextBlock>
+                        <Run FontSize="17" Text="Shell 11"/>
+                        <LineBreak/>
+                        <Run Foreground="{DynamicResource TextFillColorSecondaryBrush}">版本 24.07 beta1.0</Run>
+                    </TextBlock>
+
+                    <Button HorizontalAlignment="Right">
+                        <TextBlock>
+                            <Run BaselineAlignment="Center" FontFamily="{StaticResource IconFontFamily}">&#xE72C;</Run>
+                            <Run>检查更新</Run>
+                        </TextBlock>
+                    </Button>
+                </DockPanel>
+            </Expander.Header>
+            <StackPanel>
+                <UniformGrid>
+                    <ui:HyperlinkButton Content="github"/>
+                </UniformGrid>
+                <Separator/>
+                <TextBlock Text="Dependencies and References"/>
+                <ItemsControl>
+                    
+                </ItemsControl>
+            </StackPanel>
+        </Expander>
+    </StackPanel>
+</UserControl>

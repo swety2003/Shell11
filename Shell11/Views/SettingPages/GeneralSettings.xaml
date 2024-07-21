@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Shell11.Views.SettingPages.GeneralSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Shell11.Views.SettingPages"
+             mc:Ignorable="d"
+             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+             Margin="{StaticResource SettingsPageMargin}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel>
+        <TextBlock Text="General"/>
+
+        <Border Padding="0" Margin="0 2" Style="{StaticResource Style_SectionBorderStyle}">
+
+            <DockPanel Margin="12 0" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontSize="24" Margin="8 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                               DockPanel.Dock="Left" FontFamily="{StaticResource IconFontFamily}">&#xF2B7;</TextBlock>
+
+                    <StackPanel>
+
+                        <TextBlock FontSize="{StaticResource LargeFontSize}" Text="语言"/>
+
+                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" 
+                                                       FontSize="{StaticResource MediumFontSize}" Text="_"/>
+
+                    </StackPanel>
+                </StackPanel>
+
+                <ComboBox SelectedIndex="0" HorizontalAlignment="Right">
+                    <ComboBoxItem Content="简体中文"/>
+                </ComboBox>
+            </DockPanel>
+        </Border>
+        <Border Padding="0" Margin="0 2" Style="{StaticResource Style_SectionBorderStyle}">
+
+            <DockPanel Margin="12 0" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontSize="24" Margin="8 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                               DockPanel.Dock="Left" FontFamily="{StaticResource IconFontFamily}">&#xE793;</TextBlock>
+
+                    <StackPanel>
+
+                        <TextBlock FontSize="{StaticResource LargeFontSize}" Text="主题"/>
+
+                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" 
+                                                       FontSize="{StaticResource MediumFontSize}" Text="_"/>
+
+                    </StackPanel>
+                </StackPanel>
+
+                <ComboBox SelectedIndex="0" HorizontalAlignment="Right">
+                    <ComboBoxItem Content="Light"/>
+                    <ComboBoxItem Content="Dark"/>
+                    <ComboBoxItem Content="auto"/>
+                </ComboBox>
+            </DockPanel>
+        </Border>
+
+    </StackPanel>
+</UserControl>

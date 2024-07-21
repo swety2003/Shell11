@@ -1,0 +1,86 @@
+﻿<Window x:Class="Shell11.Views.SettingsUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Shell11.Views"
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        ui:WindowHelper.SystemBackdropType="Mica"
+        Icon="/Assets/settings.ico"
+        xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern" xmlns:viewmodels="clr-namespace:Shell11.ViewModels" 
+        xmlns:convertors="clr-namespace:Shell11.Convertors"
+        d:DataContext="{d:DesignInstance Type=viewmodels:SettingsUIViewModel}"
+        Title="SettingsUI" Height="450" Width="800">
+    <Window.Resources>
+        <convertors:HideFirstNavItemConvertor x:Key="HideFirstNavItemConvertor"/>
+    </Window.Resources>
+    <Grid>
+        <FrameworkElement x:Name="proxy" DataContext="{Binding}"/>
+        <ui:NavigationView SelectedItem="{Binding NavIndex,Mode=TwoWay}" IsBackButtonVisible="Collapsed">
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem IsSelected="True" Tag="General" Content="General"/>
+                <ui:NavigationViewItem Tag="MenuBar" Content="MenuBar"/>
+                <ui:NavigationViewItem Tag="TaskBar" Content="TaskBar"/>
+                <ui:NavigationViewItem Tag="Advanced" Content="Advanced"/>
+            </ui:NavigationView.MenuItems>
+
+            <ui:NavigationView.FooterMenuItems>
+
+                <ui:NavigationViewItem Tag="About" Content="About"/>
+            </ui:NavigationView.FooterMenuItems>
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Margin="0 0 0 10">
+
+                    <ItemsControl ItemsSource="{Binding NavPaths}">
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Visibility="{Binding Converter={StaticResource HideFirstNavItemConvertor}}" 
+                                               Margin="4 0 12 0" FontSize="12" FontWeight="Bold" 
+                                                    VerticalAlignment="Center" FontFamily="{StaticResource IconFontFamily}" Text="&#xE76C;"/>
+                                    
+                                    <Button Padding="0 0 8 0" Cursor="Hand"  FontSize="{StaticResource LargeTitleFontSize}" BorderThickness="0" 
+                                            Background="Transparent" Height="auto" 
+                                        Command="{Binding ElementName=proxy,Path=DataContext.DoNavigateCommand}" CommandParameter="{Binding fullPath}">
+
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding name, Mode=OneWay}"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                    <ui:InfoBar
+                        Margin="0 4 0 0"
+                        IsOpen="{Binding NeedRestart}"
+                        Title="提示"
+                        IsClosable="False"
+                        Width="{Binding ElementName=content_areaa,Path=ActualWidth}"
+                        Message="需要重启Shell以应用更改" >
+                        <ui:InfoBar.ActionButton>
+                            <Button Content="立即重启" />
+                        </ui:InfoBar.ActionButton>
+
+                    </ui:InfoBar>
+                </StackPanel>
+                <ui:ScrollViewerEx Grid.Row="1">
+                    
+                    <ui:TransitioningContentControl Margin="0" Name="content_areaa"  Content="{Binding Content}"/>
+                </ui:ScrollViewerEx>
+                <!--<ContentPresenter Content="{Binding Content}" Grid.Row="1"/>-->
+            </Grid>
+        </ui:NavigationView>
+    </Grid>
+</Window>

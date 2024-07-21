@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="Shell11.MenuBarExtensions.Views.MediaController"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Shell11.MenuBarExtensions.Views" xmlns:viewmodels="clr-namespace:Shell11.MenuBarExtensions.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:MediaViewModel}"
+             Visibility="{Binding Show}"
+             mc:Ignorable="d" 
+             xmlns:ct="clr-namespace:Shell11.Common.Controls;assembly=Shell11.Common"
+             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+             ct:AlignPanel.Alignment="Right"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Menu>
+            <MenuItem ToolTip="{Binding Id}">
+                <MenuItem.Header>
+                    <DockPanel>
+
+                        <Border 
+                                BorderThickness="1"
+                                BorderBrush="{DynamicResource ControlStrokeColorSecondaryBrush}" 
+                            CornerRadius="2"
+                                Height="20" Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}">
+                            <Border.Background>
+                                <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor" ImageSource="{Binding CoverSource}"/>
+                            </Border.Background>
+                        </Border>
+                        <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" MaxWidth="140" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" 
+                                   Text="{Binding SongTitle,FallbackValue=NULL}"/>
+                    </DockPanel>
+                </MenuItem.Header>
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="MenuItem">
+                                    <Border Padding="20 10">
+
+                                        <ContentPresenter Content="{TemplateBinding Header}"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+
+                <MenuItem StaysOpenOnClick="True">
+                    <MenuItem.Header>
+                        
+                        <DockPanel>
+
+                            <Border 
+                                    Margin="8 0 0 0"
+                                    BorderThickness="1"
+                                    BorderBrush="{DynamicResource ControlStrokeColorSecondaryBrush}"
+                                    DockPanel.Dock="Right" CornerRadius="8" Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}">
+                                <Border.Background>
+                                    <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor" ImageSource="{Binding CoverSource}"/>
+                                </Border.Background>
+                            </Border>
+                            <StackPanel>
+
+
+                                <TextBlock Width="200" FontSize="{StaticResource MediumTitleFontSize}" TextWrapping="Wrap" 
+                                           TextTrimming="CharacterEllipsis" Text="{Binding SongTitle}"/>
+
+
+                                <TextBlock MaxHeight="20" MaxWidth="200" FontSize="{StaticResource LargeFontSize}" TextWrapping="Wrap" 
+                                           Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                               TextTrimming="CharacterEllipsis" Text="{Binding Artist}"/>
+                            
+                            
+                                <UniformGrid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 10 0 0 " Rows="1">
+                                    <UniformGrid.Resources>
+                                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                            <Setter Property="MaxWidth" Value="64"/>
+                                            <Setter Property="Margin" Value="2 0"/>
+                                            <Setter Property="Padding" Value="18 12"/>
+                                            <Setter Property="FontFamily" Value="{StaticResource IconFontFamily}"/>
+
+                                        </Style>
+                                    </UniformGrid.Resources>
+                                    <Button Command="{Binding BackCommand}" Content="&#xE622;"/>
+                                    <Button Command="{Binding PlayPauseCommand}" Content="&#xE62E;"/>
+                                    <Button Command="{Binding ForwardCommand}" Content="&#xE623;"/>
+                                </UniformGrid>
+                            </StackPanel>
+
+                        </DockPanel>
+                    </MenuItem.Header>
+
+
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+    </Grid>
+</UserControl>
