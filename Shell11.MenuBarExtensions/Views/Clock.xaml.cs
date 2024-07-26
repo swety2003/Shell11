@@ -126,6 +126,11 @@ namespace Shell11.MenuBarExtensions.Views
     [Export(typeof(IMenuBarExtension))]
     public class ClockExtension : menuBarExtension
     {
+
+        public override string Title => "时钟";
+
+        public override string Description => "显示系统时间";
+
         public override string NavKey => "menubar/clockSettings".ToLower();
 
         public override void RegisterSettingsView(IServiceCollection services)

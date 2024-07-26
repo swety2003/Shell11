@@ -11,6 +11,26 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
 
+
+        <Border Padding="0" Margin="0 2" Style="{StaticResource Style_SectionBorderStyle}">
+            <ToggleButton BorderThickness="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="24" Margin="8 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right" 
+               DockPanel.Dock="Left" FontFamily="{StaticResource IconFontFamily}">&#xE66A;</TextBlock>
+
+                        <TextBlock VerticalAlignment="Center" FontSize="{StaticResource LargeFontSize}" Text="启用顶栏"/>
+
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" 
+                HorizontalAlignment="Right"  Orientation="Horizontal">
+
+                        <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource IconFontFamily}">&#xE76C;</TextBlock>
+                    </StackPanel>
+                </DockPanel>
+            </ToggleButton>
+        </Border>
+
         <FrameworkElement Name="proxy" DataContext="{Binding}"/>
 
         <TextBlock Margin="0 4" FontSize="{StaticResource MediumTitleFontSize}" Text="扩展设置"/>
@@ -29,10 +49,10 @@
                                     
                                     <StackPanel>
 
-                                        <TextBlock FontSize="{StaticResource LargeFontSize}" Text="{Binding NavKey}"/>
+                                        <TextBlock FontSize="{StaticResource LargeFontSize}" Text="{Binding Title}"/>
 
                                         <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" 
-                                                   FontSize="{StaticResource MediumFontSize}" Text="{Binding NavKey}"/>
+                                                   FontSize="{StaticResource MediumFontSize}" Text="{Binding Description}"/>
 
                                     </StackPanel>
                                 </StackPanel>

@@ -34,6 +34,8 @@ namespace Shell11.ViewModels
         public SettingsUIViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
+
+            DoNavigate("general");
         }
 
         [ObservableProperty]

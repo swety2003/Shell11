@@ -10,7 +10,7 @@
              xmlns:ct="clr-namespace:Shell11.Common.Controls;assembly=Shell11.Common"
              xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
              ct:AlignPanel.Alignment="Right"
-             d:DesignHeight="450" d:DesignWidth="800">
+             >
     <Grid>
         <Menu>
             <MenuItem ToolTip="{Binding Id}">
@@ -67,7 +67,7 @@
                                            TextTrimming="CharacterEllipsis" Text="{Binding SongTitle}"/>
 
 
-                                <TextBlock MaxHeight="20" MaxWidth="200" FontSize="{StaticResource LargeFontSize}" TextWrapping="Wrap" 
+                                <TextBlock MaxHeight="20" MaxWidth="200" FontSize="{StaticResource MediumFontSize}" TextWrapping="Wrap" 
                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                                TextTrimming="CharacterEllipsis" Text="{Binding Artist}"/>
                             

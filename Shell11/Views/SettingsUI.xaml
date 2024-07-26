@@ -15,20 +15,52 @@
         Title="SettingsUI" Height="450" Width="800">
     <Window.Resources>
         <convertors:HideFirstNavItemConvertor x:Key="HideFirstNavItemConvertor"/>
+        
+        
     </Window.Resources>
     <Grid>
         <FrameworkElement x:Name="proxy" DataContext="{Binding}"/>
-        <ui:NavigationView SelectedItem="{Binding NavIndex,Mode=TwoWay}" IsBackButtonVisible="Collapsed">
+        <ui:NavigationView IsFooterSeparatorVisible="True" IsPaneOpen="False"  SelectedItem="{Binding NavIndex,Mode=TwoWay}" IsBackButtonVisible="Collapsed">
+            <ui:NavigationView.Resources>
+                <Style TargetType="Image">
+                    <Setter Property="Height" Value="64"/>
+                    <Setter Property="RenderOptions.BitmapScalingMode" Value="Linear"/>
+                </Style>
+            </ui:NavigationView.Resources>
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem IsSelected="True" Tag="General" Content="General"/>
-                <ui:NavigationViewItem Tag="MenuBar" Content="MenuBar"/>
-                <ui:NavigationViewItem Tag="TaskBar" Content="TaskBar"/>
-                <ui:NavigationViewItem Tag="Advanced" Content="Advanced"/>
+                <ui:NavigationViewItem IsSelected="True" Tag="General" Content="General">
+
+                    <ui:NavigationViewItem.Icon>
+                        <Image Source="/Assets/windowsobject.ico"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Tag="MenuBar" Content="MenuBar">
+
+                    <ui:NavigationViewItem.Icon>
+                        <Image Source="/Assets/desktop.ico"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Tag="TaskBar" Content="TaskBar">
+
+                    <ui:NavigationViewItem.Icon>
+                        <Image Source="/Assets/testplans.ico"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Tag="Advanced" Content="Advanced">
+
+                    <ui:NavigationViewItem.Icon>
+                        <Image Source="/Assets/testplans.ico"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
 
             <ui:NavigationView.FooterMenuItems>
 
-                <ui:NavigationViewItem Tag="About" Content="About"/>
+                <ui:NavigationViewItem Tag="About" Content="About">
+                    <ui:NavigationViewItem.Icon>
+                        <Image Source="/Assets/info.ico"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
             </ui:NavigationView.FooterMenuItems>
             <Grid Margin="20">
                 <Grid.RowDefinitions>
@@ -75,9 +107,9 @@
 
                     </ui:InfoBar>
                 </StackPanel>
-                <ui:ScrollViewerEx Grid.Row="1">
+                <ui:ScrollViewerEx VerticalScrollBarVisibility="Visible" Grid.Row="1">
                     
-                    <ui:TransitioningContentControl Margin="0" Name="content_areaa"  Content="{Binding Content}"/>
+                    <ui:TransitioningContentControl Margin="0 0 16 0" Name="content_areaa"  Content="{Binding Content}"/>
                 </ui:ScrollViewerEx>
                 <!--<ContentPresenter Content="{Binding Content}" Grid.Row="1"/>-->
             </Grid>

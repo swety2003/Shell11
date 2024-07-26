@@ -1,0 +1,130 @@
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using ManagedShell;
+using ManagedShell.AppBar;
+using ManagedShell.Common.Helpers;
+using ManagedShell.WindowsTasks;
+using Shell11.Common.Configuration;
+using Shell11.Common.Utils;
+using Shell11.Interfaces;
+using Shell11.Services;
+using System;
+using System.Collections.Specialized;
+using System.ComponentModel;
+
+namespace Shell11.ViewModels
+{
+    internal partial class TaskBarWindowViewModel : ObservableObject, IDisposable
+    {
+        private readonly IDesktopManager desktopManager;
+        private readonly ShellManager _shellManager;
+        private readonly AppBarScreen screen;
+        private readonly IWindowManager _windowManager;
+
+
+
+        public ICollectionView TaskBarItems { get; private set; }
+
+        public ICollectionView GroupedWindows { get; private set; }
+
+        public TaskBarWindowViewModel(IDesktopManager desktopManager, ShellManager shellManager, AppBarScreen screen, IWindowManager windowManager)
+        {
+            this.desktopManager = desktopManager;
+            this._shellManager = shellManager;
+            this.screen = screen;
+            this._windowManager = windowManager;
+
+            setUp();
+
+            windowManager.ScreensChanged += WindowManager_ScreensChanged;
+        }
+
+        private void setUp()
+        {
+            _shellManager.Tasks.Initialize(getTaskCategoryProvider(), true);
+
+            TaskBarItems = _shellManager.Tasks.CreateGroupedWindowsCollection();
+            TaskBarItems.Filter = Tasks_Filter;
+
+            //TaskBarItems = _taskbarItems;
+            GroupedWindows = _shellManager.Tasks.GroupedWindows;
+
+            if (TaskBarItems != null) TaskBarItems.CollectionChanged += GroupedWindows_Changed;
+        }
+
+        [RelayCommand]
+        void ShowStartMenu()
+        {
+            ShellHelper.ShowStartMenu();
+        }
+
+        private bool Tasks_Filter(object obj)
+        {
+            if (obj is ApplicationWindow window)
+            {
+                if (!window.ShowInTaskbar)
+                {
+                    return false;
+                }
+
+                if (!Settings.Instance.EnableTaskbarMultiMon || Settings.Instance.TaskbarMultiMonMode == 0)
+                {
+                    return true;
+                }
+
+                if (Settings.Instance.TaskbarMultiMonMode == 2 && screen.Primary)
+                {
+                    return true;
+                }
+
+                if (screen.Primary && !IsValidHMonitor(window.HMonitor))
+                {
+                    return true;
+                }
+
+                if (window.HMonitor != screen.HMonitor)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool IsValidHMonitor(IntPtr hMonitor)
+        {
+            foreach (var screen in _windowManager.ScreenState)
+            {
+                if (screen.HMonitor == hMonitor)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        private void GroupedWindows_Changed(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            //setTaskButtonSize();
+        }
+
+        private ITaskCategoryProvider getTaskCategoryProvider()
+        {
+            return new ApplicationTaskCategoryProvider();
+        }
+
+        public void Dispose()
+        {
+            _windowManager.ScreensChanged -= WindowManager_ScreensChanged;
+
+        }
+
+        private void WindowManager_ScreensChanged(object? sender, Models.WindowManagerEventArgs e)
+        {
+            if (!e.DisplaysChanged || !Settings.Instance.EnableTaskbarMultiMon || Settings.Instance.TaskbarMultiMonMode == 0) return;
+            // Re-filter taskbar items to pick up cases where a task's screen no longer exists
+            TaskBarItems?.Refresh();
+
+        }
+    }
+}

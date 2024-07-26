@@ -27,6 +27,15 @@ namespace Shell11.MenuBarExtensions.Views
         public MediaController()
         {
             InitializeComponent();
+            Unloaded += MediaController_Unloaded;
+        }
+
+        private void MediaController_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is MediaViewModel mediaViewModel)
+            {
+                mediaViewModel.Dispose();
+            }
         }
     }
 
@@ -34,6 +43,10 @@ namespace Shell11.MenuBarExtensions.Views
     public class MediaControllerExtension : menuBarExtension
     {
         public override string NavKey => "menubar/MediaController".ToLower();
+
+        public override string Title => "媒体控制";
+
+        public override string Description => "控制当前播放的媒体，需要SMTC支持。";
 
         public override void RegisterSettingsView(IServiceCollection services)
         {

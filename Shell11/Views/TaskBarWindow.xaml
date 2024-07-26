@@ -1,0 +1,192 @@
+﻿<appbar:AppBarWindow xmlns:appbar="clr-namespace:ManagedShell.AppBar;assembly=ManagedShell.AppBar" 
+                     x:Class="Shell11.Views.TaskBarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="clr-namespace:Shell11.Controls"
+        xmlns:settings="clr-namespace:Shell11.Common.Configuration;assembly=Shell11.Common"  xmlns:viewmodels="clr-namespace:Shell11.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" d:DataContext="{d:DesignInstance Type=viewmodels:TaskBarWindowViewModel}"
+                     mc:Ignorable="d"
+                     ResizeMode="NoResize"
+                     WindowStyle="None"
+                     SizeToContent="Width"
+                     AllowsTransparency="True"
+                     Background="Transparent"
+    ShowActivated="False"
+                     ShowInTaskbar="False"
+        Title="TaskBarWindow">
+    <!--<WindowChrome.WindowChrome>
+        <WindowChrome CornerRadius="6" GlassFrameThickness="-1" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>-->
+    <Border  x:Name="bdrMain" HorizontalAlignment="Center" >
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <TranslateTransform X="0" Y="-1" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Border.Style>
+
+        <Border 
+            Padding="6 0"
+            BorderThickness="1"
+            BorderBrush="{DynamicResource ControlStrokeColorSecondaryBrush}"
+            Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+            CornerRadius="6" >
+            
+            <DockPanel>
+
+                <Button Command="{Binding ShowStartMenuCommand}" Background="Transparent" BorderBrush="Transparent"
+                        Padding="8" Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}">
+                    <Image Height="28" RenderOptions.BitmapScalingMode="Fant" Source="/Assets/start.ico"/>
+                </Button>
+
+                <Border Margin="4 8" VerticalAlignment="Stretch" Opacity=".4" Width="1" BorderThickness="1" BorderBrush="Gray"></Border>
+
+                <ListView MinWidth="100" ItemsSource="{Binding TaskBarItems}"
+                                  x:Name="TasksList">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal"
+                                                Margin="0" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.GroupStyle>
+                        <GroupStyle x:Name="TaskbarGroupStyle">
+                            <GroupStyle.Panel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </GroupStyle.Panel>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="GroupItem">
+                                                <ContentControl>
+                                                    <ItemsPresenter />
+                                                </ContentControl>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Source={x:Static settings:Settings.Instance}, Path=TaskbarGroupingStyle, UpdateSourceTrigger=PropertyChanged}"
+                                                             Value="2">
+                                            <DataTrigger.Setters>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="GroupItem">
+                                                            <ContentControl Style="{StaticResource TaskbarGroup}">
+                                                                <Border BorderThickness="0"
+                                                                                Margin="0,0,-1,0"
+                                                                        >
+                                                                    <controls:TaskButton ListMode="False"
+                                                                                             ParentTaskbar="{Binding ElementName=TaskbarWindow}"
+                                                                                             DataContext="{Binding Converter={StaticResource groupConverter}}" />
+                                                                    <Border.Triggers>
+                                                                        <!--<EventTrigger RoutedEvent="Loaded">
+                                                                            <BeginStoryboard>
+                                                                                <Storyboard>
+                                                                                    <DoubleAnimation Storyboard.TargetProperty="Width"
+                                                                                                             From="0"
+                                                                                                             To="42"
+                                                                                                             Duration="0:0:0.2"
+                                                                                                             FillBehavior="Stop">
+                                                                                        <DoubleAnimation.EasingFunction>
+                                                                                            <QuadraticEase EasingMode="EaseInOut" />
+                                                                                        </DoubleAnimation.EasingFunction>
+                                                                                    </DoubleAnimation>
+                                                                                </Storyboard>
+                                                                            </BeginStoryboard>
+                                                                        </EventTrigger>-->
+                                                                    </Border.Triggers>
+                                                                </Border>
+                                                            </ContentControl>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger.Setters>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                    </ListView.GroupStyle>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <Border Margin="1 0" BorderThickness="0" BorderBrush="Transparent"
+                                                        Width="{Binding Path=ButtonWidth, ElementName=TaskbarWindow}">
+                                            <Grid>
+                                                
+                                                <controls:TaskButton ListMode="False"
+                                                                         ParentTaskbar="{Binding ElementName=TaskbarWindow}" />
+                                                <Border Margin="16 4" x:Name="indicator" Background="Red" CornerRadius="2" Height="4" 
+                                                        HorizontalAlignment="Stretch"
+                                                        VerticalAlignment="Bottom"
+                                                        >
+
+                                                    <i:Interaction.Triggers>
+                                                        <i:DataTrigger Binding="{Binding State}" Value="0">
+                                                            <i:ChangePropertyAction PropertyName="Background" Value="{DynamicResource AccentFillColorDefaultBrush}"/>
+                                                            <i:ChangePropertyAction PropertyName="Margin" Value="16 4"/>
+                                                        </i:DataTrigger>
+                                                        <i:DataTrigger Binding="{Binding State}" Value="1">
+                                                            <i:ChangePropertyAction PropertyName="Background" Value="{DynamicResource ControlStrongFillColorDefaultBrush}"/>
+                                                            <i:ChangePropertyAction PropertyName="Margin" Value="20 4"/>
+                                                        </i:DataTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Border>
+
+
+                                            </Grid>
+                                            <Border.Style>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=ShowInTaskbar}"
+                                                                             Value="True">
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <!--<Border.Triggers>
+                                                <EventTrigger RoutedEvent="Loaded">
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Width"
+                                                                                     From="0"
+                                                                                     To="{Binding Path=ButtonWidth, ElementName=TaskbarWindow}"
+                                                                                     Duration="0:0:0.2"
+                                                                                     FillBehavior="Stop">
+                                                                <DoubleAnimation.EasingFunction>
+                                                                    <QuadraticEase EasingMode="EaseInOut" />
+                                                                </DoubleAnimation.EasingFunction>
+                                                            </DoubleAnimation>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </EventTrigger>
+                                            </Border.Triggers>-->
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+
+                <Border Margin="4 8" VerticalAlignment="Stretch" Opacity=".4" Width="1" BorderThickness="1" BorderBrush="Gray"></Border>
+
+                <Button Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Stretch" 
+                        Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}">
+                    <Image Height="32" Source="/Assets/recyclebinempty.ico"/>
+                </Button>
+            </DockPanel>
+        </Border>
+    </Border>
+</appbar:AppBarWindow>

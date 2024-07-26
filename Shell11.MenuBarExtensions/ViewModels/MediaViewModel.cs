@@ -1,7 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -12,7 +18,7 @@ using static WindowsMediaController.MediaManager;
 
 namespace Shell11.MenuBarExtensions.ViewModels
 {
-    public partial class MediaViewModel : ObservableObject
+    public partial class MediaViewModel : ObservableObject, IDisposable
     {
         [ObservableProperty]
         string songTitle;
@@ -93,7 +99,7 @@ namespace Shell11.MenuBarExtensions.ViewModels
 
 
                 SongTitle = mediaProperties.AlbumTitle;
-                CoverSource = Helper.GetThumbnail(mediaProperties.Thumbnail);
+                CoverSource = await Helper.GetThumbnail(mediaProperties.Thumbnail);
                 Artist = mediaProperties.Artist;
                 Id = activeSession.Id;
 
@@ -122,23 +128,31 @@ namespace Shell11.MenuBarExtensions.ViewModels
             activeSession = mediaSession;
         }
 
+        ObservableCollection<MediaManager.MediaSession> sessions = new ObservableCollection<MediaManager.MediaSession>();
+
         private void MediaManager_OnAnySessionClosed(MediaManager.MediaSession mediaSession)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-
-                if (mediaSession == activeSession)
+                sessions.Remove(mediaSession);
+                if (mediaSession == activeSession&&sessions.Count==0)
                 {
                     SongTitle = "";
                     CoverSource = null;
                     Show = Visibility.Collapsed;
                     activeSession = null;
                 }
+                else
+                {
+                    activeSession = sessions.First();
+                    UpdateUI();
+                }
             });
         }
 
         private void MediaManager_OnAnySessionOpened(MediaManager.MediaSession mediaSession)
         {
+            sessions.Add(mediaSession);
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Show = Visibility.Visible;
@@ -149,46 +163,58 @@ namespace Shell11.MenuBarExtensions.ViewModels
             });
         }
 
+        public void Dispose()
+        {
+            mediaManager.OnAnySessionOpened -= MediaManager_OnAnySessionOpened;
+            mediaManager.OnAnySessionClosed -= MediaManager_OnAnySessionClosed;
+            mediaManager.OnFocusedSessionChanged -= MediaManager_OnFocusedSessionChanged;
+            mediaManager.OnAnyMediaPropertyChanged -= MediaManager_OnAnyMediaPropertyChanged;
+            mediaManager.OnAnyPlaybackStateChanged -= MediaManager_OnAnyPlaybackStateChanged;
+            mediaManager.Dispose();
+        }
+
         internal static class Helper
         {
-            internal static BitmapImage? GetThumbnail(IRandomAccessStreamReference Thumbnail, bool convertToPng = true)
+            internal static async Task<BitmapImage?> GetThumbnail(IRandomAccessStreamReference Thumbnail, bool convertToPng = false)
             {
                 if (Thumbnail == null)
                     return null;
 
-                var thumbnailStream = Thumbnail.OpenReadAsync().GetAwaiter().GetResult();
-                byte[] thumbnailBytes = new byte[thumbnailStream.Size];
-                using (DataReader reader = new DataReader(thumbnailStream))
-                {
-                    reader.LoadAsync((uint)thumbnailStream.Size).GetAwaiter().GetResult();
-                    reader.ReadBytes(thumbnailBytes);
-                }
 
-                byte[] imageBytes = thumbnailBytes;
+                using var thumbnailStream = await Thumbnail.OpenReadAsync();
+                using var stream = thumbnailStream.AsStreamForRead();
 
-                if (convertToPng)
-                {
-                    using var fileMemoryStream = new System.IO.MemoryStream(thumbnailBytes);
-                    Bitmap thumbnailBitmap = (Bitmap)Bitmap.FromStream(fileMemoryStream);
+                stream.Position = 0;
+                BitmapImage result = new BitmapImage();
+                result.BeginInit();
+                result.CacheOption = BitmapCacheOption.OnLoad;
+                result.StreamSource = stream;
+                result.EndInit();
+                result.Freeze();
+                return result;
 
-                    if (!thumbnailBitmap.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Png))
-                    {
-                        using var pngMemoryStream = new System.IO.MemoryStream();
-                        thumbnailBitmap.Save(pngMemoryStream, System.Drawing.Imaging.ImageFormat.Png);
-                        imageBytes = pngMemoryStream.ToArray();
-                    }
-                }
 
-                var image = new BitmapImage();
-                using (var ms = new System.IO.MemoryStream(imageBytes))
-                {
-                    image.BeginInit();
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.StreamSource = ms;
-                    image.EndInit();
-                }
+                //var thumbnailStream = Thumbnail.OpenReadAsync().GetAwaiter().GetResult();
+                //byte[] thumbnailBytes = new byte[thumbnailStream.Size];
+                //using (DataReader reader = new DataReader(thumbnailStream))
+                //{
+                //    reader.LoadAsync((uint)thumbnailStream.Size).GetAwaiter().GetResult();
+                //    reader.ReadBytes(thumbnailBytes);
+                //}
 
-                return image;
+                //using var stream = await Thumbnail.OpenReadAsync();
+
+
+                //var image = new BitmapImage();
+
+                //image.BeginInit();
+                //image.CacheOption = BitmapCacheOption.OnLoad;
+                //image.StreamSource = stream.AsStreamForRead();
+                //image.EndInit();
+                //image.Freeze();
+                //return image;
+
+                return null;
             }
         }
     }

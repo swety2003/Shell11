@@ -45,8 +45,10 @@ namespace Shell11
 
                     services.AddSingleton<IApplication, App>();
                     services.AddSingleton<IWindowManager, WindowManager>();
+                    services.AddSingleton<IDesktopManager, DesktopManager>();
 
                     services.AddSingleton<IWindowService, MenuBarWindowService>();
+                    services.AddSingleton<IWindowService, TaskbarWindowService>();
 
                     services.AddSingleton<INavigationService,NavigationService>();
 
@@ -54,10 +56,11 @@ namespace Shell11
                     services.AddSingleton<MenuBarSettingsViewModel>();
 
 
-                    services.RegistorForNavigate<GeneralSettings>("general","General");
-                    services.RegistorForNavigate<MenuBarSettings>("menubar","MenuBar");
-                    services.RegistorForNavigate<AdvancedSettings>("advanced","Advanced");
-                    services.RegistorForNavigate<About>("about","About");
+                    services.RegistorForNavigate<GeneralSettings>("general","通用");
+                    services.RegistorForNavigate<MenuBarSettings>("menubar","菜单栏");
+                    services.RegistorForNavigate<AdvancedSettings>("advanced","高级");
+                    services.RegistorForNavigate<TaskBarSettings>("taskbar","任务栏");
+                    services.RegistorForNavigate<About>("about","关于");
 
                     services.AddTransient(sp=>new SettingsUI { DataContext = sp.GetRequiredService<SettingsUIViewModel>() });
 

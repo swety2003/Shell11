@@ -13,6 +13,8 @@
 
             </ResourceDictionary.MergedDictionaries>
 
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
             <system:Double x:Key="LargeTitleFontSize">33</system:Double>
             <system:Double x:Key="MediumTitleFontSize">20</system:Double>
             <system:Double x:Key="LargeFontSize">14</system:Double>

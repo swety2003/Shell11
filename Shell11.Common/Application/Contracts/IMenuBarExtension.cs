@@ -8,6 +8,8 @@ namespace Shell11.Common.Application.Contracts
     public interface IMenuBarExtension:INotifyPropertyChanged
     {
         string NavKey { get; }
+        string Title { get; }
+        string Description { get; }
         bool IsEnabled { get; set; }
 
         void RegisterSettingsView(IServiceCollection services);
@@ -20,6 +22,8 @@ namespace Shell11.Common.Application.Contracts
         bool isEnabled = true;
 
         public abstract string NavKey { get; }
+        public abstract string Title { get; }
+        public abstract string Description { get; }
 
         public abstract void RegisterSettingsView(IServiceCollection services);
         public abstract UserControl? StartControl(IMenuBar host);

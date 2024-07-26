@@ -1,22 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Shell11.Common.Application.Contracts;
 using Shell11.MenuBarExtensions.ViewModels;
-using Shell11.MenuBarExtensions.Views.Settings;
-using System;
-using System.Collections.Generic;
 using System.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Shell11.MenuBarExtensions
 {
@@ -35,6 +21,10 @@ namespace Shell11.MenuBarExtensions
     [Export(typeof(IMenuBarExtension))]
     public class ActionCenterExtension : menuBarExtension
     {
+        public override string Title => "操作中心";
+
+        public override string Description => "点击即可打开操作中心s";
+
         public override string NavKey => "menubar/actionCenterSettings".ToLower();
 
         public override void RegisterSettingsView(IServiceCollection services)

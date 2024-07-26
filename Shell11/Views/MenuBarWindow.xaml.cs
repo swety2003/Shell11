@@ -33,7 +33,7 @@ namespace Shell11.Views
         public NotificationArea notificationArea => shellManager.NotificationArea;
 
         public MenuBarWindow() : base(null, null, null, AppBarScreen.FromPrimaryScreen(), AppBarEdge.Top, AppBarMode.Normal, 27)
-        { 
+        {
             InitializeComponent();
         }
 
@@ -47,7 +47,7 @@ namespace Shell11.Views
             this.windowManager = windowManager;
 
             var internalItem = FindResource("InternalItem") as FrameworkElement;
-            DataContext = new MenuBarWindowViewModel(application, this,internalItem);
+            DataContext = new MenuBarWindowViewModel(application, this, internalItem);
 
             Loaded += MenuBarWindow_Loaded;
         }

@@ -68,6 +68,10 @@ namespace Shell11.MenuBarExtensions.Views
     {
         public override string NavKey => "menubar/SystemTraySettings".ToLower();
 
+        public override string Title => "系统托盘";
+
+        public override string Description => "显示系统托盘区域图标";
+
         public override void RegisterSettingsView(IServiceCollection services)
         {
             services.AddSingleton<SystemTraySettingsViewModel>();
