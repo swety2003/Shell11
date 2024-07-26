@@ -16,7 +16,7 @@
                     <TextBlock>
                         <Run FontSize="17" Text="Shell 11"/>
                         <LineBreak/>
-                        <Run Foreground="{DynamicResource TextFillColorSecondaryBrush}">版本 24.07 beta1.0</Run>
+                        <Run Foreground="{DynamicResource TextFillColorSecondaryBrush}">版本 24.07 experimental1.0</Run>
                     </TextBlock>
 
                     <Button HorizontalAlignment="Right">
@@ -29,13 +29,17 @@
             </Expander.Header>
             <StackPanel>
                 <UniformGrid>
-                    <ui:HyperlinkButton Content="github"/>
+                    <ui:HyperlinkButton Content="https://github.com/swety2003/Shell11"/>
                 </UniformGrid>
                 <Separator/>
                 <TextBlock Text="Dependencies and References"/>
-                <ItemsControl>
+                <StackPanel>
+
+                    <ui:HyperlinkButton Content="https://github.com/cairoshell/cairoshell"/>
+                    <ItemsControl>
                     
                 </ItemsControl>
+                </StackPanel>
             </StackPanel>
         </Expander>
     </StackPanel>

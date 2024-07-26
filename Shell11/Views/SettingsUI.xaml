@@ -95,7 +95,7 @@
                     </ItemsControl>
 
                     <ui:InfoBar
-                        Margin="0 4 0 0"
+                        Margin="0 4 16 0" 
                         IsOpen="{Binding NeedRestart}"
                         Title="提示"
                         IsClosable="False"
@@ -104,6 +104,17 @@
                         <ui:InfoBar.ActionButton>
                             <Button Content="立即重启" />
                         </ui:InfoBar.ActionButton>
+
+                    </ui:InfoBar>
+
+                    <ui:InfoBar
+                        IsOpen="True"
+                        Severity="Warning"
+                        Margin="0 4 16 0" 
+                        Title="警告"
+                        IsClosable="true"
+                        Width="{Binding ElementName=content_areaa,Path=ActualWidth}"
+                        Message="实验性版本，大部分功能未完善！" >
 
                     </ui:InfoBar>
                 </StackPanel>

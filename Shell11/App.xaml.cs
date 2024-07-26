@@ -91,6 +91,11 @@ namespace Shell11
         {
             return Host.Services.GetService<T>();
         }
+
+        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.ToString(), "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
 }
