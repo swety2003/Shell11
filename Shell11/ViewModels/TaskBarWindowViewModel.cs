@@ -4,6 +4,7 @@ using ManagedShell;
 using ManagedShell.AppBar;
 using ManagedShell.Common.Helpers;
 using ManagedShell.WindowsTasks;
+using Shell11.Common.Application.Contracts;
 using Shell11.Common.Configuration;
 using Shell11.Common.Utils;
 using Shell11.Interfaces;
@@ -14,14 +15,13 @@ using System.ComponentModel;
 
 namespace Shell11.ViewModels
 {
-    internal partial class TaskBarWindowViewModel : ObservableObject, IDisposable
+    internal partial class TaskBarWindowViewModel : ObservableObject, IDisposable, IConfigurationChangeAware
     {
         private readonly IDesktopManager desktopManager;
         private readonly ShellManager _shellManager;
         private readonly AppBarScreen screen;
         private readonly IWindowManager _windowManager;
-
-
+        private bool disposedValue;
 
         public ICollectionView TaskBarItems { get; private set; }
 
@@ -112,12 +112,16 @@ namespace Shell11.ViewModels
         {
             return new ApplicationTaskCategoryProvider();
         }
+        //~TaskBarWindowViewModel()
+        //{
+        //    this.Dispose();
+        //}
 
-        public void Dispose()
-        {
-            _windowManager.ScreensChanged -= WindowManager_ScreensChanged;
+        //public void Dispose()
+        //{
+        //    _windowManager.ScreensChanged -= WindowManager_ScreensChanged;
 
-        }
+        //}
 
         private void WindowManager_ScreensChanged(object? sender, Models.WindowManagerEventArgs e)
         {
@@ -125,6 +129,42 @@ namespace Shell11.ViewModels
             // Re-filter taskbar items to pick up cases where a task's screen no longer exists
             TaskBarItems?.Refresh();
 
+        }
+
+        public void HandleSettingChange(string setting)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: 释放托管状态(托管对象)
+
+                    _windowManager.ScreensChanged -= WindowManager_ScreensChanged;
+                }
+
+                // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+                // TODO: 将大型字段设置为 null
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: 仅当“Dispose(bool disposing)”拥有用于释放未托管资源的代码时才替代终结器
+        // ~TaskBarWindowViewModel()
+        // {
+        //     // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

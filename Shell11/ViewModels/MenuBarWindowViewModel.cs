@@ -6,6 +6,7 @@ using Shell11.Common.Application.Contracts;
 using Shell11.Common.Dialogs;
 using Shell11.Common.Utils;
 using Shell11.Views;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -14,21 +15,18 @@ using Brushes = System.Windows.Media.Brushes;
 
 namespace Shell11.ViewModels
 {
-    public partial class MenuBarWindowViewModel : ObservableObject
+    public partial class MenuBarWindowViewModel : ObservableObject, IDisposable
     {
         private IApplication application;
         private IMenuBar menuBarWindow;
 
-        public MenuBarWindowViewModel(IApplication application)
-        {
-            this.application = application;
-        }
 
         [ObservableProperty]
         IEnumerable<IMenuItem> logoMenuItems;
 
-        public MenuBarWindowViewModel(IApplication application, IMenuBar menuBarWindow, FrameworkElement i) : this(application)
+        public MenuBarWindowViewModel(IApplication application, IMenuBar menuBarWindow, FrameworkElement i) 
         {
+            this.application = application;
             this.menuBarWindow = menuBarWindow;
             MenuExtras.Add(i);
             SetUpMenu();
@@ -125,22 +123,23 @@ namespace Shell11.ViewModels
         {
             ShellHelper.ShowRunDialog("运行", "Windows 将根据你所输入的名称，为你打开相应的程序、文件夹、文档或 Internet 资源。");
         }
-        Window? settingsUI;
+        private bool disposedValue;
+
         [RelayCommand]
         private void OpenSettings()
         {
-            if (settingsUI==null)
+            if (SettingsUI.Instance == null)
             {
-                settingsUI = application.GetService<SettingsUI>();
-                settingsUI.Closed += (s, e) =>
+                SettingsUI.Instance = application.GetService<SettingsUI>();
+                SettingsUI.Instance.Closed += (s, e) =>
                 {
-                    settingsUI = null;
+                    SettingsUI.Instance = null;
                 };
-                settingsUI.Show();
+                SettingsUI.Instance.Show();
             }
             else
             {
-                settingsUI.Activate();
+                SettingsUI.Instance.Activate();
             }
         }
 
@@ -180,5 +179,38 @@ namespace Shell11.ViewModels
             }
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: 释放托管状态(托管对象)
+                }
+
+                // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+                // TODO: 将大型字段设置为 null
+                MenuExtras.Clear();
+                application = null; 
+                menuBarWindow = null;
+                logoMenuItems = null;
+
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: 仅当“Dispose(bool disposing)”拥有用于释放未托管资源的代码时才替代终结器
+        // ~MenuBarWindowViewModel()
+        // {
+        //     // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

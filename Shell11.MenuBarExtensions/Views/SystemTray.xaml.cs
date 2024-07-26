@@ -9,7 +9,7 @@ using Shell11.MenuBarExtensions.Views.Settings;
 using Shell11.Services;
 using System.Composition;
 using System.Windows.Controls;
-
+using settings = Shell11.Common.Configuration.Settings;
 namespace Shell11.MenuBarExtensions.Views
 {
     /// <summary>
@@ -25,7 +25,8 @@ namespace Shell11.MenuBarExtensions.Views
             InitializeComponent();
             this.Host = host;
             _notificationArea = host.notificationArea;
-            _notificationArea.SetPinnedIcons(NotificationArea.DEFAULT_PINNED);
+
+            _notificationArea.SetPinnedIcons(settings.Instance.PinnedNotifyIcons);
             _notificationArea.Initialize();
 
             DataContext = _notificationArea;

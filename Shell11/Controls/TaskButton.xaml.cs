@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using Shell11.Views;
 using Shell11.Common.Configuration;
 using Shell11.ViewModels;
+using System.Threading.Tasks;
 
 namespace Shell11.Controls
 {
@@ -133,10 +134,10 @@ namespace Shell11.Controls
             else
             {
                 // Task list display changes
-                btn.Style = FindResource("CairoTaskListButtonStyle") as Style;
-                pbProgress.Style = FindResource("TaskListProgressBar") as Style;
-                imgIcon.Style = FindResource("TaskListIcon") as Style;
-                WinTitle.Style = FindResource("TaskListTitle") as Style;
+                //btn.Style = FindResource("CairoTaskListButtonStyle") as Style;
+                //pbProgress.Style = FindResource("TaskListProgressBar") as Style;
+                //imgIcon.Style = FindResource("TaskListIcon") as Style;
+                //WinTitle.Style = FindResource("TaskListTitle") as Style;
                 ToolTipService.SetPlacement(btn, System.Windows.Controls.Primitives.PlacementMode.Right);
             }
 
@@ -283,11 +284,12 @@ namespace Shell11.Controls
                 thumbTimer.Start();
         }
 
-        private void btn_MouseLeave(object sender, MouseEventArgs e)
+        private async void btn_MouseLeave(object sender, MouseEventArgs e)
         {
             if (!ListMode)
             {
                 thumbTimer.Stop();
+                await Task.Delay(500);
                 closeThumb();
             }
         }

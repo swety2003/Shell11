@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Shell11.Common.Application.Contracts;
+using Shell11.Common.Configuration;
 using Shell11.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -60,11 +61,23 @@ namespace Shell11
             Host.Services.GetService<ShellManagerService>()?.ShellManager.AppBarManager.SignalGracefulShutdown();
 
             Dispatcher.Invoke(Shutdown, DispatcherPriority.Normal);
+
+
+            Settings.Save();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+
+            Settings.Load();
+
+            var extensions = Host.Services.GetServices<IExtension>();
+            foreach (var ext in extensions)
+            {
+                ext.SetHost(Host);
+            }
 
             _initializationService.SetupWindowServices();
         }

@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using ManagedShell.WindowsTray;
 using Shell11.Common.Application.Contracts;
+using Shell11.Common.Configuration;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -11,12 +13,19 @@ namespace Shell11.MenuBarExtensions.ViewModels
     {
         private readonly NotificationArea notificationArea;
 
-        public SystemTraySettingsViewModel(ShellManagerService sms) 
+        public SystemTraySettingsViewModel(ShellManagerService sms)
         {
             this.notificationArea = sms.ShellManager.NotificationArea;
         }
 
         public ICollectionView IconItems => notificationArea.AllIcons;
+
+
+        [RelayCommand]
+        void Save()
+        {
+            Settings.Instance.PinnedNotifyIcons = notificationArea.PinnedNotifyIcons;
+        }
 
 
 

@@ -61,6 +61,8 @@ namespace Shell11.Common.DependencyInjection
                     {
                         var plugin = container.GetExport<IExtension>();
 
+                        plugin.ConfigureServices(serviceCollection);
+
                         serviceCollection.AddSingleton(typeof(IExtension), plugin);
 
                         var mbes = container.GetExports<IMenuBarExtension>();

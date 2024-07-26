@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <Border Padding="0" Margin="0 2" Style="{StaticResource Style_SectionBorderStyle}">
-            <ToggleButton BorderThickness="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ToggleButton IsChecked="{Binding Source={x:Static Settings.Instance},Path=EnableTaskBar}" BorderThickness="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <DockPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="24" Margin="8 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right" 
@@ -35,37 +35,52 @@
 
             <TextBlock Margin="0 4" FontSize="{StaticResource MediumTitleFontSize}" Text="任务栏"/>
 
-            <Border Padding="0" Margin="0 2" Style="{StaticResource Style_SectionBorderStyle}">
-                <Expander>
-                    <Expander.Header>
-
-                        <TextBlock Margin="0 14">
-                            
-                            <Run FontSize="{StaticResource LargeFontSize}" Text="任务栏行为"/>
-                            <LineBreak/>
-
-                            <Run Foreground="{DynamicResource TextFillColorSecondaryBrush}" 
-                       FontSize="{StaticResource MediumFontSize}" Text="-"/>
-
+            <Expander Padding="24 12">
+                <Expander.Header>
+                    <DockPanel Margin="8 12">
+                        <TextBlock>
+                        <Run FontSize="17" Text="任务栏行为"/>
+                        <LineBreak/>
+                        <Run Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+                            任务栏对齐、标记、自动隐藏和多个显示器
+                        </Run>
                         </TextBlock>
-                    </Expander.Header>
-                    <StackPanel>
-                        
-                        <DockPanel>
-                            <TextBlock Text="任务栏对齐方式"/>
 
-                            <ComboBox SelectedItem="居中"/>
-                        </DockPanel>
+                    </DockPanel>
+                </Expander.Header>
+                <StackPanel>
 
-                        <DockPanel>
-                            <CheckBox IsChecked="True" Content="自动隐藏任务栏"/>
-                        </DockPanel>
-                    
-                    </StackPanel>
+                    <DockPanel>
+                        <TextBlock VerticalAlignment="Center" Text="任务栏对齐方式"/>
 
-                    
-                </Expander>
-            </Border>
+                        <ComboBox SelectedIndex="{Binding Source={x:Static Settings.Instance},Path=TaskbarMode}" HorizontalAlignment="Right">
+                            <ComboBoxItem>居中</ComboBoxItem>
+                            <ComboBoxItem>左对齐</ComboBoxItem>
+                        </ComboBox>
+                    </DockPanel>
+
+                    <Separator Margin="0 12"/>
+
+                    <DockPanel>
+                        <CheckBox IsChecked="{Binding Source={x:Static Settings.Instance},Path=AutoHideTaskBar}" Content="自动隐藏任务栏"/>
+                    </DockPanel>
+
+
+                    <Separator Margin="0 12"/>
+                    <DockPanel>
+                        <TextBlock VerticalAlignment="Center" Text="合并任务栏标签"/>
+
+                        <ComboBox SelectedIndex="{Binding Source={x:Static Settings.Instance},Path=TaskbarGroupingStyle}" HorizontalAlignment="Right">
+                            <ComboBoxItem>未实现</ComboBoxItem>
+                            <ComboBoxItem>从不</ComboBoxItem>
+                            <ComboBoxItem>始终</ComboBoxItem>
+                        </ComboBox>
+                    </DockPanel>
+
+                </StackPanel>
+
+
+            </Expander>
 
         </StackPanel>
     </Grid>

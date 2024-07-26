@@ -1,6 +1,7 @@
 ﻿using ManagedShell.Common.Enums;
 using ManagedShell;
 using System.ComponentModel;
+using Shell11.Common.Configuration;
 
 namespace Shell11.Common.Application.Contracts
 {
@@ -23,6 +24,7 @@ namespace Shell11.Common.Application.Contracts
                 EnableTrayService = true,
                 AutoStartTasksService = false,
                 AutoStartTrayService = false,
+                PinnedNotifyIcons = Settings.Instance.PinnedNotifyIcons
             };
 
             return new ShellManager(config);

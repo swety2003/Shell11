@@ -42,6 +42,7 @@ namespace Shell11.Views
             : base(shellManager.AppBarManager, shellManager.ExplorerHelper, shellManager.FullScreenHelper, screen, edge, mode, height)
         {
             InitializeComponent();
+
             this.application = Application;
             this.shellManager = shellManager;
             this.windowManager = windowManager;
@@ -50,6 +51,15 @@ namespace Shell11.Views
             DataContext = new MenuBarWindowViewModel(application, this, internalItem);
 
             Loaded += MenuBarWindow_Loaded;
+            Closed += MenuBarWindow_Closed;
+        }
+
+        private void MenuBarWindow_Closed(object? sender, EventArgs e)
+        {
+            if (DataContext is MenuBarWindowViewModel vm)
+            {
+                vm.Dispose();
+            }
         }
 
         private void MenuBarWindow_Loaded(object sender, RoutedEventArgs e)

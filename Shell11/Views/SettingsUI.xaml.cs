@@ -19,6 +19,8 @@ namespace Shell11.Views
     /// </summary>
     public partial class SettingsUI : Window
     {
+        internal static SettingsUI? Instance { get; set; }
+
         public SettingsUI()
         {
             InitializeComponent();

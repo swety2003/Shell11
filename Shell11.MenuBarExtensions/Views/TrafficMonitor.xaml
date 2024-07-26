@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="Shell11.MenuBarExtensions.Views.TrafficMonitor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Shell11.MenuBarExtensions.Views" 
+             mc:Ignorable="d"
+             Margin="6 0"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             
+             xmlns:controls1="clr-namespace:Shell11.Common.Controls;assembly=Shell11.Common"
+             controls1:AlignPanel.Alignment="Right"
+             
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <StackPanel Orientation="Horizontal">
+        <StackPanel.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </StackPanel.Resources>
+
+        <Menu>
+            <MenuItem>
+                <MenuItem.Header>
+
+                    <Border  Margin="0 -1 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0 0 4 0" FontFamily="Segoe Fluent Icons" FontSize="16" Text="&#xE839;" />
+                            <TextBlock FontSize="10" TextAlignment="Right"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Run>
+                                    <Run.Text>
+                                        <MultiBinding StringFormat=" {0}{1}/s ">
+                                            <Binding FallbackValue="0" Path="Upload.size" />
+                                            <Binding FallbackValue="k" Path="Upload.type" />
+                                        </MultiBinding>
+                                    </Run.Text>
+                                </Run>
+                                <LineBreak />
+                                <Run>
+                                    <Run.Text>
+                                        <MultiBinding StringFormat=" {0}{1}/s ">
+                                            <Binding FallbackValue="0" Path="Download.size" />
+                                            <Binding FallbackValue="k" Path="Download.type" />
+                                        </MultiBinding>
+                                    </Run.Text>
+                                </Run>
+
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                </MenuItem.Header>
+            </MenuItem>
+
+
+            <MenuItem>
+                <MenuItem.ToolTip>
+                    <StackPanel>
+                        <TextBlock Text="{Binding RamLoad,StringFormat=内存: {0}%}" />
+                        <TextBlock Text="{Binding CpuLoad,StringFormat=CPU: {0}%}" />
+                    </StackPanel>
+                </MenuItem.ToolTip>
+                <MenuItem.Header>
+
+                    <Border Margin="-6 -2 -6 0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:InvokeCommandAction Command="{Binding OpenTaskmgr}"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <StackPanel Height="24" Orientation="Horizontal">
+
+                            <ProgressBar Style="{x:Null}" VerticalAlignment="Stretch" Foreground="#0078d4" Margin="4 2" MinWidth="10" Orientation="Vertical" Maximum="100" Value="{Binding RamLoad}"/>
+
+                            <TextBlock Margin="4" Text="内存" />
+
+
+                            <ProgressBar Style="{x:Null}" VerticalAlignment="Stretch" Margin="4 2" MinWidth="10" Foreground="#0078d4" Orientation="Vertical" Maximum="100" Value="{Binding CpuLoad}"/>
+
+                            <TextBlock Margin="4" Text="CPU" />
+                        </StackPanel>
+                    </Border>
+                </MenuItem.Header>
+            </MenuItem>
+        </Menu>
+
+    </StackPanel>
+</UserControl>

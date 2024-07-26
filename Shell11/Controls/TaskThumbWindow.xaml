@@ -7,24 +7,33 @@
         Focusable="False"
         ShowActivated="False"
         ShowInTaskbar="False"
-        AllowsTransparency="True"
-        WindowStyle="None"
         ResizeMode="NoResize"
-        Background="Transparent"
+        WindowStyle="None"
         SourceInitialized="Window_SourceInitialized"
         SizeChanged="ThumbWindow_SizeChanged"
         Closing="Window_Closing"
         MouseLeave="Window_MouseLeave"
         Topmost="True"
         ToolTipService.Placement="Top"
+        Background="Transparent"
         UseLayoutRounding="True"
         x:Name="ThumbWindow">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="-1" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
     <Window.Resources>
         <ResourceDictionary>
             <cts:TaskThumbOrientationConverter x:Key="orientationConverter" />
+
         </ResourceDictionary>
     </Window.Resources>
+    
     <Border Name="bdrThumb"
+            CornerRadius="6"
+            BorderThickness="1"
+            BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}"
+        Background="{DynamicResource LayerFillColorAltBrush}"
+            Margin="10"
             >
         <Border.RenderTransform>
             <TranslateTransform x:Name="bdrTranslate"
@@ -46,13 +55,13 @@
                 </BeginStoryboard>
             </EventTrigger>
         </Border.Triggers>
-        <Border Name="bdrThumbInner">
+        <Border Name="bdrThumbInner"> 
             <ItemsControl ItemsSource="{Binding WindowGroup}">
-                <!--<ItemsControl.ItemTemplate>
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:TaskThumbnail ThumbWindow="{Binding ElementName=ThumbWindow}" />
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>-->
+                </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="{Binding ElementName=ThumbWindow, Path=ShowThumbnails, Converter={StaticResource orientationConverter}}"></StackPanel>

@@ -1,5 +1,6 @@
 ﻿using ManagedShell.AppBar;
 using Shell11.Common.Application.Contracts;
+using Shell11.Common.Configuration;
 using Shell11.Interfaces;
 using Shell11.ViewModels;
 using Shell11.Views;
@@ -20,12 +21,23 @@ namespace Shell11.Services
             : base(application, shellManagerService, windowManager)
         {
             this.application = application;
-            EnableMultiMon = true;
+
+
+            EnableMultiMon = Settings.Instance.EnableMenuBarMultiMon;
+            EnableService = Settings.Instance.EnableMenuBar;
         }
 
-        protected override void HandleSettingChange(string setting)
+        public override void HandleSettingChange(string setting)
         {
-            throw new NotImplementedException();
+            switch (setting)
+            {
+                case "EnableMenuBar":
+                    HandleEnableServiceChanged(Settings.Instance.EnableMenuBar);
+                    break;
+                case "EnableMenuBarMultiMon":
+                    HandleEnableMultiMonChanged(Settings.Instance.EnableMenuBarMultiMon);
+                    break;
+            }
         }
 
         public void HandleExtensionStateChange(IMenuBarExtension ext)

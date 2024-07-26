@@ -72,7 +72,7 @@ namespace Shell11
                         Path.Combine(App.StartupPath, "Extensions"),
                         Path.Combine(App.CairoApplicationDataFolder, "Extensions"),
 #if DEBUG
-                        Path.Combine(@"D:\Repo\CS\Shell11\Shell11.MenuBarExtensions\bin\Debug")
+                        //Path.Combine(@"D:\Repo\CS\Shell11\Shell11.MenuBarExtensions\bin\Debug")
 #endif
                     };
 
@@ -92,6 +92,8 @@ namespace Shell11
 
 
             return app.Run();
+
+
         }
 
         private static bool GetMutex()

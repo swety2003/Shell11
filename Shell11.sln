@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34407.89
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell11", "Shell11\Shell11.csproj", "{B787B6B0-1D4F-461B-B7E7-B19642158198}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shell11", "Shell11\Shell11.csproj", "{B787B6B0-1D4F-461B-B7E7-B19642158198}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell11.Common", "Shell11.Common\Shell11.Common.csproj", "{30556A45-126A-400A-9DDE-897ED52358CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shell11.Common", "Shell11.Common\Shell11.Common.csproj", "{30556A45-126A-400A-9DDE-897ED52358CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell11.MenuBarExtensions", "Shell11.MenuBarExtensions\Shell11.MenuBarExtensions.csproj", "{3322886F-964A-47DC-939F-D35C2459C849}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shell11.MenuBarExtensions", "Shell11.MenuBarExtensions\Shell11.MenuBarExtensions.csproj", "{3322886F-964A-47DC-939F-D35C2459C849}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Komorebi.Shell11Extensions", "Komorebi.Shell11Extensions\Komorebi.Shell11Extensions.csproj", "{0DF0AF10-9DC1-4254-A652-F6047E863E4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{3322886F-964A-47DC-939F-D35C2459C849}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3322886F-964A-47DC-939F-D35C2459C849}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3322886F-964A-47DC-939F-D35C2459C849}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DF0AF10-9DC1-4254-A652-F6047E863E4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF0AF10-9DC1-4254-A652-F6047E863E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF0AF10-9DC1-4254-A652-F6047E863E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF0AF10-9DC1-4254-A652-F6047E863E4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

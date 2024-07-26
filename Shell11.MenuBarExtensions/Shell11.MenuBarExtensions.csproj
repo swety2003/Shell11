@@ -29,6 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="CZGL.SystemInfo">
+      <HintPath>Assets\lib\CZGL.SystemInfo.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\shader_invert.ps" />
   </ItemGroup>
 

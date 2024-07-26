@@ -8,12 +8,13 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern" xmlns:viewmodels="clr-namespace:Shell11.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MenuBarSettingsViewModel}"
              Margin="{StaticResource SettingsPageMargin}"
+             xmlns:settings="clr-namespace:Shell11.Common.Configuration;assembly=Shell11.Common"
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
 
 
         <Border Padding="0" Margin="0 2" Style="{StaticResource Style_SectionBorderStyle}">
-            <ToggleButton BorderThickness="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ToggleButton IsChecked="{Binding Source={x:Static settings:Settings.Instance},Path=EnableMenuBar}" BorderThickness="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <DockPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="24" Margin="8 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right" 

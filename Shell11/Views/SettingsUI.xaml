@@ -20,7 +20,7 @@
     </Window.Resources>
     <Grid>
         <FrameworkElement x:Name="proxy" DataContext="{Binding}"/>
-        <ui:NavigationView IsFooterSeparatorVisible="True" IsPaneOpen="False"  SelectedItem="{Binding NavIndex,Mode=TwoWay}" IsBackButtonVisible="Collapsed">
+        <ui:NavigationView IsFooterSeparatorVisible="True" IsPaneOpen="False" SelectedItem="{Binding NavIndex,Mode=TwoWay}" IsBackButtonVisible="Collapsed">
             <ui:NavigationView.Resources>
                 <Style TargetType="Image">
                     <Setter Property="Height" Value="64"/>

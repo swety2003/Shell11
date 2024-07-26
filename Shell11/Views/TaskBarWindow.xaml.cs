@@ -1,5 +1,6 @@
 ﻿using ManagedShell;
 using ManagedShell.AppBar;
+using ManagedShell.Common.Helpers;
 using ManagedShell.Interop;
 using ManagedShell.WindowsTasks;
 using Shell11.Common.Application.Contracts;
@@ -74,6 +75,20 @@ namespace Shell11.Views
             timer.Start();
             timer.Tick += Timer_Tick;
 
+            Closed += TaskBarWindow_Closed;
+
+        }
+
+        private void TaskBarWindow_Closed(object? sender, EventArgs e)
+        {
+            timer.Stop();
+            timer = null;
+            if (DataContext is TaskBarWindowViewModel vm)
+            {
+                vm.Dispose();
+            }
+
+            _shellManager.ExplorerHelper.HideExplorerTaskbar = false;
         }
 
         #region 窗口重叠隐藏
@@ -173,6 +188,12 @@ namespace Shell11.Views
         {
             await Task.Delay(300);
             TaskBarWindow_SizeChanged(null, null);
+        }
+
+        private void TaskView_Click(object sender, RoutedEventArgs e)
+        {
+            ShellHelper.ShowWindowSwitcher();
+
         }
     }
 }

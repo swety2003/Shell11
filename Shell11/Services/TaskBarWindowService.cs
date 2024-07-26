@@ -29,7 +29,7 @@ namespace Shell11.Services
             //_appGrabber = appGrabber;
             _desktopManager = desktopManager;
 
-            EnableMultiMon = Settings.Instance.EnableMenuBarMultiMon;
+            EnableMultiMon = Settings.Instance.EnableTaskbarMultiMon;
             EnableService = Settings.Instance.EnableTaskBar;
 
             if (EnableService)
@@ -89,9 +89,17 @@ namespace Shell11.Services
             }
         }
 
-        protected override void HandleSettingChange(string setting)
+        public override void HandleSettingChange(string setting)
         {
-            throw new NotImplementedException();
+            switch (setting)
+            {
+                case "EnableTaskBar":
+                    HandleEnableServiceChanged(Settings.Instance.EnableTaskBar);
+                    break;
+                case "EnableTaskbarMultiMon":
+                    HandleEnableMultiMonChanged(Settings.Instance.EnableTaskbarMultiMon);
+                    break;
+            }
         }
     }
 }

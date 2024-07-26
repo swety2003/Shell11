@@ -47,5 +47,12 @@ namespace Shell11.ViewModels
                 }
             }
         }
+
+
+        ~MenuBarSettingsViewModel()
+        {
+
+        }
+
     }
 }

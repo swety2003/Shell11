@@ -16,6 +16,8 @@
             Click="btnClick"
             Margin="0 2"
             Padding="12"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Left"
             VerticalAlignment="Stretch"
             Background="Transparent"
             BorderBrush="Transparent"
@@ -27,7 +29,6 @@
             DragLeave="btn_DragLeave"
             MouseEnter="btn_MouseEnter"
             MouseLeave="btn_MouseLeave"
-            Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}"
             >
 
         <!--Active = 0,
@@ -115,7 +116,10 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ProgressBar Name="pbProgress"
+            <ProgressBar VerticalAlignment="Top"
+                         BorderThickness="0"
+                         Name="pbProgress"
+                         Style="{x:Null}"
                          Grid.Column="0"
                          Grid.ColumnSpan="2"
                          Minimum="0" 
@@ -132,7 +136,7 @@
                        
                        ToolTip="{Binding Path=OverlayIconDescription, Mode=OneWay}"/>
             </StackPanel>
-            <TextBlock Name="WinTitle" 
+            <TextBlock VerticalAlignment="Center" Margin="12 0" Name="WinTitle" 
                        Text="{Binding Path=Title, Mode=OneWay}"
                        Grid.Column="1" />
         </Grid>

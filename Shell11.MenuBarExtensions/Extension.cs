@@ -9,9 +9,19 @@ using System.Composition;
 namespace Shell11.MenuBarExtensions
 {
     [Export(typeof(IExtension))]
-    public class ExtensionInternal : IExtension
+    public class Extension : IExtension
     {
+        public static IHost Host { get; private set; }
 
+        public void SetHost(IHost host)
+        {
+            Host = host;
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+
+        }
 
     }
 

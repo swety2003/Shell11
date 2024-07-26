@@ -3,21 +3,23 @@ using System.ComponentModel;
 using ManagedShell;
 using ManagedShell.AppBar;
 using Shell11.Common.Application.Contracts;
+using Shell11.Common.Configuration;
 using Shell11.Interfaces;
 using Shell11.Models;
 
 namespace Shell11.Services
 {
-    public abstract class AppBarWindowService : IWindowService
+    public abstract class AppBarWindowService : IWindowService, IConfigurationChangeAware
     {
         public bool EnableMultiMon { get; protected set; }
-        public bool EnableService { get; protected set; } = true;
+        public bool EnableService { get; protected set; }
 
         public List<AppBarWindow> Windows { get; } = new List<AppBarWindow>();
 
         protected readonly IApplication _cairoApplication;
         protected readonly ShellManager _shellManager;
         protected readonly IWindowManager _windowManager;
+        private readonly PropertyChangedEventHandler handler;
 
         protected AppBarWindowService(IApplication cairoApplication, ShellManagerService shellManagerService, IWindowManager windowManager)
         {
@@ -25,6 +27,7 @@ namespace Shell11.Services
             _shellManager = shellManagerService.ShellManager;
             _windowManager = windowManager;
 
+            handler = Settings.Subscribe(this);
         }
 
         public void Register()
@@ -34,7 +37,7 @@ namespace Shell11.Services
 
         public virtual void Dispose()
         {
-
+            Settings.UnSubscribe(handler);
         }
 
         public void HandleScreenAdded(AppBarScreen screen)
@@ -181,7 +184,7 @@ namespace Shell11.Services
 
         protected abstract void OpenWindow(AppBarScreen screen);
 
-        protected abstract void HandleSettingChange(string setting);
+        public abstract void HandleSettingChange(string setting);
 
     }
 }
