@@ -23,10 +23,10 @@ namespace Shell11.Views
     /// </summary>
     public partial class TaskBarWindow : AppBarWindow
     {
-        private readonly IApplication application;
-        private readonly IDesktopManager _desktopManager;
-        private readonly ShellManager _shellManager;
-        private readonly IWindowManager _windowManager;
+        private  IApplication application;
+        private  IDesktopManager _desktopManager;
+        private  ShellManager _shellManager;
+        private  IWindowManager _windowManager;
 
         DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
 
@@ -132,6 +132,7 @@ namespace Shell11.Views
 
         #endregion
 
+
         private bool _disableAutoHide = false;
         public bool DisableAutoHide
         {
@@ -142,7 +143,6 @@ namespace Shell11.Views
                 OnPropertyChanged("AllowAutoHide");
             }
         }
-
 
         private bool _isPopupOpen;
         public bool IsPopupOpen

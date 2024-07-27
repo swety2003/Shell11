@@ -76,7 +76,7 @@ namespace Shell11
             var extensions = Host.Services.GetServices<IExtension>();
             foreach (var ext in extensions)
             {
-                ext.SetHost(Host);
+                ext.SetProvider(Host.Services);
             }
 
             _initializationService.SetupWindowServices();

@@ -8,6 +8,6 @@ namespace Shell11.Common.Application.Contracts
         void ConfigureServices(IServiceCollection services);
 
         //IServiceCollection Services { get; }
-        abstract void SetHost(IHost host);
+        abstract void SetProvider(IServiceProvider sp);
     }
 }

@@ -116,6 +116,26 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+
+            <Border Width="6" Margin="0 -8" x:Name="indicator" 
+                    Background="{DynamicResource ControlStrongFillColorDefaultBrush}" CornerRadius="2" Height="4" 
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    >
+
+                <i:Interaction.Triggers>
+                    <i:DataTrigger Binding="{Binding State}" Value="0">
+                        <i:ChangePropertyAction PropertyName="Background" Value="{DynamicResource AccentFillColorDefaultBrush}"/>
+                        <i:ChangePropertyAction PropertyName="Width" Value="12"/>
+                    </i:DataTrigger>
+                    <i:DataTrigger Binding="{Binding State}" Value="1">
+                        <i:ChangePropertyAction PropertyName="Background" Value="{DynamicResource ControlStrongFillColorDefaultBrush}"/>
+                        <i:ChangePropertyAction PropertyName="Width" Value="6"/>
+                    </i:DataTrigger>
+                </i:Interaction.Triggers>
+            </Border>
+
+
             <ProgressBar VerticalAlignment="Top"
                          BorderThickness="0"
                          Name="pbProgress"

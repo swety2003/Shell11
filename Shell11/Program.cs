@@ -54,6 +54,7 @@ namespace Shell11
 
                     services.AddSingleton<SettingsUIViewModel>();
                     services.AddSingleton<MenuBarSettingsViewModel>();
+                    services.AddSingleton<GeneralSettingsViewModel>();
 
 
                     services.RegistorForNavigate<GeneralSettings>("general","通用");

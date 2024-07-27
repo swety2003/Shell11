@@ -12,8 +12,8 @@ namespace Shell11.Common.Application.Contracts
         string Description { get; }
         bool IsEnabled { get; set; }
 
-        void RegisterSettingsView(IServiceCollection services);
-        UserControl? StartControl(IMenuBar host);
+        void RegisterServices(IServiceCollection services);
+        UserControl? StartControl(WeakReference<IMenuBar> hostref);
     }
 
     public abstract partial class menuBarExtension :ObservableObject, IMenuBarExtension
@@ -25,8 +25,8 @@ namespace Shell11.Common.Application.Contracts
         public abstract string Title { get; }
         public abstract string Description { get; }
 
-        public abstract void RegisterSettingsView(IServiceCollection services);
-        public abstract UserControl? StartControl(IMenuBar host);
+        public abstract void RegisterServices(IServiceCollection services);
+        public abstract UserControl? StartControl(WeakReference<IMenuBar> hostref);
     }
 
 

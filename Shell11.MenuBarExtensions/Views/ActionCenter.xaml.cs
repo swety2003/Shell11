@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Shell11.Common.Application.Contracts;
 using Shell11.MenuBarExtensions.ViewModels;
+using System;
 using System.Composition;
 using System.Windows.Controls;
+using WinRT.Interop;
 
 namespace Shell11.MenuBarExtensions
 {
@@ -27,15 +29,17 @@ namespace Shell11.MenuBarExtensions
 
         public override string NavKey => "menubar/actionCenterSettings".ToLower();
 
-        public override void RegisterSettingsView(IServiceCollection services)
+        public override void RegisterServices(IServiceCollection services)
         {
             //services.AddKeyedSingleton<SystemTraySettings>(NavKey);
         }
-        public override UserControl? StartControl(IMenuBar host)
+        public override UserControl? StartControl(WeakReference<IMenuBar> hostref)
         {
+
+            hostref.TryGetTarget(out var host);
             if (IsEnabled && host.GetIsPrimaryDisplay())
             {
-                return new ActionCenter { DataContext = new ActionCenterViewModel(host) };
+                return new ActionCenter { DataContext = new ActionCenterViewModel(hostref) };
             }
             return null;
         }

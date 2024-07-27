@@ -12,11 +12,11 @@ namespace Shell11.MenuBarExtensions.ViewModels
 {
     internal partial class ActionCenterViewModel : ObservableObject
     {
-        private IMenuBar host;
+        private WeakReference<IMenuBar> hostref;
 
-        public ActionCenterViewModel(IMenuBar host)
+        public ActionCenterViewModel(WeakReference<IMenuBar> hostref)
         {
-            this.host = host;
+            this.hostref = hostref;
         }
 
         [RelayCommand]

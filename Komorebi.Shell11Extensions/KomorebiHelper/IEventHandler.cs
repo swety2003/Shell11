@@ -36,7 +36,7 @@ namespace Komorebi.Shell11Extensions.KomorebiHelper
             {
                 return;
             }
-            var h = Extension.Host.Services.GetServices<IKEventHandler>();
+            var h = Extension.ServiceProvider.GetServices<IKEventHandler>();
             foreach (var item in h)
             {
                 var alist = item.GetType().GetCustomAttributes<KEventHandlerAttribute>();

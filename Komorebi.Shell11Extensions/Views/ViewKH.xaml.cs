@@ -35,14 +35,16 @@ namespace Komorebi.Shell11Extensions.Views
         }
 
 
-        public override void RegisterSettingsView(IServiceCollection services)
+        public override void RegisterServices(IServiceCollection services)
         {
             //services.AddSingleton<SystemTraySettingsViewModel>();
             //services.RegistorForNavigate<SystemTraySettings>(NavKey, "系统托盘设置");
         }
 
-        public override UserControl? StartControl(IMenuBar host)
+        public override UserControl? StartControl(WeakReference<IMenuBar> hostref)
         {
+            //IMenuBar host;
+            //hostref.TryGetTarget(out host);
             if (IsEnabled)
             {
                 return new ViewKH { DataContext = new ViewKHViewModel() };

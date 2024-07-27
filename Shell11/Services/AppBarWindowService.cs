@@ -152,6 +152,15 @@ namespace Shell11.Services
             }
         }
 
+        protected void HandleAutoHideChanged(bool autoHideTaskBar)
+        {
+            var appbarmode = autoHideTaskBar ? AppBarMode.AutoHide : AppBarMode.Normal;
+            foreach (var window in Windows)
+            {
+                window.AppBarMode = appbarmode;
+            }
+        }
+
         protected void CloseScreenWindow(string screenDeviceName)
         {
             AppBarWindow windowToClose = null;

@@ -17,10 +17,10 @@ namespace Shell11.ViewModels
 {
     internal partial class TaskBarWindowViewModel : ObservableObject, IDisposable, IConfigurationChangeAware
     {
-        private readonly IDesktopManager desktopManager;
-        private readonly ShellManager _shellManager;
-        private readonly AppBarScreen screen;
-        private readonly IWindowManager _windowManager;
+        private IDesktopManager desktopManager;
+        private ShellManager _shellManager;
+        private AppBarScreen screen;
+        private IWindowManager _windowManager;
         private bool disposedValue;
 
         public ICollectionView TaskBarItems { get; private set; }

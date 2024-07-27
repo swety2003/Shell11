@@ -14,7 +14,7 @@ namespace Shell11.ViewModels
 {
     public partial class SettingsUIViewModel : ObservableObject
     {
-        private readonly INavigationService navigationService;
+        private INavigationService navigationService;
 
         [ObservableProperty] FrameworkElement content;
 

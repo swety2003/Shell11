@@ -23,44 +23,72 @@
         <TextBlock Margin="0 4" FontSize="{StaticResource MediumTitleFontSize}" Text="显示或隐藏其他系统托盘图标"/>
 
 
-        <StackPanel>
-            <ItemsControl ItemsSource="{Binding IconItems}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border ToolTip="{Binding Title}" Margin="0 2" Style="{StaticResource Style_SectionBorderStyle}">
-                            <!--<i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseEnter">
-                                    <i:ChangePropertyAction TargetName="icoArea" PropertyName="Background" 
-                                                            Value="{DynamicResource ControlStrokeColorDefaultBrush}"/>
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="MouseLeave">
-                                    <i:ChangePropertyAction TargetName="icoArea"  PropertyName="Background" Value="transparent"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>-->
-                            <DockPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Border CornerRadius="4" Padding="4" Background="{DynamicResource AccentFillColorDefaultBrush}" Name="icoArea" VerticalAlignment="Center" Margin="8 0 16 0" >
+        <TabControl ui:TabControlHelper.IsAddTabButtonVisible="False">
+            <TabItem Header="已固定">
+                
+                <ItemsControl ItemsSource="{Binding Pinned}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border ToolTip="{Binding Title}" Margin="0 2" Style="{StaticResource Style_SectionBorderStyle}">
+                                <DockPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border CornerRadius="4" Padding="4" Background="{DynamicResource AccentFillColorDefaultBrush}" Name="icoArea" VerticalAlignment="Center" Margin="8 0 16 0" >
                                         
-                                        <Image MaxHeight="16" RenderOptions.BitmapScalingMode="Linear" VerticalAlignment="Center" HorizontalAlignment="Right" 
-                    DockPanel.Dock="Left" Source="{Binding Icon,Mode=OneWay}"></Image>
-                                    </Border>
+                                            <Image MaxHeight="16" RenderOptions.BitmapScalingMode="Linear" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                        DockPanel.Dock="Left" Source="{Binding Icon,Mode=OneWay}"></Image>
+                                        </Border>
 
-                                    <StackPanel VerticalAlignment="Center">
+                                        <StackPanel VerticalAlignment="Center">
 
-                                        <TextBlock MaxHeight="20" TextWrapping="WrapWithOverflow" FontSize="{StaticResource LargeFontSize}" Text="{Binding Title,FallbackValue=Unk}"/>
+                                            <TextBlock MaxHeight="20" TextWrapping="WrapWithOverflow" FontSize="{StaticResource LargeFontSize}" Text="{Binding Title,FallbackValue=Unk}"/>
 
-                                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" 
-                        FontSize="{StaticResource MediumFontSize}" Text="{Binding GUID}"/>
+                                            <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" 
+                            FontSize="{StaticResource MediumFontSize}" Text="{Binding Path}"/>
 
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                                <ui:ToggleSwitch VerticalAlignment="Center" HorizontalAlignment="Right" IsOn="{Binding IsPinned}"
-                                                 ></ui:ToggleSwitch>
-                            </DockPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+                                    <ui:ToggleSwitch VerticalAlignment="Center" HorizontalAlignment="Right" IsOn="{Binding IsPinned}"
+                                                     ></ui:ToggleSwitch>
+                                </DockPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </TabItem>
+            <TabItem Header="未固定">
+                
+                <ItemsControl ItemsSource="{Binding UnPinned}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border ToolTip="{Binding Title}" Margin="0 2" Style="{StaticResource Style_SectionBorderStyle}">
+                                <DockPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border CornerRadius="4" Padding="4" Background="{DynamicResource AccentFillColorDefaultBrush}" Name="icoArea" VerticalAlignment="Center" Margin="8 0 16 0" >
+                                        
+                                            <Image MaxHeight="16" RenderOptions.BitmapScalingMode="Linear" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                        DockPanel.Dock="Left" Source="{Binding Icon,Mode=OneWay}"></Image>
+                                        </Border>
+
+                                        <StackPanel VerticalAlignment="Center">
+
+                                            <TextBlock MaxHeight="20" TextWrapping="WrapWithOverflow" FontSize="{StaticResource LargeFontSize}" Text="{Binding Title,FallbackValue=Unk}"/>
+
+                                            <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" 
+                            FontSize="{StaticResource MediumFontSize}" Text="{Binding Path}"/>
+
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <ui:ToggleSwitch VerticalAlignment="Center" HorizontalAlignment="Right" IsOn="{Binding IsPinned}"
+                                                     ></ui:ToggleSwitch>
+                                </DockPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </TabItem>
+        </TabControl>
+        
     </StackPanel>
 </UserControl>

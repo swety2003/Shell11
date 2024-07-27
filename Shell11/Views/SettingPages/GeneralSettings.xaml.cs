@@ -1,5 +1,6 @@
 ﻿using Shell11.Common.Interfaces;
 using Shell11.Interfaces;
+using Shell11.ViewModels;
 using System.Windows.Controls;
 
 namespace Shell11.Views.SettingPages
@@ -9,9 +10,10 @@ namespace Shell11.Views.SettingPages
     /// </summary>
     public partial class GeneralSettings : UserControl,INavigationPage
     {
-        public GeneralSettings()
+        public GeneralSettings(GeneralSettingsViewModel vm)
         {
             InitializeComponent();
+            DataContext = vm;
         }
     }
 }

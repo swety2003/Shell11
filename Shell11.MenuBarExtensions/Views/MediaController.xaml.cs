@@ -48,11 +48,11 @@ namespace Shell11.MenuBarExtensions.Views
 
         public override string Description => "控制当前播放的媒体，需要SMTC支持。";
 
-        public override void RegisterSettingsView(IServiceCollection services)
+        public override void RegisterServices(IServiceCollection services)
         {
             //services.AddKeyedSingleton<SystemTraySettings>(NavKey);
         }
-        public override UserControl? StartControl(IMenuBar host)
+        public override UserControl? StartControl(WeakReference<IMenuBar> hostref)
         {
             if (IsEnabled)
             {

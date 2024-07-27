@@ -11,12 +11,7 @@ namespace Komorebi.Shell11Extensions
     [Export(typeof(IExtension))]
     public class Extension : IExtension
     {
-        public static IHost Host { get; private set; }
-
-        public void SetHost(IHost host)
-        {
-            Host =host;
-        }
+        public static IServiceProvider ServiceProvider { get; private set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -27,6 +22,11 @@ namespace Komorebi.Shell11Extensions
             services.AddSingleton<IKEventHandler, TitleUpdateHandler>();
             services.AddSingleton<IKEventHandler, UncloakHandler>();
             services.AddSingleton<IKEventHandler, WorkspaceLayoutHandler>();
+        }
+
+        public void SetProvider(IServiceProvider sp)
+        {
+            ServiceProvider =sp;
         }
     }
 

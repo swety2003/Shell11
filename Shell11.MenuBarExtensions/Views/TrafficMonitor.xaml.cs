@@ -42,14 +42,15 @@ namespace Shell11.MenuBarExtensions.Views
 
         public override string Description => "资源占用显示";
 
-        public override void RegisterSettingsView(IServiceCollection services)
+        public override void RegisterServices(IServiceCollection services)
         {
             //services.AddSingleton<SystemTraySettingsViewModel>();
             //services.RegistorForNavigate<SystemTraySettings>(NavKey, "系统托盘设置");
         }
 
-        public override UserControl? StartControl(IMenuBar host)
+        public override UserControl? StartControl(WeakReference<IMenuBar> hostref)
         {
+
             if (IsEnabled)
             {
                 return new TrafficMonitor { DataContext = new TrafficMonitorViewModel() };

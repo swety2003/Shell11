@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Shell11.Common.Application.Contracts;
 using Shell11.Common.DependencyInjection;
 using Shell11.MenuBarExtensions.ViewModels;
+using System;
 using System.Composition;
 
 namespace Shell11.MenuBarExtensions
@@ -11,11 +12,11 @@ namespace Shell11.MenuBarExtensions
     [Export(typeof(IExtension))]
     public class Extension : IExtension
     {
-        public static IHost Host { get; private set; }
+        public static IServiceProvider ServiceProvider { get; private set; }
 
-        public void SetHost(IHost host)
+        public void SetProvider(IServiceProvider sp)
         {
-            Host = host;
+            ServiceProvider = sp;
         }
 
         public void ConfigureServices(IServiceCollection services)

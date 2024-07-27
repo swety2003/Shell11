@@ -14,6 +14,8 @@
                      Background="{DynamicResource LayerOnMicaBaseAltFillColorDefaultBrush}"
                      d:DataContext="{d:DesignInstance Type=vm:MenuBarWindowViewModel}"
                      TextElement.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                     xmlns:services="clr-namespace:Shell11.Services"
+                     xmlns:dd="urn:gong-wpf-dragdrop"
         Title="MainWindow" Height="27" Width="800">
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="-1" CaptionHeight="0" />
@@ -26,26 +28,7 @@
         <SolidColorBrush x:Key="MenuBarItemBackgroundPointerOver" Color="{DynamicResource CardBackgroundFillColorSecondary}"></SolidColorBrush>
         <SolidColorBrush x:Key="MenuBarItemBackgroundSelected" Color="{DynamicResource CardBackgroundFillColorDefault}"></SolidColorBrush>
 
-        <selectors:MenuItemContainerTemplateSelector x:Key="MenuItemContainerTemplateSelector">
-            <selectors:MenuItemContainerTemplateSelector.MenuItemTemplate>
-                <DataTemplate>
-                    <MenuItem/>
-                </DataTemplate>
-            </selectors:MenuItemContainerTemplateSelector.MenuItemTemplate>
-            <selectors:MenuItemContainerTemplateSelector.SeparatorTemplate>
-                <DataTemplate>
-                    <Separator Style="{StaticResource {x:Static ui:ThemeKeys.DefaultMenuItemSeparatorStyleKey}}"/>
-                </DataTemplate>
-            </selectors:MenuItemContainerTemplateSelector.SeparatorTemplate>
-        </selectors:MenuItemContainerTemplateSelector>
 
-        <Style TargetType="MenuItem" x:Key="TopbarMenuItemStyle">
-            <Setter Property="Height" Value="auto"/>
-            <Setter Property="BorderThickness" Value="1 0 1 0"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="ui:ControlHelper.CornerRadius" Value="0"/>
-                
-        </Style>
         <Style TargetType="Menu">
             <Setter Property="Height" Value="24"/>
             <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}"/>
@@ -69,6 +52,7 @@
 
         <StackPanel x:Key="InternalItem"  Orientation="Horizontal">
             <Button ContextMenuService.HasDropShadow="True" 
+                    ContextMenu="{StaticResource PublicLogoMenu}"
                 ContextMenuService.Placement="Bottom" 
                 Background="Transparent" 
                 Name="test"
@@ -83,21 +67,6 @@
                 
                 <Image Height="15" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="/Assets/logo.png"/>
 
-                <FrameworkElement.ContextMenu>
-                    <ContextMenu ItemsSource="{Binding LogoMenuItems}"
-                                 UsesItemContainerTemplate="True"
-                                 ItemContainerTemplateSelector="{StaticResource MenuItemContainerTemplateSelector}"
-                                 Placement="Bottom" HorizontalOffset="0" VerticalOffset="4">
-                        <ContextMenu.ItemContainerStyle>
-                            <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
-                                <Setter Property="ItemContainerTemplateSelector" Value="{StaticResource MenuItemContainerTemplateSelector}"/>
-                                <Setter Property="Header" Value="{Binding Header}"/>
-                                <Setter Property="Command" Value="{Binding Command}"/>
-                                <Setter Property="ItemsSource" Value="{Binding Items}"/>
-                            </Style>
-                        </ContextMenu.ItemContainerStyle>
-                    </ContextMenu>
-                </FrameworkElement.ContextMenu>
             </Button>
 
             <Menu Visibility="Collapsed">
@@ -113,7 +82,8 @@
     </FrameworkElement.Resources>
     <Border BorderBrush="{DynamicResource ControlStrokeColorSecondaryBrush}" BorderThickness="0 0 0 1" Padding="4 0">
 
-        <ItemsControl Grid.Column="1" ItemsSource="{Binding MenuExtras}">
+        <ItemsControl
+            Grid.Column="1" ItemsSource="{Binding MenuExtras}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <controls:AlignPanel/>

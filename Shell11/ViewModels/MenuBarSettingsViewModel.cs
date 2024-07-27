@@ -1,15 +1,21 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GongSolutions.Wpf.DragDrop;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shell11.Common.Application.Contracts;
 using Shell11.Services;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Net.Security;
+using System.Windows;
 
 namespace Shell11.ViewModels
 {
-    public partial class MenuBarSettingsViewModel : ObservableObject
+    public partial class MenuBarSettingsViewModel : ObservableObject, IDropTarget
     {
         private readonly IApplication app;
         private readonly IHost host;
@@ -21,8 +27,11 @@ namespace Shell11.ViewModels
             this.app = app;
             this.host = host;
             this.navHost = setting_host;
+
+            Extensions =new ObservableCollection < IMenuBarExtension>( app.MenuBarExtensions);
         }
-        public IEnumerable<IMenuBarExtension> Extensions => app.MenuBarExtensions;
+
+        public ObservableCollection<IMenuBarExtension> Extensions { get; private set; }
 
         [RelayCommand]
         void NavigateTo(object args)
@@ -48,9 +57,32 @@ namespace Shell11.ViewModels
             }
         }
 
-
-        ~MenuBarSettingsViewModel()
+        public void DragOver(IDropInfo dropInfo)
         {
+            var sourceItem = dropInfo.Data as IMenuBarExtension;
+            var targetItem = dropInfo.TargetItem as IMenuBarExtension;
+
+            if (sourceItem != null && targetItem != null)// && targetItem.CanAcceptChildren)
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                dropInfo.Effects = DragDropEffects.Move;
+            }
+        }
+
+
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            var source = dropInfo.Data as IMenuBarExtension;
+            var target = dropInfo.TargetItem as IMenuBarExtension;
+            if (source!=null && target!=null)
+            {
+
+                var targetIndex = Extensions.IndexOf(target);
+                Extensions.Remove(source);
+                Extensions.Insert(targetIndex, source);
+            }
+
 
         }
 

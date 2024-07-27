@@ -95,6 +95,7 @@ namespace Shell11.MenuBarExtensions.Controls
 
         private void applyEffects()
         {
+            return;
             if (!EnvironmentHelper.IsWindows10OrBetter || _notifyIcon == null)
             {
                 return;
@@ -187,7 +188,7 @@ namespace Shell11.MenuBarExtensions.Controls
         #region Notify icon balloon notifications
         private void TrayIcon_NotificationBalloonShown(object sender, NotificationBalloonEventArgs e)
         {
-            if (Host != null && Host.Host != null && !Host.Host.GetIsPrimaryDisplay())
+            if (Host != null && Host.GetMenuBar() != null && !Host.GetMenuBar().GetIsPrimaryDisplay())
             {
                 return;
             }

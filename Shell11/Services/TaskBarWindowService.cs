@@ -72,8 +72,9 @@ namespace Shell11.Services
 
         protected override void OpenWindow(AppBarScreen screen)
         {
+            var appbarmode = Settings.Instance.AutoHideTaskBar ? AppBarMode.AutoHide : AppBarMode.Normal;
             TaskBarWindow newTaskbar = new (_cairoApplication, _shellManager, _windowManager, _desktopManager, screen,
-                AppBarEdge.Bottom, AppBarMode.AutoHide);
+                AppBarEdge.Bottom, appbarmode);
             Windows.Add(newTaskbar);
             newTaskbar.Show();
         }
@@ -94,12 +95,20 @@ namespace Shell11.Services
             switch (setting)
             {
                 case "EnableTaskBar":
+
+                    _shellManager.ExplorerHelper.HideExplorerTaskbar = Settings.Instance.EnableTaskBar;
                     HandleEnableServiceChanged(Settings.Instance.EnableTaskBar);
                     break;
                 case "EnableTaskbarMultiMon":
                     HandleEnableMultiMonChanged(Settings.Instance.EnableTaskbarMultiMon);
                     break;
+
+                case "AutoHideTaskBar":
+
+                    HandleAutoHideChanged(Settings.Instance.AutoHideTaskBar);
+                    break;
             }
         }
+
     }
 }

@@ -43,6 +43,9 @@
             <DockPanel>
 
                 <Button Command="{Binding ShowStartMenuCommand}" Background="Transparent" BorderBrush="Transparent"
+                        ContextMenuService.Placement="Top" 
+                        ContextMenuService.VerticalOffset="-6"
+                    ContextMenu="{StaticResource PublicLogoMenu}"
                         Padding="8" Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}">
                     <Image Height="28" RenderOptions.BitmapScalingMode="Fant" Source="/Assets/start.ico"/>
                 </Button>
@@ -117,23 +120,6 @@
                                                 Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}"
                                                     ListMode="False"
                                                                      ParentTaskbar="{Binding RelativeSource={RelativeSource AncestorType=appbar:AppBarWindow}}"/>
-                                                <Border Margin="16 4" x:Name="indicator" Background="Red" CornerRadius="2" Height="4" 
-                                                        HorizontalAlignment="Stretch"
-                                                        VerticalAlignment="Bottom"
-                                                        >
-
-                                                    <i:Interaction.Triggers>
-                                                        <i:DataTrigger Binding="{Binding State}" Value="0">
-                                                            <i:ChangePropertyAction PropertyName="Background" Value="{DynamicResource AccentFillColorDefaultBrush}"/>
-                                                            <i:ChangePropertyAction PropertyName="Margin" Value="16 4"/>
-                                                        </i:DataTrigger>
-                                                        <i:DataTrigger Binding="{Binding State}" Value="1">
-                                                            <i:ChangePropertyAction PropertyName="Background" Value="{DynamicResource ControlStrongFillColorDefaultBrush}"/>
-                                                            <i:ChangePropertyAction PropertyName="Margin" Value="20 4"/>
-                                                        </i:DataTrigger>
-                                                    </i:Interaction.Triggers>
-                                                </Border>
-
 
                                             </Grid>
                                             <Border.Style>

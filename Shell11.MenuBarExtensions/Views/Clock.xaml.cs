@@ -1,5 +1,6 @@
 ﻿using ManagedShell.Common.Helpers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Shell11.Common.Application.Contracts;
 using Shell11.MenuBarExtensions.ViewModels;
 using Shell11.MenuBarExtensions.Views.Settings;
@@ -28,17 +29,14 @@ namespace Shell11.MenuBarExtensions.Views
     /// </summary>
     public partial class Clock : UserControl
     {
-        public Clock()
-        {
-            InitializeComponent();
-        }
         private readonly bool _isPrimaryScreen;
         private static bool isClockHotkeyRegistered;
 
-        public Clock(IMenuBar host)
+        public Clock(WeakReference<IMenuBar> hostref)
         {
             InitializeComponent();
 
+            hostref.TryGetTarget(out var host);
             _isPrimaryScreen = host.GetIsPrimaryDisplay();
 
             InitializeClock();
@@ -133,15 +131,16 @@ namespace Shell11.MenuBarExtensions.Views
 
         public override string NavKey => "menubar/clockSettings".ToLower();
 
-        public override void RegisterSettingsView(IServiceCollection services)
+        public override void RegisterServices(IServiceCollection services)
         {
             //services.AddKeyedSingleton<SystemTraySettings>(NavKey);
         }
-        public override UserControl? StartControl(IMenuBar host)
+
+        public override UserControl? StartControl(WeakReference<IMenuBar> hostref)
         {
             if (IsEnabled)
             {
-                return new Clock(host);
+                //return new Clock(hostref);
             }
             return null;
         }

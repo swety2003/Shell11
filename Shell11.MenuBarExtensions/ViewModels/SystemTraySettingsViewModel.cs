@@ -18,7 +18,8 @@ namespace Shell11.MenuBarExtensions.ViewModels
             this.notificationArea = sms.ShellManager.NotificationArea;
         }
 
-        public ICollectionView IconItems => notificationArea.AllIcons;
+        public ICollectionView Pinned => notificationArea.PinnedIcons;
+        public ICollectionView UnPinned => notificationArea.UnpinnedIcons;
 
 
         [RelayCommand]

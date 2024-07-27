@@ -28,5 +28,6 @@ namespace Shell11.Views.SettingPages
             InitializeComponent();
             DataContext = vm;
         }
+
     }
 }

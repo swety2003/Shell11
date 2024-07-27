@@ -71,7 +71,7 @@ namespace Shell11.Common.DependencyInjection
                         foreach (var mbe in mbes)
                         {
                             serviceCollection.AddSingleton(typeof(IMenuBarExtension), mbe);
-                            mbe.RegisterSettingsView(serviceCollection);
+                            mbe.RegisterServices(serviceCollection);
 
                         }
                     }

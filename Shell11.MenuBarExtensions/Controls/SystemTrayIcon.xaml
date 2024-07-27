@@ -7,13 +7,18 @@
              mc:Ignorable="d"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              Margin="1 0"
+             xmlns:shaders="clr-namespace:Shell11.MenuBarExtensions.Shaders"
              Loaded="UserControl_Loaded"
              Unloaded="UserControl_Unloaded"
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <UserControl.Resources>
         <ResourceDictionary>
+            <shaders:InvertEffect x:Key="ColorKeyReplaceEffect"/>
+
             <convertors:NotificationBalloonTitleConverter x:Key="balloonTitleConverter" />
             <convertors:NotificationBalloonWidthConverter x:Key="balloonWidthConverter" />
+            <convertors:NotificationIconColorConvertor x:Key="NotificationIconColorConvertor" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -39,7 +44,8 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <Image Height="16" Source="{Binding Path=Icon, Mode=OneWay}"
-                   Name="NotifyIconImage" />
+                   Name="NotifyIconImage" Effect="{Binding Converter={StaticResource NotificationIconColorConvertor},ConverterParameter={StaticResource ColorKeyReplaceEffect}}">
+            </Image>
         </Border>
         <!-- The width of this border animates to a constant value 0..1 via its style -->
         <Border Width="0"

@@ -26,9 +26,9 @@ namespace Shell11.Views
     /// </summary>
     public partial class MenuBarWindow : AppBarWindow, IMenuBar
     {
-        private readonly IApplication application;
-        private readonly ShellManager shellManager;
-        private readonly IWindowManager windowManager;
+        private IApplication application;
+        private ShellManager shellManager;
+        private IWindowManager windowManager;
 
         public NotificationArea notificationArea => shellManager.NotificationArea;
 
@@ -59,8 +59,18 @@ namespace Shell11.Views
             if (DataContext is MenuBarWindowViewModel vm)
             {
                 vm.Dispose();
+                DataContext = null;
             }
+
+            Loaded -= MenuBarWindow_Loaded;
+            Closed -= MenuBarWindow_Closed;
+            this.application = null;
+            this.shellManager = null;
+            this.windowManager = null;
+            GC.Collect();
         }
+
+        ~MenuBarWindow() { }
 
         private void MenuBarWindow_Loaded(object sender, RoutedEventArgs e)
         {

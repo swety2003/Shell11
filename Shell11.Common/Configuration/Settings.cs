@@ -57,6 +57,7 @@ namespace Shell11.Common.Configuration
             Instance.PropertyChanged -= handler;
         }
 
+        [ObservableProperty, JsonPropertyName("colorTheme")] int colorTheme = 0;
         [ObservableProperty, JsonPropertyName("enableTaskBar")] bool enableTaskBar = true;
         [ObservableProperty, JsonPropertyName("autoHideTaskBar")] bool autoHideTaskBar = true;
         [ObservableProperty, JsonPropertyName("enableMenuBar")] bool enableMenuBar = true;
@@ -75,6 +76,6 @@ namespace Shell11.Common.Configuration
         [ObservableProperty, JsonPropertyName("taskbarEdge")] AppBarEdge taskbarEdge;
         [ObservableProperty, JsonPropertyName("pinnedNotifyIcons")] string[] pinnedNotifyIcons = new string[] 
         { "7820ae76-23e3-4229-82c1-e41cb67d5b9c","7820ae75-23e3-4229-82c1-e41cb67d5b9c","7820ae74-23e3-4229-82c1-e41cb67d5b9c","7820ae73-23e3-4229-82c1-e41cb67d5b9c" };
-        [ObservableProperty, JsonPropertyName("taskbarGroupingStyle")] int taskbarGroupingStyle = 1;
+        [ObservableProperty, JsonPropertyName("taskbarGroupingStyle")] int taskbarGroupingStyle = 2;
     }
 }
