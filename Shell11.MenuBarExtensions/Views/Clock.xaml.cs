@@ -38,8 +38,13 @@ namespace Shell11.MenuBarExtensions.Views
 
             hostref.TryGetTarget(out var host);
             _isPrimaryScreen = host.GetIsPrimaryDisplay();
-
+            this.Unloaded += Clock_Unloaded;
             InitializeClock();
+        }
+
+        private void Clock_Unloaded(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void InitializeClock()
@@ -66,11 +71,6 @@ namespace Shell11.MenuBarExtensions.Views
                 //catch { }
             }
         }
-
-        //private void OnShowClock(HotKey hotKey)
-        //{
-        //    ToggleClockDisplay();
-        //}
 
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
         {
@@ -140,7 +140,7 @@ namespace Shell11.MenuBarExtensions.Views
         {
             if (IsEnabled)
             {
-                //return new Clock(hostref);
+                return new Clock(hostref);
             }
             return null;
         }

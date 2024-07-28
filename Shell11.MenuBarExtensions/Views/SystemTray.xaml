@@ -49,8 +49,6 @@
                       dd:DragDrop.IsDropTarget="True"
                       dd:DragDrop.DropHandler="{Binding}"
             
-            
-                       
                        VerticalAlignment="Center"
                        ItemsSource="{Binding NotificationArea.UnpinnedIcons}" Name="UnpinnedItems"  
                       Visibility="{Binding ElementName=btnToggle,Path=IsChecked,Converter={StaticResource BooleanToVisibilityConverter}}" />

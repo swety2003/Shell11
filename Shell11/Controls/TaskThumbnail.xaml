@@ -188,7 +188,7 @@
                        Margin="6 0 0 0"
                         Width="16"
                         Height="16" />
-                <TextBlock Style="{StaticResource TaskThumbTitleStyle}"
+                <TextBlock Margin="6 0" VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                            Text="{Binding Path=Title}"
                            Width="138" />
                 <Button Padding="8"	Name="closeButton" 

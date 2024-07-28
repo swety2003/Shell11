@@ -16,7 +16,8 @@
                      TextElement.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                      xmlns:services="clr-namespace:Shell11.Services"
                      xmlns:dd="urn:gong-wpf-dragdrop"
-        Title="MainWindow" Height="27" Width="800">
+                     
+        Title="MainWindow" Height="28" Width="800">
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="-1" CaptionHeight="0" />
     </WindowChrome.WindowChrome>
@@ -84,6 +85,13 @@
 
         <ItemsControl
             Grid.Column="1" ItemsSource="{Binding MenuExtras}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border>
+                        <ContentPresenter/>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <controls:AlignPanel/>

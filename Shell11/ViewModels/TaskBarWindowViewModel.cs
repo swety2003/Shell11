@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GongSolutions.Wpf.DragDrop;
 using ManagedShell;
 using ManagedShell.AppBar;
 using ManagedShell.Common.Helpers;
@@ -15,7 +16,7 @@ using System.ComponentModel;
 
 namespace Shell11.ViewModels
 {
-    internal partial class TaskBarWindowViewModel : ObservableObject, IDisposable, IConfigurationChangeAware
+    internal partial class TaskBarWindowViewModel : ObservableObject, IDropTarget,IDisposable, IConfigurationChangeAware
     {
         private IDesktopManager desktopManager;
         private ShellManager _shellManager;
@@ -165,6 +166,16 @@ namespace Shell11.ViewModels
             // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+
         }
     }
 }

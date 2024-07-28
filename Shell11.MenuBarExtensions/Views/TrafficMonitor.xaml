@@ -71,12 +71,24 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
 
-                        <StackPanel SnapsToDevicePixels="True" UseLayoutRounding="True" 
+                        <StackPanel TextElement.FontFamily="#GulimChe" Margin="0 1 0 0" SnapsToDevicePixels="True" UseLayoutRounding="True" 
                                     Height="24" Orientation="Horizontal">
 
-                            <TextBlock FontSize="10" Text="RAM:"/>
+                            <TextBlock
+                                Margin="2 0"
+                                       FontSize="9" Width="9"
+                                       TextWrapping="Wrap"
+                                       LineStackingStrategy="BlockLineHeight"
+                                       LineHeight="6"
+                                       Text="RAM"/>
                             <Grid Margin="4 0">
 
+                                <ui:ProgressRing IsIndeterminate="False" 
+                                                     Foreground="{DynamicResource ControlStrokeColorSecondaryBrush}"
+                                                 VerticalAlignment="Stretch" 
+                                             Height="20" Width="20"  
+                                                     Maximum="100" 
+                                             Value="100"/>
                                 <ui:ProgressRing IsIndeterminate="False" VerticalAlignment="Stretch" 
                                              Height="20" Width="20"  Maximum="100" 
                                                  
@@ -86,10 +98,28 @@
                                            Text="{Binding RamLoad}"/>
                             </Grid>
 
-                            <TextBlock TextWrapping="Wrap" FontSize="10" Margin="10 0 0 0" Text="CPU:"/>
+                            <Border Margin="2 3 6 3"
+                                Width="1" BorderThickness="1"
+                                    BorderBrush="{DynamicResource ControlStrokeColorSecondaryBrush}"/>
+
+                            <TextBlock 
+                                
+                                Margin="2 0"
+                                       FontSize="9" Width="9"
+                                       LineStackingStrategy="BlockLineHeight"
+                                       LineHeight="6"
+                                       TextWrapping="Wrap"
+                                       Text="CPU"/>
                             <Grid Margin="4 0">
 
-                                <ui:ProgressRing IsIndeterminate="False" VerticalAlignment="Stretch" 
+                                <ui:ProgressRing IsIndeterminate="False" 
+                                                     Foreground="{DynamicResource ControlStrokeColorSecondaryBrush}"
+                                                 VerticalAlignment="Stretch" 
+                                             Height="20" Width="20"  
+                                                     Maximum="100" 
+                                             Value="100"/>
+                                <ui:ProgressRing IsIndeterminate="False" 
+                                                 VerticalAlignment="Stretch" 
                                              Height="20" Width="20"  Maximum="100" 
                                              Value="{Binding CpuLoad}"/>
                                 <TextBlock HorizontalAlignment="Center"

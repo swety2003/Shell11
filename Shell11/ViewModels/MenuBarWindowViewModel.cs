@@ -23,9 +23,6 @@ namespace Shell11.ViewModels
         private IMenuBar menuBarWindow;
 
 
-        //[ObservableProperty]
-        //IEnumerable<IMenuItem> logoMenuItems;
-
         public MenuBarWindowViewModel(IApplication application, IMenuBar menuBarWindow, FrameworkElement i) 
         {
             this.application = application;
@@ -34,28 +31,6 @@ namespace Shell11.ViewModels
             EnableMenuBarExtensions();
         }
 
-        //void SetUpMenu()
-        //{
-        //    var collection = new List<IMenuItem>();
-        //    var powerGroup = new MenuItemData("电源选项");
-        //    powerGroup.Items.Add(new MenuItemData("锁定", LockScreenCommand));
-        //    powerGroup.Items.Add(new MenuItemData("注销", LogOutCommand));
-        //    powerGroup.Items.Add(new MenuItemData("关机", PowerOffCommand));
-        //    powerGroup.Items.Add(new MenuItemData("睡眠", SleepCommand));
-        //    powerGroup.Items.Add(new MenuItemData("重启", RebootCommand));
-        //    collection.Add(powerGroup);
-        //    collection.Add(new SeparatorData());
-        //    collection.Add(new MenuItemData("运行", OpenRunWindowCommand));
-        //    collection.Add(new MenuItemData("任务管理器", OpenTaskMgrCommand));
-        //    collection.Add(new MenuItemData("终端", OpenTermCommand));
-        //    collection.Add(new MenuItemData("设置", OpenSystemSettingsCommand));
-        //    collection.Add(new MenuItemData("控制面板", OpenControlPanelCommand));
-        //    collection.Add(new SeparatorData());
-        //    collection.Add(new MenuItemData("Shell设置", OpenSettingsCommand));
-        //    collection.Add(new MenuItemData("退出Shell", ExitAppCommand));
-
-        //    LogoMenuItems = collection;
-        //}
 
         public ObservableCollection<FrameworkElement> MenuExtras { get; init; } = new ObservableCollection<FrameworkElement>();
 

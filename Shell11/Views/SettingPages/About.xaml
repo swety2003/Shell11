@@ -5,11 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Shell11.Views.SettingPages"
              mc:Ignorable="d"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              Margin="{StaticResource SettingsPageMargin}"
              xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
-        <Expander>
+        <Expander IsExpanded="True">
             <Expander.Header>
                 <DockPanel Margin="8 12">
                     <Image Margin="0 0 18 0" Height="28" Source="/Assets/logo.png"/>
@@ -28,14 +29,15 @@
                 </DockPanel>
             </Expander.Header>
             <StackPanel>
-                <UniformGrid>
+                <UniformGrid Margin="0 8">
                     <ui:HyperlinkButton Content="https://github.com/swety2003/Shell11"/>
                 </UniformGrid>
-                <Separator/>
+                <Separator Margin="0 0 0 8"/>
                 <TextBlock Text="Dependencies and References"/>
-                <StackPanel>
+                <StackPanel Margin="0 8">
 
                     <ui:HyperlinkButton Content="https://github.com/cairoshell/cairoshell"/>
+                    <ui:HyperlinkButton Content="https://github.com/iNKORE-NET/UI.WPF.Modern"/>
                     <ItemsControl>
                     
                 </ItemsControl>

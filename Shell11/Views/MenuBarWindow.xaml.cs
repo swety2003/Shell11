@@ -38,7 +38,7 @@ namespace Shell11.Views
         }
 
         public MenuBarWindow(IApplication Application, ShellManager shellManager, IWindowManager windowManager,
-            AppBarScreen screen, AppBarEdge edge, AppBarMode mode, double height = 27)
+            AppBarScreen screen, AppBarEdge edge, AppBarMode mode, double height = 28)
             : base(shellManager.AppBarManager, shellManager.ExplorerHelper, shellManager.FullScreenHelper, screen, edge, mode, height)
         {
             InitializeComponent();

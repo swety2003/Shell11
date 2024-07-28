@@ -112,9 +112,12 @@ namespace Shell11.Views
                         GetWindowRect(window.Handle,ref rect);
                         GetWindowRect(Handle,ref rect1);
                         DisableAutoHide = !IsOverlapping(rect, rect1);
+
+                        return;
                     }
                 }
             }
+            DisableAutoHide = true;
         }
 
         [DllImport("user32.dll")]
@@ -164,9 +167,10 @@ namespace Shell11.Views
             base.AfterAppBarPos(isSameCoords, rect);
             TaskBarWindow_SizeChanged(null,null);
         }
-        private void TaskBarWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        private async void TaskBarWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Left = (Screen.WorkingArea.Width - this.Width) / 2;
+            await Task.Delay(200);
+            Left = (Screen.WorkingArea.Width - this.Width)/DpiScale / 2;
         }
 
         private void SetDesktopPosition()
@@ -186,7 +190,6 @@ namespace Shell11.Views
 
         private async Task TaskBarWindow_Loaded()
         {
-            await Task.Delay(300);
             TaskBarWindow_SizeChanged(null, null);
         }
 

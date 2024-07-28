@@ -66,7 +66,6 @@ namespace Shell11.MenuBarExtensions.Controls
                 return;
             }
 
-            applyEffects();
 
             _notifyIcon.NotificationBalloonShown += TrayIcon_NotificationBalloonShown;
 
@@ -93,61 +92,66 @@ namespace Shell11.MenuBarExtensions.Controls
         }
 
 
-        private void applyEffects()
-        {
-            return;
-            if (!EnvironmentHelper.IsWindows10OrBetter || _notifyIcon == null)
-            {
-                return;
-            }
+        //private void applyEffects()
+        //{
+        //    return;
+        //    if (!EnvironmentHelper.IsWindows10OrBetter || _notifyIcon == null)
+        //    {
+        //        return;
+        //    }
 
-            string iconGuid = _notifyIcon.GUID.ToString();
+        //    string iconGuid = _notifyIcon.GUID.ToString();
 
-            if (!(iconGuid == NotificationArea.HARDWARE_GUID ||
-                iconGuid == NotificationArea.UPDATE_GUID ||
-                iconGuid == NotificationArea.MICROPHONE_GUID ||
-                iconGuid == NotificationArea.LOCATION_GUID ||
-                iconGuid == NotificationArea.MEETNOW_GUID ||
-                iconGuid == NotificationArea.NETWORK_GUID ||
-                iconGuid == NotificationArea.POWER_GUID ||
-                iconGuid == NotificationArea.VOLUME_GUID))
-            {
-                return;
-            }
+        //    if (!(iconGuid == NotificationArea.HARDWARE_GUID ||
+        //        iconGuid == NotificationArea.UPDATE_GUID ||
+        //        iconGuid == NotificationArea.MICROPHONE_GUID ||
+        //        iconGuid == NotificationArea.LOCATION_GUID ||
+        //        iconGuid == NotificationArea.MEETNOW_GUID ||
+        //        iconGuid == NotificationArea.NETWORK_GUID ||
+        //        iconGuid == NotificationArea.POWER_GUID ||
+        //        iconGuid == NotificationArea.VOLUME_GUID))
+        //    {
+        //        return;
+        //    }
 
-            bool invertByTheme = true;
+        //    bool invertByTheme = true;
 
-            if (NotifyIconImage.Effect == null != invertByTheme)
-            {
-                return;
-            }
+        //    if (NotifyIconImage.Effect == null != invertByTheme)
+        //    {
+        //        return;
+        //    }
 
-            if (invertByTheme)
-            {
-                NotifyIconImage.Effect = new InvertEffect();
-            }
-            else
-            {
-                NotifyIconImage.Effect = null;
-            }
-        }
+        //    if (invertByTheme)
+        //    {
+        //        NotifyIconImage.Effect = new InvertEffect();
+        //    }
+        //    else
+        //    {
+        //        NotifyIconImage.Effect = null;
+        //    }
+        //}
 
         #region Notify icon image mouse events
-        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        private async void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            e.Handled = true;
-            var trayIcon = (sender as FrameworkElement).DataContext as NotifyIcon;
+            //e.Handled = true;
+            //var trayIcon = (sender as FrameworkElement).DataContext as NotifyIcon;
 
             // set current menu bar to return placement for ABM_GETTASKBARPOS message
-            Host?.SetTrayHostSizeData();
+            //Host?.SetTrayHostSizeData();
 
-            trayIcon?.IconMouseDown(e.ChangedButton, MouseHelper.GetCursorPositionParam(), System.Windows.Forms.SystemInformation.DoubleClickTime);
+            //trayIcon?.IconMouseDown(e.ChangedButton, MouseHelper.GetCursorPositionParam(), System.Windows.Forms.SystemInformation.DoubleClickTime);
         }
 
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
-            var trayIcon = (sender as FrameworkElement).DataContext as NotifyIcon;
+            var trayIcon = (sender as FrameworkElement).DataContext as NotifyIcon; 
+
+            Host?.SetTrayHostSizeData();
+
+            trayIcon?.IconMouseDown(e.ChangedButton, MouseHelper.GetCursorPositionParam(), System.Windows.Forms.SystemInformation.DoubleClickTime);
+
 
             trayIcon?.IconMouseUp(e.ChangedButton, MouseHelper.GetCursorPositionParam(), System.Windows.Forms.SystemInformation.DoubleClickTime);
         }

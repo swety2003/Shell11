@@ -14,8 +14,8 @@
         Closing="Window_Closing"
         MouseLeave="Window_MouseLeave"
         Topmost="True"
-        ToolTipService.Placement="Top"
         Background="Transparent"
+        ToolTipService.Placement="Top"
         UseLayoutRounding="True"
         x:Name="ThumbWindow">
     <WindowChrome.WindowChrome>
@@ -32,7 +32,7 @@
             CornerRadius="6"
             BorderThickness="1"
             BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}"
-        Background="{DynamicResource LayerFillColorAltBrush}"
+        Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
             Margin="10"
             >
         <Border.RenderTransform>

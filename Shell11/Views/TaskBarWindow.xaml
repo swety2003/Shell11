@@ -11,6 +11,7 @@
                      SizeToContent="Width"
                      AllowsTransparency="True"
                      Background="Transparent"
+                     xmlns:dd="urn:gong-wpf-dragdrop"
     ShowActivated="False"
                      ShowInTaskbar="False"
         Title="TaskBarWindow">
@@ -53,7 +54,11 @@
                 <Border Margin="4 8" VerticalAlignment="Stretch" Opacity=".4" Width="1" BorderThickness="1" BorderBrush="Gray"></Border>
 
                 <ListView MinWidth="100" ItemsSource="{Binding TaskBarItems}"
-                          
+                          AllowDrop="True"
+                          dd:DragDrop.IsDragSource="True"
+                              dd:DragDrop.IsDropTarget="False"
+                              dd:DragDrop.UseDefaultDragAdorner="True"
+                          dd:DragDrop.DragHandler="{Binding}"
                                   x:Name="TasksList">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
