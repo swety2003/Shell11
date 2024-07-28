@@ -1,25 +1,27 @@
-﻿<Window x:Class="Shell11.Controls.TaskThumbWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:Shell11.Controls" xmlns:cts="clr-namespace:Shell11.Convertors"
-        Title="TaskThumbWindow"
-        SizeToContent="WidthAndHeight"
-        Focusable="False"
-        ShowActivated="False"
-        ShowInTaskbar="False"
-        ResizeMode="NoResize"
-        WindowStyle="None"
-        SourceInitialized="Window_SourceInitialized"
-        SizeChanged="ThumbWindow_SizeChanged"
-        Closing="Window_Closing"
-        MouseLeave="Window_MouseLeave"
-        Topmost="True"
-        Background="Transparent"
-        ToolTipService.Placement="Top"
-        UseLayoutRounding="True"
-        x:Name="ThumbWindow">
+﻿<Window
+    x:Class="Shell11.Controls.TaskThumbWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cts="clr-namespace:Shell11.Convertors"
+    xmlns:local="clr-namespace:Shell11.Controls"
+    x:Name="ThumbWindow"
+    Title="TaskThumbWindow"
+    Background="Transparent"
+    Closing="Window_Closing"
+    Focusable="False"
+    MouseLeave="Window_MouseLeave"
+    ResizeMode="NoResize"
+    ShowActivated="False"
+    ShowInTaskbar="False"
+    SizeChanged="ThumbWindow_SizeChanged"
+    SizeToContent="WidthAndHeight"
+    SourceInitialized="Window_SourceInitialized"
+    ToolTipService.Placement="Top"
+    Topmost="True"
+    UseLayoutRounding="True"
+    WindowStyle="None">
     <WindowChrome.WindowChrome>
-        <WindowChrome GlassFrameThickness="-1" CaptionHeight="0"/>
+        <WindowChrome CaptionHeight="0" GlassFrameThickness="-1" />
     </WindowChrome.WindowChrome>
     <Window.Resources>
         <ResourceDictionary>
@@ -27,35 +29,35 @@
 
         </ResourceDictionary>
     </Window.Resources>
-    
-    <Border Name="bdrThumb"
-            CornerRadius="6"
-            BorderThickness="1"
-            BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}"
+
+    <Border
+        Name="bdrThumb"
+        Margin="10"
         Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
-            Margin="10"
-            >
+        BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        CornerRadius="6">
         <Border.RenderTransform>
-            <TranslateTransform x:Name="bdrTranslate"
-                                X="0"
-                                Y="20" />
+            <TranslateTransform x:Name="bdrTranslate" X="0" Y="20" />
         </Border.RenderTransform>
         <Border.Triggers>
             <EventTrigger RoutedEvent="Border.Loaded">
                 <BeginStoryboard>
                     <Storyboard Completed="Storyboard_Completed">
-                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                         From="0.0"
-                                         To="1.0"
-                                         Duration="0:0:0.15"/>
-                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)"
-                                         To="0"
-                                         Duration="0:0:0.15"/>
+                        <DoubleAnimation
+                            Storyboard.TargetProperty="Opacity"
+                            From="0.0"
+                            To="1.0"
+                            Duration="0:0:0.15" />
+                        <DoubleAnimation
+                            Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                            To="0"
+                            Duration="0:0:0.15" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
         </Border.Triggers>
-        <Border Name="bdrThumbInner"> 
+        <Border Name="bdrThumbInner">
             <ItemsControl ItemsSource="{Binding WindowGroup}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -64,7 +66,7 @@
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="{Binding ElementName=ThumbWindow, Path=ShowThumbnails, Converter={StaticResource orientationConverter}}"></StackPanel>
+                        <StackPanel Orientation="{Binding ElementName=ThumbWindow, Path=ShowThumbnails, Converter={StaticResource orientationConverter}}" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>

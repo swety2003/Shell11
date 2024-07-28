@@ -7,16 +7,19 @@ using ManagedShell.Common.Helpers;
 using ManagedShell.WindowsTasks;
 using Shell11.Common.Application.Contracts;
 using Shell11.Common.Configuration;
+using Shell11.Common.Models;
 using Shell11.Common.Utils;
 using Shell11.Interfaces;
 using Shell11.Services;
 using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows;
 
 namespace Shell11.ViewModels
 {
-    internal partial class TaskBarWindowViewModel : ObservableObject, IDropTarget,IDisposable, IConfigurationChangeAware
+    internal partial class TaskBarWindowViewModel : ObservableObject,IDisposable, IConfigurationChangeAware
     {
         private IDesktopManager desktopManager;
         private ShellManager _shellManager;
@@ -27,6 +30,9 @@ namespace Shell11.ViewModels
         public ICollectionView TaskBarItems { get; private set; }
 
         public ICollectionView GroupedWindows { get; private set; }
+
+        [ObservableProperty]
+        ObservableCollection<ApplicationInfo> pinnedPrograms = new ObservableCollection<ApplicationInfo>();
 
         public TaskBarWindowViewModel(IDesktopManager desktopManager, ShellManager shellManager, AppBarScreen screen, IWindowManager windowManager)
         {
@@ -168,14 +174,5 @@ namespace Shell11.ViewModels
             GC.SuppressFinalize(this);
         }
 
-        public void DragOver(IDropInfo dropInfo)
-        {
-
-        }
-
-        public void Drop(IDropInfo dropInfo)
-        {
-
-        }
     }
 }

@@ -1,24 +1,31 @@
-﻿<appbar:AppBarWindow xmlns:appbar="clr-namespace:ManagedShell.AppBar;assembly=ManagedShell.AppBar" 
-                     x:Class="Shell11.Views.TaskBarWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="clr-namespace:Shell11.Controls"
-        xmlns:settings="clr-namespace:Shell11.Common.Configuration;assembly=Shell11.Common"  xmlns:viewmodels="clr-namespace:Shell11.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:cts="clr-namespace:Shell11.Convertors" d:DataContext="{d:DesignInstance Type=viewmodels:TaskBarWindowViewModel}"
-                     mc:Ignorable="d"
-                     ResizeMode="NoResize"
-                     WindowStyle="None"
-                     SizeToContent="Width"
-                     AllowsTransparency="True"
-                     Background="Transparent"
-                     xmlns:dd="urn:gong-wpf-dragdrop"
+﻿<appbar:AppBarWindow
+    x:Class="Shell11.Views.TaskBarWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:appbar="clr-namespace:ManagedShell.AppBar;assembly=ManagedShell.AppBar"
+    xmlns:controls="clr-namespace:Shell11.Controls"
+    xmlns:cts="clr-namespace:Shell11.Convertors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="urn:gong-wpf-dragdrop"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:settings="clr-namespace:Shell11.Common.Configuration;assembly=Shell11.Common"
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    xmlns:viewmodels="clr-namespace:Shell11.ViewModels"
+    Title="TaskBarWindow"
+    d:DataContext="{d:DesignInstance Type=viewmodels:TaskBarWindowViewModel}"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ResizeMode="NoResize"
     ShowActivated="False"
-                     ShowInTaskbar="False"
-        Title="TaskBarWindow">
+    ShowInTaskbar="False"
+    SizeToContent="Width"
+    WindowStyle="None"
+    mc:Ignorable="d">
     <!--<WindowChrome.WindowChrome>
         <WindowChrome CornerRadius="6" GlassFrameThickness="-1" CaptionHeight="0"/>
     </WindowChrome.WindowChrome>-->
-    <Border  x:Name="bdrMain" HorizontalAlignment="Center" >
+    <Border x:Name="bdrMain" HorizontalAlignment="Center">
         <Border.Resources>
 
             <cts:TaskGroupConverter x:Key="groupConverter" />
@@ -34,36 +41,107 @@
             </Style>
         </Border.Style>
 
-        <Border 
-            Padding="6 0"
-            BorderThickness="1"
-            BorderBrush="{DynamicResource ControlStrokeColorSecondaryBrush}"
+        <Border
+            Padding="6,0"
             Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
-            CornerRadius="6" >
+            BorderBrush="{DynamicResource ControlStrokeColorSecondaryBrush}"
+            BorderThickness="1"
+            CornerRadius="6">
 
             <DockPanel>
 
-                <Button Command="{Binding ShowStartMenuCommand}" Background="Transparent" BorderBrush="Transparent"
-                        ContextMenuService.Placement="Top" 
-                        ContextMenuService.VerticalOffset="-6"
+                <Button
+                    Width="{Binding RelativeSource={RelativeSource self}, Path=ActualHeight}"
+                    Padding="8"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Command="{Binding ShowStartMenuCommand}"
                     ContextMenu="{StaticResource PublicLogoMenu}"
-                        Padding="8" Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}">
-                    <Image Height="28" RenderOptions.BitmapScalingMode="Fant" Source="/Assets/start.ico"/>
+                    ContextMenuService.Placement="Top"
+                    ContextMenuService.VerticalOffset="-6">
+                    <Image
+                        Height="28"
+                        RenderOptions.BitmapScalingMode="Fant"
+                        Source="/Assets/start.ico" />
                 </Button>
 
-                <Border Margin="4 8" VerticalAlignment="Stretch" Opacity=".4" Width="1" BorderThickness="1" BorderBrush="Gray"></Border>
 
-                <ListView MinWidth="100" ItemsSource="{Binding TaskBarItems}"
-                          AllowDrop="True"
-                          dd:DragDrop.IsDragSource="True"
-                              dd:DragDrop.IsDropTarget="False"
-                              dd:DragDrop.UseDefaultDragAdorner="True"
-                          dd:DragDrop.DragHandler="{Binding}"
-                                  x:Name="TasksList">
+                <ToggleButton
+                    x:Name="btnTaskList"
+                    Width="{Binding RelativeSource={RelativeSource self}, Path=ActualHeight}"
+                    Margin="4"
+                    Padding="8"
+                    VerticalAlignment="Stretch"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    ToolTip="TaskListToolTip"
+                    ToolTipService.Placement="Top">
+                    <Image Margin="0" Source="/Assets/taskview.ico" />
+                </ToggleButton>
+
+
+                <Border
+                    Width="1"
+                    Margin="4,8"
+                    VerticalAlignment="Stretch"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    Opacity=".4" />
+
+                <ListView
+                    Name="quickLaunchList"
+                    MinWidth="30"
+                    Margin="4"
+                    HorizontalAlignment="Stretch"
+                    ui:ControlHelper.PlaceholderText="222"
+                    AllowDrop="True"
+                    DragEnter="quickLaunchList_DragEnter"
+                    Drop="quickLaunchList_Drop"
+                    ItemsSource="{Binding PinnedPrograms}">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal"
-                                                Margin="0" />
+                            <StackPanel Margin="0" Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <controls:QuickLaunchButton VerticalAlignment="Stretch" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+
+
+
+                <Border
+                    Width="1"
+                    Margin="4,8"
+                    VerticalAlignment="Stretch"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    Opacity=".4" />
+
+                <ListView
+                    x:Name="TasksList"
+                    MinWidth="100"
+                    dd:DragDrop.DragHandler="{Binding}"
+                    dd:DragDrop.IsDragSource="True"
+                    dd:DragDrop.IsDropTarget="False"
+                    dd:DragDrop.UseDefaultDragAdorner="True"
+                    AllowDrop="True"
+                    ItemsSource="{Binding TaskBarItems}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel
+                                Margin="0"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                     <ListView.GroupStyle>
@@ -85,20 +163,18 @@
                                         </Setter.Value>
                                     </Setter>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Source={x:Static settings:Settings.Instance}, Path=TaskbarGroupingStyle, UpdateSourceTrigger=PropertyChanged}"
-                                                             Value="2">
+                                        <DataTrigger Binding="{Binding Source={x:Static settings:Settings.Instance}, Path=TaskbarGroupingStyle, UpdateSourceTrigger=PropertyChanged}" Value="2">
                                             <DataTrigger.Setters>
                                                 <Setter Property="Template">
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="GroupItem">
                                                             <ContentControl>
-                                                                <Border BorderThickness="0"
-                                                                                Margin="0,0,-1,0"
-                                                                        >
-                                                                    <controls:TaskButton ListMode="False"
-                        Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}"
-                                                                                             ParentTaskbar="{Binding RelativeSource={RelativeSource AncestorType=appbar:AppBarWindow}}"
-                                                                                             DataContext="{Binding Converter={StaticResource groupConverter}}" />
+                                                                <Border Margin="0,0,-1,0" BorderThickness="0">
+                                                                    <controls:TaskButton
+                                                                        Width="{Binding RelativeSource={RelativeSource self}, Path=ActualHeight}"
+                                                                        DataContext="{Binding Converter={StaticResource groupConverter}}"
+                                                                        ListMode="False"
+                                                                        ParentTaskbar="{Binding RelativeSource={RelativeSource AncestorType=appbar:AppBarWindow}}" />
 
                                                                 </Border>
                                                             </ContentControl>
@@ -118,21 +194,23 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                        <Border Margin="1 0" BorderThickness="0" BorderBrush="Transparent">
+                                        <Border
+                                            Margin="1,0"
+                                            BorderBrush="Transparent"
+                                            BorderThickness="0">
                                             <Grid>
 
-                                                <controls:TaskButton 
-                                                Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}"
+                                                <controls:TaskButton
+                                                    Width="{Binding RelativeSource={RelativeSource self}, Path=ActualHeight}"
                                                     ListMode="False"
-                                                                     ParentTaskbar="{Binding RelativeSource={RelativeSource AncestorType=appbar:AppBarWindow}}"/>
+                                                    ParentTaskbar="{Binding RelativeSource={RelativeSource AncestorType=appbar:AppBarWindow}}" />
 
                                             </Grid>
                                             <Border.Style>
                                                 <Style TargetType="{x:Type Border}">
                                                     <Setter Property="Visibility" Value="Collapsed" />
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Path=ShowInTaskbar}"
-                                                                             Value="True">
+                                                        <DataTrigger Binding="{Binding Path=ShowInTaskbar}" Value="True">
                                                             <Setter Property="Visibility" Value="Visible" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
@@ -145,32 +223,39 @@
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>
-                <Border Margin="4 8" VerticalAlignment="Stretch" Opacity=".4" Width="1" BorderThickness="1" BorderBrush="Gray"></Border>
+                <Border
+                    Width="1"
+                    Margin="4,8"
+                    VerticalAlignment="Stretch"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    Opacity=".4" />
 
-                <ToggleButton Margin="4" Background="Transparent" BorderBrush="Transparent" Padding="8" VerticalAlignment="Stretch" x:Name="btnTaskList"
-
-                              ToolTip="TaskListToolTip"
-                                      Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}"
-                                      ToolTipService.Placement="Top">
-                    <Image Source="/Assets/taskview.ico"
-                                   Margin="0" />
-                </ToggleButton>
-                <Popup Placement="Relative" HorizontalOffset="0" PlacementTarget="{Binding ElementName=btnTaskList}"
-                               Name="CairoTaskbarTaskList" AllowsTransparency="True" PopupAnimation="Fade"
-                               IsOpen="{Binding ElementName=btnTaskList, Path=IsChecked}" StaysOpen="False">
-                    <Border BorderBrush="{DynamicResource ControlElevationBorderBrush}" 
-                            BorderThickness="1"
-                            CornerRadius="4" 
-                            Background="{DynamicResource LayerFillColorAltBrush}" Name="bdrTaskListPopup">
+                <Popup
+                    Name="CairoTaskbarTaskList"
+                    AllowsTransparency="True"
+                    IsOpen="{Binding ElementName=btnTaskList, Path=IsChecked}"
+                    Placement="Top"
+                    PlacementTarget="{Binding ElementName=btnTaskList}"
+                    PopupAnimation="Fade"
+                    StaysOpen="False"
+                    VerticalOffset="-10">
+                    <Border
+                        Name="bdrTaskListPopup"
+                        Padding="10"
+                        Background="{DynamicResource LayerFillColorAltBrush}"
+                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4">
                         <StackPanel Orientation="Vertical">
-                            <ListView HorizontalAlignment="Stretch"
-                                      ItemsSource="{Binding GroupedWindows}"
-                                              Margin="0,-3,0,3"
-                                              x:Name="TasksList2">
+                            <ListView
+                                x:Name="TasksList2"
+                                Margin="0,-3,0,3"
+                                HorizontalAlignment="Stretch"
+                                ItemsSource="{Binding GroupedWindows}">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Vertical"
-                                                            Margin="0" />
+                                        <StackPanel Margin="0" Orientation="Vertical" />
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
                                 <ListView.GroupStyle>
@@ -180,18 +265,25 @@
                                                 <Setter Property="Template">
                                                     <Setter.Value>
                                                         <ControlTemplate>
-                                                            <StackPanel Orientation="Horizontal" Margin="0,3">
-                                                                <Border BorderThickness="0,0,1,0"
-                                                                        
-                                                                                Width="100" Margin="0,-3">
-                                                                    <TextBlock Text="{Binding Converter={StaticResource groupNameConverter}}"
-                                                                                       Name="CategoryText"
-                                                                                       HorizontalAlignment="Right"
-                                                                                       VerticalAlignment="Top"
-                                                                                       Padding="6,7,6,0"
-                                                                                       TextTrimming="CharacterEllipsis"
-                                                                                       ToolTip="{Binding Converter={StaticResource groupNameConverter}}"
-                                                                                       FontSize="{DynamicResource ResourceKey=MediumFontSize}" />
+                                                            <StackPanel
+                                                                Margin="0,3"
+                                                                Background="Transparent"
+                                                                Orientation="Horizontal">
+                                                                <Border
+                                                                    Width="100"
+                                                                    Margin="0,-3"
+                                                                    BorderBrush="{DynamicResource ControlStrokeColorSecondaryBrush}"
+                                                                    BorderThickness="0,0,1,0">
+                                                                    <TextBlock
+                                                                        Name="CategoryText"
+                                                                        Padding="6,7,6,0"
+                                                                        HorizontalAlignment="Right"
+                                                                        VerticalAlignment="Top"
+                                                                        FontSize="{DynamicResource ResourceKey=MediumFontSize}"
+                                                                        Text="{Binding Converter={StaticResource groupNameConverter}}"
+                                                                        TextTrimming="CharacterEllipsis"
+                                                                        TextWrapping="Wrap"
+                                                                        ToolTip="{Binding Converter={StaticResource groupNameConverter}}" />
                                                                 </Border>
                                                                 <ItemsPresenter />
                                                             </StackPanel>
@@ -208,19 +300,21 @@
                                         <Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                                    <Border BorderThickness="0" BorderBrush="Transparent">
-                                                        <controls:TaskButton ListMode="True" Width="300"
-                                                                                 ParentTaskbar="{Binding RelativeSource={RelativeSource AncestorType= appbar:AppBarWindow}}">
+                                                    <Border
+                                                        Margin="10,0,0,0"
+                                                        BorderBrush="Transparent"
+                                                        BorderThickness="0">
+                                                        <controls:TaskButton
+                                                            Width="300"
+                                                            Height="48"
+                                                            ListMode="True"
+                                                            ParentTaskbar="{Binding RelativeSource={RelativeSource AncestorType=appbar:AppBarWindow}}">
                                                             <controls:TaskButton.Style>
                                                                 <Style TargetType="controls:TaskButton">
-                                                                    <Setter Property="Visibility"
-                                                                                    Value="Collapsed" />
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
                                                                     <Style.Triggers>
-                                                                        <DataTrigger
-                                                                                    Binding="{Binding Path=ShowInTaskbar}"
-                                                                                    Value="True">
-                                                                            <Setter Property="Visibility"
-                                                                                            Value="Visible" />
+                                                                        <DataTrigger Binding="{Binding Path=ShowInTaskbar}" Value="True">
+                                                                            <Setter Property="Visibility" Value="Visible" />
                                                                         </DataTrigger>
                                                                     </Style.Triggers>
                                                                 </Style>
@@ -233,12 +327,14 @@
                                     </Style>
                                 </ListView.ItemContainerStyle>
                             </ListView>
-                            <Border Margin="99,-3,0,-3" Padding="0,3" Width="351" BorderThickness="1,0,0,0"
-                                            Visibility="Collapsed" Name="bdrTaskView">
-                                <MenuItem Header="TaskView"
-                                                  Click="TaskView_Click">
-
-                                </MenuItem>
+                            <Border
+                                Name="bdrTaskView"
+                                Width="351"
+                                Margin="99,-3,0,-3"
+                                Padding="0,3"
+                                BorderThickness="1,0,0,0"
+                                Visibility="Collapsed">
+                                <MenuItem Click="TaskView_Click" Header="TaskView" />
                             </Border>
                         </StackPanel>
                     </Border>
@@ -246,9 +342,14 @@
 
 
 
-                <Button Margin="4" Padding="8" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Stretch" 
-                        Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}">
-                    <Image Height="28" Source="/Assets/recyclebinempty.ico"/>
+                <Button
+                    Width="{Binding RelativeSource={RelativeSource self}, Path=ActualHeight}"
+                    Margin="4"
+                    Padding="8"
+                    VerticalAlignment="Stretch"
+                    Background="Transparent"
+                    BorderBrush="Transparent">
+                    <Image Height="28" Source="/Assets/recyclebinempty.ico" />
                 </Button>
             </DockPanel>
         </Border>

@@ -23,10 +23,10 @@ namespace Shell11.Views
     /// </summary>
     public partial class TaskBarWindow : AppBarWindow
     {
-        private  IApplication application;
-        private  IDesktopManager _desktopManager;
-        private  ShellManager _shellManager;
-        private  IWindowManager _windowManager;
+        private IApplication application;
+        private IDesktopManager _desktopManager;
+        private ShellManager _shellManager;
+        private IWindowManager _windowManager;
 
         DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
 
@@ -35,11 +35,11 @@ namespace Shell11.Views
             InitializeComponent();
         }
 
-        public TaskBarWindow(IApplication Application, 
+        public TaskBarWindow(IApplication Application,
             ShellManager shellManager,
             IWindowManager windowManager,
             IDesktopManager desktopManager,
-            AppBarScreen screen, 
+            AppBarScreen screen,
             AppBarEdge edge, AppBarMode mode, double height = 56)
             : base(shellManager.AppBarManager, shellManager.ExplorerHelper, shellManager.FullScreenHelper, screen, edge, mode, height)
         {
@@ -63,7 +63,7 @@ namespace Shell11.Views
                 ProcessScreenChanges = false;
             }
 
-            DataContext = new TaskBarWindowViewModel(desktopManager,shellManager, screen, windowManager);
+            DataContext = new TaskBarWindowViewModel(desktopManager, shellManager, screen, windowManager);
 
             setupTaskbar();
 
@@ -94,11 +94,11 @@ namespace Shell11.Views
         #region 窗口重叠隐藏
         bool IsOverlapping(RECT rect1, RECT rect2)
         {
-            return !(rect1.Right < rect2.Left || rect1.Left > rect2.Right || 
+            return !(rect1.Right < rect2.Left || rect1.Left > rect2.Right ||
                 rect1.Bottom < rect2.Top || rect1.Top > rect2.Bottom);
         }
 
-        ICollectionView tasks; 
+        ICollectionView tasks;
         private void Timer_Tick(object? sender, EventArgs e)
         {
             foreach (var item in tasks)
@@ -109,8 +109,8 @@ namespace Shell11.Views
                     {
                         RECT rect = new RECT();
                         RECT rect1 = new RECT();
-                        GetWindowRect(window.Handle,ref rect);
-                        GetWindowRect(Handle,ref rect1);
+                        GetWindowRect(window.Handle, ref rect);
+                        GetWindowRect(Handle, ref rect1);
                         DisableAutoHide = !IsOverlapping(rect, rect1);
 
                         return;
@@ -165,12 +165,12 @@ namespace Shell11.Views
         public override void AfterAppBarPos(bool isSameCoords, NativeMethods.Rect rect)
         {
             base.AfterAppBarPos(isSameCoords, rect);
-            TaskBarWindow_SizeChanged(null,null);
+            TaskBarWindow_SizeChanged(null, null);
         }
         private async void TaskBarWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             await Task.Delay(200);
-            Left = (Screen.WorkingArea.Width - this.Width)/DpiScale / 2;
+            Left = (Screen.WorkingArea.Width/ DpiScale - this.Width) / 2;
         }
 
         private void SetDesktopPosition()
@@ -197,6 +197,35 @@ namespace Shell11.Views
         {
             ShellHelper.ShowWindowSwitcher();
 
+        }
+
+        private void quickLaunchList_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effects = DragDropEffects.Copy;
+            }
+
+            e.Handled = true;
+        }
+
+        private void quickLaunchList_Drop(object sender, DragEventArgs e)
+        {
+            string[] fileNames = e.Data.GetData(DataFormats.FileDrop) as string[];
+            if (fileNames != null)
+            {
+                var apps = ProgramsUtils.GetByPath(fileNames);
+                TaskBarWindowViewModel vm = DataContext as TaskBarWindowViewModel;
+                foreach (var item in apps)
+                {
+
+                    vm.PinnedPrograms.Add(item);
+                }
+
+                //_appGrabber.AddByPath(fileNames, AppCategoryType.QuickLaunch);
+            }
+
+            e.Handled = true;
         }
     }
 }

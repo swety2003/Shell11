@@ -1,31 +1,57 @@
-﻿<UserControl x:Class="Shell11.Views.SettingPages.MenuBarSettings"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Shell11.Views.SettingPages"
-             mc:Ignorable="d" 
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern" xmlns:viewmodels="clr-namespace:Shell11.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MenuBarSettingsViewModel}"
-             Margin="{StaticResource SettingsPageMargin}"
-             xmlns:settings="clr-namespace:Shell11.Common.Configuration;assembly=Shell11.Common"
-             xmlns:dd="urn:gong-wpf-dragdrop"
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="Shell11.Views.SettingPages.MenuBarSettings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="urn:gong-wpf-dragdrop"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:Shell11.Views.SettingPages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:settings="clr-namespace:Shell11.Common.Configuration;assembly=Shell11.Common"
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    xmlns:viewmodels="clr-namespace:Shell11.ViewModels"
+    Margin="{StaticResource SettingsPageMargin}"
+    d:DataContext="{d:DesignInstance Type=viewmodels:MenuBarSettingsViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <StackPanel>
 
 
-        <Border Visibility="Collapsed" Padding="0" Margin="0 2" Style="{StaticResource Style_SectionBorderStyle}">
-            <ToggleButton IsChecked="{Binding Source={x:Static settings:Settings.Instance},Path=EnableMenuBar}" BorderThickness="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Border
+            Margin="0,2"
+            Padding="0"
+            Style="{StaticResource Style_SectionBorderStyle}"
+            Visibility="Collapsed">
+            <ToggleButton
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                BorderThickness="0"
+                IsChecked="{Binding Source={x:Static settings:Settings.Instance}, Path=EnableMenuBar}">
                 <DockPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontSize="24" Margin="8 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right" 
-               DockPanel.Dock="Left" FontFamily="{StaticResource IconFontFamily}">&#xE66A;</TextBlock>
+                        <TextBlock
+                            Margin="8,0,16,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Left"
+                            FontFamily="{StaticResource IconFontFamily}"
+                            FontSize="24">
+                            &#xE66A;
+                        </TextBlock>
 
-                        <TextBlock VerticalAlignment="Center" FontSize="{StaticResource LargeFontSize}" Text="启用顶栏"/>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="{StaticResource LargeFontSize}"
+                            Text="启用顶栏" />
 
                     </StackPanel>
-                    <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" 
-                HorizontalAlignment="Right"  Orientation="Horizontal">
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        DockPanel.Dock="Right"
+                        Orientation="Horizontal">
 
                         <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource IconFontFamily}">&#xE76C;</TextBlock>
                     </StackPanel>
@@ -33,51 +59,73 @@
             </ToggleButton>
         </Border>
 
-        <FrameworkElement Name="proxy" DataContext="{Binding}"/>
+        <FrameworkElement Name="proxy" DataContext="{Binding}" />
 
-        <TextBlock Margin="0 4" FontSize="{StaticResource MediumTitleFontSize}" Text="扩展设置"/>
+        <TextBlock
+            Margin="0,4"
+            FontSize="{StaticResource MediumTitleFontSize}"
+            Text="扩展设置" />
 
-        <ItemsControl Name="items" ItemsSource="{Binding Extensions}"
-                      
-                      dd:DragDrop.UseDefaultDragAdorner="True"
-                      dd:DragDrop.IsDragSource="True"
-                      dd:DragDrop.IsDropTarget="True"
-                      dd:DragDrop.DropHandler="{Binding}"
-                      >
+        <ItemsControl
+            Name="items"
+            dd:DragDrop.DropHandler="{Binding}"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
+            dd:DragDrop.UseDefaultDragAdorner="True"
+            ItemsSource="{Binding Extensions}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border
-                            
-                        
-                        
-                            Padding="0" Margin="0 2" Style="{StaticResource Style_SectionBorderStyle}">
-                        
-                        <Button HorizontalContentAlignment="Stretch" Background="Transparent" BorderThickness="0" Height="64" HorizontalAlignment="Stretch"
-                                Command="{Binding ElementName=proxy,Path=DataContext.NavigateToCommand}" CommandParameter="{Binding}">
+                        Margin="0,2"
+                        Padding="0"
+                        Style="{StaticResource Style_SectionBorderStyle}">
+
+                        <Button
+                            Height="64"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Command="{Binding ElementName=proxy, Path=DataContext.NavigateToCommand}"
+                            CommandParameter="{Binding}">
                             <DockPanel>
                                 <StackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="24" Margin="8 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right" 
-                                           DockPanel.Dock="Left" FontFamily="{StaticResource IconFontFamily}">&#xEA86;</TextBlock>
-                                    
+                                    <TextBlock
+                                        Margin="8,0,16,0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        DockPanel.Dock="Left"
+                                        FontFamily="{StaticResource IconFontFamily}"
+                                        FontSize="24">
+                                        &#xEA86;
+                                    </TextBlock>
+
                                     <StackPanel>
 
-                                        <TextBlock FontSize="{StaticResource LargeFontSize}" Text="{Binding Title}"/>
+                                        <TextBlock FontSize="{StaticResource LargeFontSize}" Text="{Binding Title}" />
 
-                                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" 
-                                                   FontSize="{StaticResource MediumFontSize}" Text="{Binding Description}"/>
+                                        <TextBlock
+                                            FontSize="{StaticResource MediumFontSize}"
+                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                            Text="{Binding Description}" />
 
                                     </StackPanel>
                                 </StackPanel>
-                                <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" 
-                                            HorizontalAlignment="Right"  Orientation="Horizontal">
-                                    
-                                    <ui:ToggleSwitch TextElement.Foreground="Transparent" VerticalAlignment="Center" HorizontalAlignment="Right" 
-                                                     IsOn="{Binding IsEnabled}">
+                                <StackPanel
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    DockPanel.Dock="Right"
+                                    Orientation="Horizontal">
+
+                                    <ui:ToggleSwitch
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        IsOn="{Binding IsEnabled}"
+                                        TextElement.Foreground="Transparent">
                                         <i:Interaction.Triggers>
-                                        
+
                                             <i:PropertyChangedTrigger Binding="{Binding IsEnabled}">
-                                                <i:InvokeCommandAction Command="{Binding ElementName=proxy,Path=DataContext.EnableChangedCommand}" 
-                                                                       CommandParameter="{Binding}"/>
+                                                <i:InvokeCommandAction Command="{Binding ElementName=proxy, Path=DataContext.EnableChangedCommand}" CommandParameter="{Binding}" />
                                             </i:PropertyChangedTrigger>
                                         </i:Interaction.Triggers>
 
@@ -90,6 +138,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-            
+
     </StackPanel>
 </UserControl>

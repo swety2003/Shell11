@@ -1,78 +1,106 @@
-﻿<UserControl x:Class="Komorebi.Shell11Extensions.Views.ViewKH"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d"
-             AlignPanel.Alignment="Left"
-             Margin="6 0"
-             Name="root"
-             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:viewmodels="clr-namespace:TestLib.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ViewKHViewModel}"
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="Komorebi.Shell11Extensions.Views.ViewKH"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    xmlns:viewmodels="clr-namespace:TestLib.ViewModels"
+    Name="root"
+    Margin="6,0"
+    d:DataContext="{d:DesignInstance Type=viewmodels:ViewKHViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    AlignPanel.Alignment="Left"
+    mc:Ignorable="d">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Unloaded">
-            <i:InvokeCommandAction Command="{Binding UnloadCommand}"/>
+            <i:InvokeCommandAction Command="{Binding UnloadCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
 
         <Grid>
-            <ComboBox Width="100" ToolTip="Layout" ui:ControlHelper.CornerRadius="0" Height="24" Background="Transparent" Padding="12 0" VerticalAlignment="Center" BorderThickness="0" ItemsSource="{Binding Layouts}" SelectedValue="{Binding ActiveWorkspaceLayout}" />
+            <ComboBox
+                Width="100"
+                Height="24"
+                Padding="12,0"
+                VerticalAlignment="Center"
+                ui:ControlHelper.CornerRadius="0"
+                Background="Transparent"
+                BorderThickness="0"
+                ItemsSource="{Binding Layouts}"
+                SelectedValue="{Binding ActiveWorkspaceLayout}"
+                ToolTip="Layout" />
         </Grid>
 
-        <ListBox Height="auto" Margin="0" Padding="0" Grid.Column="1" BorderThickness="0" Background="Transparent" ItemsSource="{Binding Workspaces}" SelectedIndex="{Binding ActiveWorkspaceIndex}">
+        <ListBox
+            Grid.Column="1"
+            Height="auto"
+            Margin="0"
+            Padding="0"
+            Background="Transparent"
+            BorderThickness="0"
+            ItemsSource="{Binding Workspaces}"
+            SelectedIndex="{Binding ActiveWorkspaceIndex}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Cursor="Hand" MinWidth="32" Background="#01000000">
+                    <Grid
+                        MinWidth="32"
+                        Background="#01000000"
+                        Cursor="Hand">
                         <Grid.Resources>
                             <FrameworkElement x:Key="ProxyElement" DataContext="{Binding}" />
                         </Grid.Resources>
                         <Grid.ToolTip>
                             <ToolTip Visibility="Hidden">
-                                <TextBlock Text="23"/>
+                                <TextBlock Text="23" />
                             </ToolTip>
                         </Grid.ToolTip>
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Name}"/>
-                        <Border Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="12" Height="4" CornerRadius="2">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="{Binding Name}" />
+                        <Border
+                            Width="12"
+                            Height="4"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            CornerRadius="2"
+                            Visibility="Collapsed">
                             <i:Interaction.Triggers>
-                                <i:DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=IsSelected}"
-                                                           Value="true">
-                                    <i:ChangePropertyAction PropertyName="Background" Value="#0c76c0"/>
-                                    <i:ChangePropertyAction PropertyName="Width" Value="14"/>
+                                <i:DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" Value="true">
+                                    <i:ChangePropertyAction PropertyName="Background" Value="#0c76c0" />
+                                    <i:ChangePropertyAction PropertyName="Width" Value="14" />
                                 </i:DataTrigger>
-                                <i:DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=IsSelected}"
-                                                           Value="false">
-                                    <i:ChangePropertyAction PropertyName="Background" Value="#30000000"/>
-                                    <i:ChangePropertyAction PropertyName="Width" Value="8"/>
+                                <i:DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" Value="false">
+                                    <i:ChangePropertyAction PropertyName="Background" Value="#30000000" />
+                                    <i:ChangePropertyAction PropertyName="Width" Value="8" />
                                 </i:DataTrigger>
                             </i:Interaction.Triggers>
                         </Border>
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="ToolTipOpening">
-                                <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}
-                                    ,Path=DataContext.UpdateWorkspacePreviewCommand}"
-                                                       CommandParameter="{Binding}"/>
+                                <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.UpdateWorkspacePreviewCommand}" CommandParameter="{Binding}" />
                             </i:EventTrigger>
                             <i:EventTrigger EventName="ToolTipClosing">
-                                <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}
-                                    ,Path=DataContext.CloseWorkspacePreviewCommand}"
-                                                       />
+                                <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.CloseWorkspacePreviewCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
             <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
                 </Style>
             </ListBox.ItemContainerStyle>
 
@@ -81,29 +109,44 @@
 
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
+                    <StackPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
-        
-        <Border Margin="0" VerticalAlignment="Stretch" Grid.Column="2">
-            <Menu Background="Transparent" VerticalAlignment="Stretch">
-                <MenuItem  VerticalContentAlignment="Stretch">
+
+        <Border
+            Grid.Column="2"
+            Margin="0"
+            VerticalAlignment="Stretch">
+            <Menu VerticalAlignment="Stretch" Background="Transparent">
+                <MenuItem VerticalContentAlignment="Stretch">
                     <MenuItem.Header>
 
-                        <StackPanel Height="20" VerticalAlignment="Center" Orientation="Horizontal">
-                            <Border Margin="4 1" CornerRadius="0" Width="{Binding RelativeSource={RelativeSource self},Path=ActualHeight}">
+                        <StackPanel
+                            Height="20"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <Border
+                                Width="{Binding RelativeSource={RelativeSource self}, Path=ActualHeight}"
+                                Margin="4,1"
+                                CornerRadius="0">
                                 <Border.Background>
-                                    <ImageBrush ImageSource="{Binding WinICO}"/>
+                                    <ImageBrush ImageSource="{Binding WinICO}" />
                                 </Border.Background>
                             </Border>
-                            <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="{Binding ActiveWindow.Title}"/>
+                            <TextBlock
+                                Margin="4,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{Binding ActiveWindow.Title}" />
                         </StackPanel>
                     </MenuItem.Header>
-                    <MenuItem Header="移动到..." ItemsSource="{Binding Workspaces}" DisplayMemberPath="Name">
+                    <MenuItem
+                        DisplayMemberPath="Name"
+                        Header="移动到..."
+                        ItemsSource="{Binding Workspaces}">
                         <MenuItem.ItemContainerStyle>
-                            <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
-                                <Setter Property="Command" Value="{Binding RelativeSource={RelativeSource AncestorType=Menu},Path=DataContext.SendToWorkspaceCommand}" />
+                            <Style BasedOn="{StaticResource {x:Type MenuItem}}" TargetType="MenuItem">
+                                <Setter Property="Command" Value="{Binding RelativeSource={RelativeSource AncestorType=Menu}, Path=DataContext.SendToWorkspaceCommand}" />
                                 <Setter Property="CommandParameter" Value="{Binding Name}" />
                             </Style>
                         </MenuItem.ItemContainerStyle>

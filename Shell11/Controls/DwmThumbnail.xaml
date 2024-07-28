@@ -1,9 +1,10 @@
-﻿<UserControl x:Class="Shell11.Controls.DwmThumbnail"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Height="100" 
-             Width="180" 
-             SizeChanged="UserControl_SizeChanged"
-             LayoutUpdated="UserControl_LayoutUpdated"
-             Initialized="UserControl_Initialized" 
-             Unloaded="UserControl_Unloaded" />
+﻿<UserControl
+    x:Class="Shell11.Controls.DwmThumbnail"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Width="180"
+    Height="100"
+    Initialized="UserControl_Initialized"
+    LayoutUpdated="UserControl_LayoutUpdated"
+    SizeChanged="UserControl_SizeChanged"
+    Unloaded="UserControl_Unloaded" />
