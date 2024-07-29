@@ -82,7 +82,7 @@ public partial class QuickLaunchButton : IConfigurationChangeAware
         MenuItem item = (MenuItem)sender;
         ApplicationInfo app = item.DataContext as ApplicationInfo;
 
-        //ParentTaskbar._appGrabber.RemoveAppConfirm(app, null);
+        ProgramsUtils.PinnedPrograms.Remove(app);
     }
 
     private void programsMenu_Rename(object sender, RoutedEventArgs e)
@@ -131,16 +131,16 @@ public partial class QuickLaunchButton : IConfigurationChangeAware
         if (fileNames != null)
         {
             // todo 
-            //int dropIndex = ParentTaskbar._appGrabber.QuickLaunch.IndexOf(replacedApp);
-            //ParentTaskbar._appGrabber.InsertByPath(fileNames, dropIndex, AppCategoryType.QuickLaunch);
+            int dropIndex = ProgramsUtils.PinnedPrograms.IndexOf(replacedApp);
+            ProgramsUtils.InsertByPath(fileNames, dropIndex);
         }
         else if (e.Data.GetDataPresent(typeof(ApplicationInfo)))
         {
             ApplicationInfo dropData = e.Data.GetData(typeof(ApplicationInfo)) as ApplicationInfo;
 
-            //int initialIndex = ParentTaskbar._appGrabber.QuickLaunch.IndexOf(dropData);
-            //int dropIndex = ParentTaskbar._appGrabber.QuickLaunch.IndexOf(replacedApp);
-            //ParentTaskbar._appGrabber.QuickLaunch.Move(initialIndex, dropIndex);
+            int initialIndex = ProgramsUtils.PinnedPrograms.IndexOf(dropData);
+            int dropIndex = ProgramsUtils.PinnedPrograms.IndexOf(replacedApp);
+            ProgramsUtils.PinnedPrograms.Move(initialIndex, dropIndex);
             //ParentTaskbar._appGrabber.Save();
         }
 

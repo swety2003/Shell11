@@ -4,21 +4,20 @@ using ManagedShell.Common.Logging;
 using ManagedShell.ShellFolders.Interfaces;
 using ManagedShell.ShellFolders;
 using Shell11.Common.Models;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Security;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
+using ManagedShell.WindowsTasks;
 
 namespace Shell11.Common.Utils
 {
     public static class ProgramsUtils
     {
+        public static ObservableCollection<ApplicationInfo> PinnedPrograms { get; } = 
+            new ObservableCollection<ApplicationInfo>();
+
         public static void LaunchProgramVerb(ApplicationInfo app, string verb)
         {
             if (app == null)
@@ -45,7 +44,7 @@ namespace Shell11.Common.Utils
                 return;
             }
 
-            LaunchProgramVerb(app, "runas");
+            LaunchProgramVerb(app, "runas"); 
         }
 
         static void OnFileNotFound()
@@ -230,5 +229,83 @@ namespace Shell11.Common.Utils
             }
         }
 
+        public static void InsertByPath(string[] fileNames, int index)
+        {
+            foreach (string fileName in fileNames)
+            {
+                if (!ShellHelper.Exists(fileName))
+                {
+                    continue;
+                }
+
+                ApplicationInfo customApp = PathToApp(fileName, false, true);
+                if (ReferenceEquals(customApp, null))
+                {
+                    continue;
+                }
+
+                if (index >= 0) PinnedPrograms.Insert(index, customApp);
+                else PinnedPrograms.Add(customApp);
+                //count++;
+            }
+
+        }
+
+        public static ApplicationInfo? GetQuickLaunchApplicationInfo(ApplicationWindow window)
+        {
+            foreach (ApplicationInfo ai in PinnedPrograms)
+            {
+                if (ai.Target.ToLower() == window.WinFileName.ToLower() || (window.IsUWP && ai.Target == window.AppUserModelID))
+                {
+                    return ai;
+                }
+
+                if (window.Title.ToLower().Contains(ai.Name.ToLower()))
+                {
+                    return ai;
+                }
+            }
+
+            return null;
+
+        }
+
+        public static void AddToQuickLaunch(bool isUWP, string path)
+        {
+            if (isUWP)
+            {
+                // store app, do special stuff
+                ProgramsUtils.AddStoreApp(path);
+            }
+            else
+            {
+                ProgramsUtils.AddByPath(new string[] { path });
+            }
+        }
+
+        public static void AddByPath(string[] fileNames)
+        {
+            InsertByPath(fileNames, -1);
+        }
+
+        public static void AddStoreApp(string appUserModelId)
+        {
+            var storeApp = ManagedShell.UWPInterop.StoreAppHelper.AppList.GetAppByAumid(appUserModelId);
+
+            if (storeApp == null)
+            {
+                return;
+            }
+
+            ApplicationInfo ai = ApplicationInfo.FromStoreApp(storeApp);
+
+            PinnedPrograms .Add(ai);    
+            // add it
+            //if (!ReferenceEquals(ai, null))
+            //{
+            //    CategoryList.GetSpecialCategory(categoryType).Add(ai);
+            //    Save();
+            //}
+        }
     }
 }

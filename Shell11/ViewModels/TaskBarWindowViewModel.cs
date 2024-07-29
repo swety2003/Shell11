@@ -31,8 +31,8 @@ namespace Shell11.ViewModels
 
         public ICollectionView GroupedWindows { get; private set; }
 
-        [ObservableProperty]
-        ObservableCollection<ApplicationInfo> pinnedPrograms = new ObservableCollection<ApplicationInfo>();
+        //[ObservableProperty]
+        public ObservableCollection<ApplicationInfo> PinnedPrograms => ProgramsUtils.PinnedPrograms;
 
         public TaskBarWindowViewModel(IDesktopManager desktopManager, ShellManager shellManager, AppBarScreen screen, IWindowManager windowManager)
         {

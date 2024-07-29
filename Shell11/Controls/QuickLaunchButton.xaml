@@ -30,21 +30,21 @@
                 Source="{Binding Path=Icon, Mode=OneWay}" />
             <Button.ContextMenu>
                 <ContextMenu Opened="ContextMenu_Opened">
-                    <MenuItem Click="programsMenu_Open" Header="Interface_Open)}" />
+                    <MenuItem Click="programsMenu_Open" Header="打开" />
                     <MenuItem
                         Name="miProgramsItemAdmin"
                         Click="programsMenu_OpenAsAdmin"
-                        Header="OpenAsAdministrator)}" />
+                        Header="以管理员身份运行" />
                     <MenuItem
                         Name="miProgramsItemRunAs"
                         Click="programsMenu_OpenRunAs"
                         Header="RunAsUser)}"
                         Visibility="Collapsed" />
                     <Separator />
-                    <MenuItem Click="programsMenu_Rename" Header="Rename)}" />
-                    <MenuItem Click="programsMenu_Remove" Header="RemoveFromMenu)}" />
+                    <MenuItem Click="programsMenu_Rename" Header="重命名" />
+                    <MenuItem Click="programsMenu_Remove" Header="取消固定" />
                     <Separator />
-                    <MenuItem Click="programsMenu_Properties" Header="Properties)}" />
+                    <MenuItem Click="programsMenu_Properties" Header="属性" />
                 </ContextMenu>
             </Button.ContextMenu>
         </Button>

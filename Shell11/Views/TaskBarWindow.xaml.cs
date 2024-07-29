@@ -79,6 +79,8 @@ namespace Shell11.Views
 
         }
 
+        internal TaskBarWindowViewModel ViewModel => DataContext as TaskBarWindowViewModel;
+
         private void TaskBarWindow_Closed(object? sender, EventArgs e)
         {
             timer.Stop();
@@ -219,7 +221,7 @@ namespace Shell11.Views
                 foreach (var item in apps)
                 {
 
-                    vm.PinnedPrograms.Add(item);
+                    ProgramsUtils.PinnedPrograms.Add(item);
                 }
 
                 //_appGrabber.AddByPath(fileNames, AppCategoryType.QuickLaunch);

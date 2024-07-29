@@ -93,11 +93,11 @@
                     MinWidth="30"
                     Margin="4"
                     HorizontalAlignment="Stretch"
-                    ui:ControlHelper.PlaceholderText="222"
                     AllowDrop="True"
                     DragEnter="quickLaunchList_DragEnter"
                     Drop="quickLaunchList_Drop"
-                    ItemsSource="{Binding PinnedPrograms}">
+                    ItemsSource="{Binding PinnedPrograms}"
+                    ToolTip="拖至此处以固定应用程序">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Margin="0" Orientation="Horizontal" />

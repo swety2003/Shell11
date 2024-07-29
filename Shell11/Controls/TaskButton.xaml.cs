@@ -13,6 +13,7 @@ using Shell11.Views;
 using Shell11.Common.Configuration;
 using Shell11.ViewModels;
 using System.Threading.Tasks;
+using Shell11.Common.Utils;
 
 namespace Shell11.Controls
 {
@@ -311,11 +312,11 @@ namespace Shell11.Controls
             NativeMethods.WindowShowStyle wss = window.ShowStyle;
             int ws = window.WindowStyles;
 
-            // show pin option if this app is not yet in quick launch
-            //if (ParentTaskbar._appGrabber.QuickLaunchManager.GetQuickLaunchApplicationInfo(window) == null)
-            //{
-            //    pinVisibility = Visibility.Visible;
-            //}
+            //show pin option if this app is not yet in quick launch
+            if (ProgramsUtils.GetQuickLaunchApplicationInfo(window) == null)
+            {
+                pinVisibility = Visibility.Visible;
+            }
 
             miPin.Visibility = pinVisibility;
             miPinSeparator.Visibility = pinVisibility;
@@ -390,7 +391,7 @@ namespace Shell11.Controls
 
             if (toPin != null)
             {
-                //ParentTaskbar._appGrabber.QuickLaunchManager.AddToQuickLaunch(toPin.IsUWP, toPin.IsUWP ? toPin.AppUserModelID : toPin.WinFileName);
+                ProgramsUtils.AddToQuickLaunch(toPin.IsUWP, toPin.IsUWP ? toPin.AppUserModelID : toPin.WinFileName);
             }
         }
 
