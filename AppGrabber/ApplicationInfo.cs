@@ -1,18 +1,12 @@
-﻿using ManagedShell.Common.Enums;
-using ManagedShell.Common.Helpers;
-using Shell11.Common.Configuration;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
+using ManagedShell.Common.Enums;
+using ManagedShell.Common.Helpers;
 
-namespace Shell11.Common.Models
+namespace AppGrabber
 {
-
+    [Serializable()]
     public class ApplicationInfo : IEquatable<ApplicationInfo>, IComparable<ApplicationInfo>, INotifyPropertyChanged
     {
         /// <summary>
@@ -205,20 +199,20 @@ namespace Shell11.Common.Models
             }
         }
 
-        //private Category category;
-        ///// <summary>
-        ///// The Category object to which this ApplicationInfo object belongs.
-        ///// Note: DO NOT ASSIGN MANUALLY. This property should only be set by a Category object when adding/removing from its internal list.
-        ///// </summary>
-        //public Category Category
-        //{
-        //    get { return category; }
-        //    set
-        //    {
-        //        category = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        private Category category;
+        /// <summary>
+        /// The Category object to which this ApplicationInfo object belongs.
+        /// Note: DO NOT ASSIGN MANUALLY. This property should only be set by a Category object when adding/removing from its internal list.
+        /// </summary>
+        public Category Category
+        {
+            get { return category; }
+            set
+            {
+                category = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         public override string ToString()
@@ -245,8 +239,8 @@ namespace Shell11.Common.Models
         private ImageSource GetAssociatedIcon()
         {
             IconSize size = IconSize.Small;
-            //if (Category != null && Category.Type == AppCategoryType.QuickLaunch && Settings.Instance.TaskbarIconSize != IconSize.Small)
-            size = IconSize.Large;
+            if (Category != null && Category.Type == AppCategoryType.QuickLaunch)
+                size = IconSize.Large;
 
             return GetIconImageSource(size);
         }
@@ -359,4 +353,5 @@ namespace Shell11.Common.Models
         }
         #endregion
     }
+
 }

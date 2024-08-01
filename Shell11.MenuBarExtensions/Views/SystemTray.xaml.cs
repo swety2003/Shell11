@@ -83,7 +83,7 @@ namespace Shell11.MenuBarExtensions.Views
 
             if (sourceItem != null && targetItem != null)// && targetItem.CanAcceptChildren)
             {
-                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.Move;
             }
         }

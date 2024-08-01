@@ -5,14 +5,8 @@
     xmlns:appbar="clr-namespace:ManagedShell.AppBar;assembly=ManagedShell.AppBar"
     xmlns:controls="clr-namespace:Shell11.Common.Controls;assembly=Shell11.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:dd="urn:gong-wpf-dragdrop"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:local="clr-namespace:Shell11"
-    xmlns:m="clr-namespace:iNKORE.UI.WPF.Modern.Markup;assembly=iNKORE.UI.WPF.Modern"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:selectors="clr-namespace:Shell11.Common.Selectors;assembly=Shell11.Common"
-    xmlns:services="clr-namespace:Shell11.Services"
-    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     xmlns:vm="clr-namespace:Shell11.ViewModels"
     Title="MainWindow"
     Width="800"
@@ -98,9 +92,7 @@
         <ItemsControl Grid.Column="1" ItemsSource="{Binding MenuExtras}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border>
-                        <ContentPresenter />
-                    </Border>
+                    <ContentPresenter />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>

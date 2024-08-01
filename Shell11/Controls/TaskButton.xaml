@@ -15,8 +15,7 @@
     </UserControl.Resources>
     <Button
         x:Name="btn"
-        Margin="0,2"
-        Padding="12"
+        Margin="0"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         HorizontalContentAlignment="Left"
@@ -118,28 +117,6 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Border
-                x:Name="indicator"
-                Width="6"
-                Height="4"
-                Margin="0,-8"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Bottom"
-                Background="{DynamicResource ControlStrongFillColorDefaultBrush}"
-                CornerRadius="2">
-
-                <i:Interaction.Triggers>
-                    <i:DataTrigger Binding="{Binding State}" Value="0">
-                        <i:ChangePropertyAction PropertyName="Background" Value="{DynamicResource AccentFillColorDefaultBrush}" />
-                        <i:ChangePropertyAction PropertyName="Width" Value="12" />
-                    </i:DataTrigger>
-                    <i:DataTrigger Binding="{Binding State}" Value="1">
-                        <i:ChangePropertyAction PropertyName="Background" Value="{DynamicResource ControlStrongFillColorDefaultBrush}" />
-                        <i:ChangePropertyAction PropertyName="Width" Value="6" />
-                    </i:DataTrigger>
-                </i:Interaction.Triggers>
-            </Border>
-
 
             <ProgressBar
                 Name="pbProgress"
@@ -167,7 +144,8 @@
                 Grid.Column="1"
                 Margin="12,0"
                 VerticalAlignment="Center"
-                Text="{Binding Path=Title, Mode=OneWay}" />
+                Text="{Binding Path=Title, Mode=OneWay}"
+                TextTrimming="CharacterEllipsis" />
         </Grid>
     </Button>
 </UserControl>

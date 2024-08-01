@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shell11.MenuBarExtensions",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Komorebi.Shell11Extensions", "Komorebi.Shell11Extensions\Komorebi.Shell11Extensions.csproj", "{0DF0AF10-9DC1-4254-A652-F6047E863E4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppGrabber", "AppGrabber\AppGrabber.csproj", "{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{0DF0AF10-9DC1-4254-A652-F6047E863E4B}.Release|ARM64.Build.0 = Release|Any CPU
 		{0DF0AF10-9DC1-4254-A652-F6047E863E4B}.Release|x64.ActiveCfg = Release|Any CPU
 		{0DF0AF10-9DC1-4254-A652-F6047E863E4B}.Release|x64.Build.0 = Release|Any CPU
+		{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}.Debug|x64.Build.0 = Debug|Any CPU
+		{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}.Release|ARM64.Build.0 = Release|Any CPU
+		{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}.Release|x64.ActiveCfg = Release|Any CPU
+		{6A8B834B-E9B3-41FD-99A3-2C9563E76BE6}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

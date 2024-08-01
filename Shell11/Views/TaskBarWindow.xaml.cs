@@ -1,4 +1,5 @@
-﻿using ManagedShell;
+﻿using AppGrabber;
+using ManagedShell;
 using ManagedShell.AppBar;
 using ManagedShell.Common.Helpers;
 using ManagedShell.Interop;
@@ -27,6 +28,9 @@ namespace Shell11.Views
         private IDesktopManager _desktopManager;
         private ShellManager _shellManager;
         private IWindowManager _windowManager;
+        private IAppGrabber appGrabber;
+
+        public IAppGrabber AppGrabber => appGrabber;
 
         DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
 
@@ -39,13 +43,15 @@ namespace Shell11.Views
             ShellManager shellManager,
             IWindowManager windowManager,
             IDesktopManager desktopManager,
+            IAppGrabber appGrabber,
             AppBarScreen screen,
-            AppBarEdge edge, AppBarMode mode, double height = 56)
+            AppBarEdge edge, AppBarMode mode, double height = 52)
             : base(shellManager.AppBarManager, shellManager.ExplorerHelper, shellManager.FullScreenHelper, screen, edge, mode, height)
         {
             InitializeComponent();
             this.application = Application;
             _desktopManager = desktopManager;
+            this.appGrabber = appGrabber;
             _shellManager = shellManager;
             this._windowManager = windowManager;
 
@@ -63,7 +69,7 @@ namespace Shell11.Views
                 ProcessScreenChanges = false;
             }
 
-            DataContext = new TaskBarWindowViewModel(desktopManager, shellManager, screen, windowManager);
+            DataContext = new TaskBarWindowViewModel(desktopManager,appGrabber, shellManager, screen, windowManager);
 
             setupTaskbar();
 
@@ -216,15 +222,7 @@ namespace Shell11.Views
             string[] fileNames = e.Data.GetData(DataFormats.FileDrop) as string[];
             if (fileNames != null)
             {
-                var apps = ProgramsUtils.GetByPath(fileNames);
-                TaskBarWindowViewModel vm = DataContext as TaskBarWindowViewModel;
-                foreach (var item in apps)
-                {
-
-                    ProgramsUtils.PinnedPrograms.Add(item);
-                }
-
-                //_appGrabber.AddByPath(fileNames, AppCategoryType.QuickLaunch);
+                AppGrabber.AddByPath(fileNames, AppCategoryType.QuickLaunch);
             }
 
             e.Handled = true;

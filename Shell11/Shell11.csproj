@@ -16,6 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\AppGrabber\AppGrabber.csproj" />
 	  <ProjectReference Include="..\Shell11.Common\Shell11.Common.csproj" />
 	</ItemGroup>
 

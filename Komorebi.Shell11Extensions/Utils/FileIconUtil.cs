@@ -1,8 +1,14 @@
 ﻿using Komorebi.Shell11Extensions.Extensions;
+using ManagedShell.Common.Enums;
+using ManagedShell.Common.Helpers;
+using ManagedShell.Interop;
+using ManagedShell.UWPInterop;
+using ManagedShell.WindowsTasks;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +31,68 @@ namespace Komorebi.Shell11Extensions.Utils
             // ico = Imaging.CreateBitmapSourceFromHBitmap(ico_bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             ico = ico_bmp.ToImageSource();
             return ico;
+        }
+
+        internal static ImageSource? GetImgByHandle(IntPtr Handle)
+        {
+            ImageSource? Icon = null;
+            IntPtr retval = default;
+            uint messageId = 127u;
+            uint messageId2 = 55u;
+            int longClass = -14;
+            int longClass2 = -34;
+            IconSize taskIconSize = IconSize.Medium;
+            if (taskIconSize == IconSize.Small)
+            {
+                NativeMethods.SendMessageTimeout(Handle, messageId, 2u, 0u, 2u, 1000u, ref retval);
+                if (retval == IntPtr.Zero)
+                {
+                    NativeMethods.SendMessageTimeout(Handle, messageId, 0u, 0u, 2u, 1000u, ref retval);
+                }
+            }
+            else
+            {
+                NativeMethods.SendMessageTimeout(Handle, messageId, 1u, 0u, 2u, 1000u, ref retval);
+            }
+
+            if (retval == IntPtr.Zero && taskIconSize == IconSize.Small)
+            {
+                retval = (Environment.Is64BitProcess ? NativeMethods.GetClassLongPtr(Handle, longClass2) : NativeMethods.GetClassLong(Handle, longClass2));
+            }
+
+            if (retval == IntPtr.Zero)
+            {
+                retval = (Environment.Is64BitProcess ? NativeMethods.GetClassLongPtr(Handle, longClass) : NativeMethods.GetClassLong(Handle, longClass));
+            }
+
+            if (retval == IntPtr.Zero)
+            {
+                NativeMethods.SendMessageTimeout(Handle, messageId2, 0u, 0u, 0u, 1000u, ref retval);
+            }
+
+
+            if (retval != IntPtr.Zero)
+            {
+                if(true)
+                {
+                    //_hIcon = retval;
+                    //bool returnDefault = _icon == null;
+                    ImageSource imageFromHIcon = IconImageConverter.GetImageFromHIcon(retval, false);
+                    if (imageFromHIcon != null)
+                    {
+                        imageFromHIcon.Freeze();
+                        Icon = imageFromHIcon;
+                    }
+                }
+                else
+                {
+                    NativeMethods.DestroyIcon(retval);
+                }
+            }
+
+            return Icon;
+
+
         }
 
         #region Decompiled from extracticon.exe by dnspy.

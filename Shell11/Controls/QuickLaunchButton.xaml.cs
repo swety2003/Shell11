@@ -3,11 +3,10 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using AppGrabber;
 using ManagedShell.Common.Helpers;
 using Shell11.Common.Application.Contracts;
 using Shell11.Common.Configuration;
-using Shell11.Common.Models;
-using Shell11.Common.Utils;
 using Shell11.Views;
 
 namespace Shell11.Controls;
@@ -50,7 +49,7 @@ public partial class QuickLaunchButton : IConfigurationChangeAware
         Button item = (Button)sender;
         ApplicationInfo app = (ApplicationInfo)item.DataContext;
 
-        ProgramsUtils.LaunchProgram(app);
+        ParentTaskbar.AppGrabber.LaunchProgram(app);
     }
 
     private void programsMenu_Open(object sender, RoutedEventArgs e)
@@ -58,7 +57,7 @@ public partial class QuickLaunchButton : IConfigurationChangeAware
         MenuItem item = (MenuItem)sender;
         ApplicationInfo app = item.DataContext as ApplicationInfo;
 
-        ProgramsUtils.LaunchProgram(app);
+        ParentTaskbar.AppGrabber.LaunchProgram(app);
     }
 
     private void programsMenu_OpenAsAdmin(object sender, RoutedEventArgs e)
@@ -66,7 +65,7 @@ public partial class QuickLaunchButton : IConfigurationChangeAware
         MenuItem item = (MenuItem)sender;
         ApplicationInfo app = item.DataContext as ApplicationInfo;
 
-        ProgramsUtils.LaunchProgramAdmin(app);
+        ParentTaskbar.AppGrabber.LaunchProgramAdmin(app);
     }
 
     private void programsMenu_OpenRunAs(object sender, RoutedEventArgs e)
@@ -74,7 +73,7 @@ public partial class QuickLaunchButton : IConfigurationChangeAware
         MenuItem item = (MenuItem)sender;
         ApplicationInfo app = item.DataContext as ApplicationInfo;
 
-        ProgramsUtils.LaunchProgramVerb(app, "runasuser");
+        ParentTaskbar.AppGrabber.LaunchProgramVerb(app, "runasuser");
     }
 
     private void programsMenu_Remove(object sender, RoutedEventArgs e)
@@ -82,7 +81,7 @@ public partial class QuickLaunchButton : IConfigurationChangeAware
         MenuItem item = (MenuItem)sender;
         ApplicationInfo app = item.DataContext as ApplicationInfo;
 
-        ProgramsUtils.PinnedPrograms.Remove(app);
+        ParentTaskbar.AppGrabber.QuickLaunch.Remove(app);
     }
 
     private void programsMenu_Rename(object sender, RoutedEventArgs e)
@@ -131,16 +130,16 @@ public partial class QuickLaunchButton : IConfigurationChangeAware
         if (fileNames != null)
         {
             // todo 
-            int dropIndex = ProgramsUtils.PinnedPrograms.IndexOf(replacedApp);
-            ProgramsUtils.InsertByPath(fileNames, dropIndex);
+            int dropIndex = ParentTaskbar.AppGrabber.QuickLaunch.IndexOf(replacedApp);
+            //ParentTaskbar.AppGrabber.QuickLaunchManager.InsertByPath(fileNames, dropIndex);
         }
         else if (e.Data.GetDataPresent(typeof(ApplicationInfo)))
         {
             ApplicationInfo dropData = e.Data.GetData(typeof(ApplicationInfo)) as ApplicationInfo;
 
-            int initialIndex = ProgramsUtils.PinnedPrograms.IndexOf(dropData);
-            int dropIndex = ProgramsUtils.PinnedPrograms.IndexOf(replacedApp);
-            ProgramsUtils.PinnedPrograms.Move(initialIndex, dropIndex);
+            int initialIndex = ParentTaskbar.AppGrabber.QuickLaunch.IndexOf(dropData);
+            int dropIndex = ParentTaskbar.AppGrabber.QuickLaunch.IndexOf(replacedApp);
+            ParentTaskbar.AppGrabber.QuickLaunch.Move(initialIndex, dropIndex);
             //ParentTaskbar._appGrabber.Save();
         }
 

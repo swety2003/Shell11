@@ -30,12 +30,17 @@ namespace Komorebi.Shell11Extensions.Utils
 
             try
             {
-                uint hicon = Windows.Win32.PInvoke.GetClassLong(hwnd, Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX.GCL_HICON);
-                if (hicon > 0)
+                var ico = FileIconUtil.GetImgByHandle(hwnd);
+                if (ico!=null)
                 {
-                    var bmp = Bitmap.FromHicon(new IntPtr(hicon));
-                    return bmp.ToImageSource();
+                    return ico;
                 }
+                //uint hicon = Windows.Win32.PInvoke.GetClassLong(hwnd, Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX.GCL_HICON);
+                //if (hicon > 0)
+                //{
+                //    var bmp = Bitmap.FromHicon(new IntPtr(hicon));
+                //    return bmp.ToImageSource();
+                //}
                 else
                 {
 

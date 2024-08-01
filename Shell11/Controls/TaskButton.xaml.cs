@@ -223,7 +223,7 @@ namespace Shell11.Controls
         {
             if (!ListMode)
             {
-                WinTitle.Visibility = Settings.Instance.ShowTaskbarLabels? Visibility.Visible : Visibility.Collapsed;
+                WinTitle.Visibility = Settings.Instance.ShowTaskbarLabels ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
@@ -313,7 +313,7 @@ namespace Shell11.Controls
             int ws = window.WindowStyles;
 
             //show pin option if this app is not yet in quick launch
-            if (ProgramsUtils.GetQuickLaunchApplicationInfo(window) == null)
+            if (ParentTaskbar.AppGrabber.QuickLaunchManager.GetQuickLaunchApplicationInfo(window) == null)
             {
                 pinVisibility = Visibility.Visible;
             }
@@ -391,7 +391,7 @@ namespace Shell11.Controls
 
             if (toPin != null)
             {
-                ProgramsUtils.AddToQuickLaunch(toPin.IsUWP, toPin.IsUWP ? toPin.AppUserModelID : toPin.WinFileName);
+                ParentTaskbar.AppGrabber.QuickLaunchManager.AddToQuickLaunch(toPin.IsUWP, toPin.IsUWP ? toPin.AppUserModelID : toPin.WinFileName);
             }
         }
 

@@ -20,6 +20,8 @@ namespace Shell11.Common.Configuration
 
         public static Settings Default => new Settings();
 
+        public string FileManager { get; internal set; } = "%WINDIR%\\explorer.exe";
+
         public static void Load()
         {
             if (File.Exists(CONFIG_FILE))

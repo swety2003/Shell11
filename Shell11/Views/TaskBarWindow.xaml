@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dd="urn:gong-wpf-dragdrop"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:Shell11.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:settings="clr-namespace:Shell11.Common.Configuration;assembly=Shell11.Common"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
@@ -91,7 +92,7 @@
                 <ListView
                     Name="quickLaunchList"
                     MinWidth="30"
-                    Margin="4"
+                    Margin="2"
                     HorizontalAlignment="Stretch"
                     AllowDrop="True"
                     DragEnter="quickLaunchList_DragEnter"
@@ -109,7 +110,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                        <controls:QuickLaunchButton VerticalAlignment="Stretch" />
+                                        <controls:QuickLaunchButton VerticalAlignment="Stretch" ParentTaskbar="{Binding RelativeSource={RelativeSource AncestorType=local:TaskBarWindow}}" />
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -169,14 +170,39 @@
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="GroupItem">
                                                             <ContentControl>
-                                                                <Border Margin="0,0,-1,0" BorderThickness="0">
+                                                                <Grid>
+                                                                    <Border
+                                                                        x:Name="indicator"
+                                                                        Width="6"
+                                                                        Height="4"
+                                                                        Margin="0,0,0,4"
+                                                                        HorizontalAlignment="Stretch"
+                                                                        VerticalAlignment="Bottom"
+                                                                        Panel.ZIndex="1"
+                                                                        Background="{DynamicResource ControlStrongFillColorDefaultBrush}"
+                                                                        CornerRadius="2">
+
+                                                                        <i:Interaction.Triggers>
+                                                                            <i:DataTrigger Binding="{Binding State}" Value="0">
+                                                                                <i:ChangePropertyAction PropertyName="Background" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                                                                <i:ChangePropertyAction PropertyName="Width" Value="12" />
+                                                                            </i:DataTrigger>
+                                                                            <i:DataTrigger Binding="{Binding State}" Value="1">
+                                                                                <i:ChangePropertyAction PropertyName="Background" Value="{DynamicResource ControlStrongFillColorDefaultBrush}" />
+                                                                                <i:ChangePropertyAction PropertyName="Width" Value="6" />
+                                                                            </i:DataTrigger>
+                                                                        </i:Interaction.Triggers>
+                                                                    </Border>
+
+
                                                                     <controls:TaskButton
                                                                         Width="{Binding RelativeSource={RelativeSource self}, Path=ActualHeight}"
+                                                                        Margin="2"
                                                                         DataContext="{Binding Converter={StaticResource groupConverter}}"
                                                                         ListMode="False"
                                                                         ParentTaskbar="{Binding RelativeSource={RelativeSource AncestorType=appbar:AppBarWindow}}" />
 
-                                                                </Border>
+                                                                </Grid>
                                                             </ContentControl>
                                                         </ControlTemplate>
                                                     </Setter.Value>

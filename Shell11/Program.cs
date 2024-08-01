@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AppGrabber;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Shell11.Common.Application.Contracts;
@@ -46,6 +47,7 @@ namespace Shell11
                     services.AddSingleton<IApplication, App>();
                     services.AddSingleton<IWindowManager, WindowManager>();
                     services.AddSingleton<IDesktopManager, DesktopManager>();
+                    services.AddSingleton<IAppGrabber, AppGrabberService>();
 
                     services.AddSingleton<IWindowService, MenuBarWindowService>();
                     services.AddSingleton<IWindowService, TaskbarWindowService>();

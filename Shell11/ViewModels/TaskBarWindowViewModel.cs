@@ -1,27 +1,24 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AppGrabber;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using GongSolutions.Wpf.DragDrop;
 using ManagedShell;
 using ManagedShell.AppBar;
 using ManagedShell.Common.Helpers;
 using ManagedShell.WindowsTasks;
 using Shell11.Common.Application.Contracts;
 using Shell11.Common.Configuration;
-using Shell11.Common.Models;
 using Shell11.Common.Utils;
 using Shell11.Interfaces;
-using Shell11.Services;
 using System;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Windows;
 
 namespace Shell11.ViewModels
 {
     internal partial class TaskBarWindowViewModel : ObservableObject,IDisposable, IConfigurationChangeAware
     {
         private IDesktopManager desktopManager;
+        private readonly IAppGrabber appGrabber;
         private ShellManager _shellManager;
         private AppBarScreen screen;
         private IWindowManager _windowManager;
@@ -32,11 +29,12 @@ namespace Shell11.ViewModels
         public ICollectionView GroupedWindows { get; private set; }
 
         //[ObservableProperty]
-        public ObservableCollection<ApplicationInfo> PinnedPrograms => ProgramsUtils.PinnedPrograms;
+        public Category PinnedPrograms => appGrabber.QuickLaunch;
 
-        public TaskBarWindowViewModel(IDesktopManager desktopManager, ShellManager shellManager, AppBarScreen screen, IWindowManager windowManager)
+        public TaskBarWindowViewModel(IDesktopManager desktopManager, IAppGrabber appGrabber, ShellManager shellManager, AppBarScreen screen, IWindowManager windowManager)
         {
             this.desktopManager = desktopManager;
+            this.appGrabber = appGrabber;
             this._shellManager = shellManager;
             this.screen = screen;
             this._windowManager = windowManager;
@@ -63,6 +61,12 @@ namespace Shell11.ViewModels
         void ShowStartMenu()
         {
             ShellHelper.ShowStartMenu();
+        }
+
+        [RelayCommand]
+        void ShowDesktop()
+        {
+            ShellHelper.ShowStartContextMenu();
         }
 
         private bool Tasks_Filter(object obj)

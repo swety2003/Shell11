@@ -1,4 +1,5 @@
 ﻿using ManagedShell.Common.Helpers;
+using Shell11.Common.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace Shell11.Common.Utils
 {
     // TODO: Convert this to a service that uses DI to get IDesktopManager and require consumers to get it from ServiceProvider or DI
-    class FolderHelper
+    public class FolderHelper
     {
         public static bool OpenLocation(string path)
         {
@@ -34,15 +35,14 @@ namespace Shell11.Common.Utils
 
         public static bool OpenWithShell(string path)
         {
-            throw new NotImplementedException();
             //var desktopManager = CairoApplication.Current.Host.Services.GetService<IDesktopManager>();
 
             //desktopManager.IsOverlayOpen = false;
 
-            //var args = Environment.ExpandEnvironmentVariables(path);
-            //var filename = Environment.ExpandEnvironmentVariables(Settings.Instance.FileManager);
+            var args = Environment.ExpandEnvironmentVariables(path);
+            var filename = Environment.ExpandEnvironmentVariables(Settings.Instance.FileManager);
 
-            //return ShellHelper.StartProcess(filename, $@"""{args}""");
+            return ShellHelper.StartProcess(filename, $@"""{args}""");
         }
     }
 }

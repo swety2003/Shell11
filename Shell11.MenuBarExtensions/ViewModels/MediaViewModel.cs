@@ -86,7 +86,7 @@ namespace Shell11.MenuBarExtensions.ViewModels
             if (activeSession == null)
                 return;
 
-            await activeSession.ControlSession.TrySkipNextAsync();
+            await activeSession.ControlSession?.TrySkipNextAsync();
 
             UpdateUI();
         }

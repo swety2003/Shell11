@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="UserControl"
     d:DesignHeight="29"
@@ -13,6 +14,7 @@
         <Button
             x:Name="btn"
             Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
+            Padding="8"
             VerticalAlignment="{Binding ElementName=UserControl, Path=VerticalAlignment}"
             Background="Transparent"
             BorderBrush="Transparent"
@@ -23,11 +25,37 @@
             ToolTip="{Binding Path=Name}"
             ToolTipService.Placement="Top"
             ToolTipService.VerticalOffset="-1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <i:ControlStoryboardAction>
+                        <i:ControlStoryboardAction.Storyboard>
+
+                            <Storyboard AutoReverse="True">
+                                <DoubleAnimation
+                                    Storyboard.TargetName="imgIcon_scale"
+                                    Storyboard.TargetProperty="ScaleX"
+                                    To=".8"
+                                    Duration="0:0:.1" />
+                                <DoubleAnimation
+                                    Storyboard.TargetName="imgIcon_scale"
+                                    Storyboard.TargetProperty="ScaleY"
+                                    To=".8"
+                                    Duration="0:0:0:.1" />
+                            </Storyboard>
+                        </i:ControlStoryboardAction.Storyboard>
+                    </i:ControlStoryboardAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <Image
                 Name="imgIcon"
-                Width="16"
-                Height="16"
-                Source="{Binding Path=Icon, Mode=OneWay}" />
+                RenderTransformOrigin=".5,.5"
+                Source="{Binding Path=Icon, Mode=OneWay}">
+                <Image.RenderTransform>
+                    <ScaleTransform x:Name="imgIcon_scale" ScaleX="1" ScaleY="1" />
+                </Image.RenderTransform>
+            </Image>
+
+
             <Button.ContextMenu>
                 <ContextMenu Opened="ContextMenu_Opened">
                     <MenuItem Click="programsMenu_Open" Header="打开" />
