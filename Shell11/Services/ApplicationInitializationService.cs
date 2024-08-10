@@ -3,10 +3,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Shell11.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shell11.Services
 {
@@ -21,10 +17,10 @@ namespace Shell11.Services
             this._host = host;
             this.logger = logger;
         }
-        public void LoadExtensions()
-        {
-            throw new NotImplementedException();
-        }
+        //public void LoadExtensions()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void SetupWindowServices()
         {

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using ManagedShell.AppBar;
+﻿using ManagedShell.AppBar;
 using Shell11.Models;
+using System;
+using System.Collections.Generic;
 
 // TODO: Window services should move to the Infrastructure project
 

@@ -4,12 +4,6 @@ using Shell11.Common.Configuration;
 using Shell11.Interfaces;
 using Shell11.ViewModels;
 using Shell11.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
 
 namespace Shell11.Services
 {
@@ -17,7 +11,7 @@ namespace Shell11.Services
     {
         private readonly IApplication application;
 
-        public MenuBarWindowService(IApplication application, ShellManagerService shellManagerService, IWindowManager windowManager) 
+        public MenuBarWindowService(IApplication application, ShellManagerService shellManagerService, IWindowManager windowManager)
             : base(application, shellManagerService, windowManager)
         {
             this.application = application;
@@ -58,7 +52,7 @@ namespace Shell11.Services
 
         protected override void OpenWindow(AppBarScreen screen)
         {
-            MenuBarWindow newMenuBar = new MenuBarWindow(application, _shellManager, _windowManager, screen, AppBarEdge.Top , AppBarMode.Normal);
+            MenuBarWindow newMenuBar = new MenuBarWindow(application, _shellManager, _windowManager, screen, AppBarEdge.Top, AppBarMode.Normal);
             Windows.Add(newMenuBar);
             newMenuBar.Show();
         }

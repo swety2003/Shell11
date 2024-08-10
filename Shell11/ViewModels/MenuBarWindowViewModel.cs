@@ -1,19 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using GongSolutions.Wpf.DragDrop;
-using iNKORE.UI.WPF.Modern.Controls;
-using ManagedShell.Common.Helpers;
 using Shell11.Common.Application.Contracts;
-using Shell11.Common.Dialogs;
-using Shell11.Common.Utils;
-using Shell11.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows;
-using Brushes = System.Windows.Media.Brushes;
 
 namespace Shell11.ViewModels
 {
@@ -23,7 +14,7 @@ namespace Shell11.ViewModels
         private IMenuBar menuBarWindow;
 
 
-        public MenuBarWindowViewModel(IApplication application, IMenuBar menuBarWindow, FrameworkElement i) 
+        public MenuBarWindowViewModel(IApplication application, IMenuBar menuBarWindow, FrameworkElement i)
         {
             this.application = application;
             this.menuBarWindow = menuBarWindow;
@@ -47,7 +38,7 @@ namespace Shell11.ViewModels
             }
         }
 
-        Dictionary<IMenuBarExtension,FrameworkElement> extMap { get; } = new Dictionary<IMenuBarExtension, FrameworkElement>();
+        Dictionary<IMenuBarExtension, FrameworkElement> extMap { get; } = new Dictionary<IMenuBarExtension, FrameworkElement>();
 
         internal void HandleExtensionStateChange(IMenuBarExtension ext)
         {
@@ -59,7 +50,7 @@ namespace Shell11.ViewModels
                     if (uc != null)
                     {
                         MenuExtras.Add(uc);
-                        extMap.Add(ext,uc);
+                        extMap.Add(ext, uc);
                     }
                 }
             }
@@ -67,7 +58,7 @@ namespace Shell11.ViewModels
             {
                 if (extMap.ContainsKey(ext))
                 {
-                    var uc =extMap[ext];
+                    var uc = extMap[ext];
                     MenuExtras.Remove(uc);
                     extMap.Remove(ext);
                 }

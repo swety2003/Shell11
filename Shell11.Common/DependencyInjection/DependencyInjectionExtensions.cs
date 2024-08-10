@@ -1,13 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Shell11.Common.DependencyInjection
 {
@@ -32,7 +26,7 @@ namespace Shell11.Common.DependencyInjection
             return services;
         }
 
-        public static IServiceCollection AddSingletonView<TView, TVM>(this IServiceCollection services) where TView : FrameworkElement,new ()
+        public static IServiceCollection AddSingletonView<TView, TVM>(this IServiceCollection services) where TView : FrameworkElement, new()
             where TVM : class, INotifyPropertyChanged
         {
             services.AddSingleton<TVM>();

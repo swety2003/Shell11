@@ -21,7 +21,7 @@ namespace TestLib.ViewModels
 
         public Komorebi.Notifications.Monitor ActiveMonitor =>
             KState.Monitors.Elements[(int)KState.Monitors.Focused];
-        public Komorebi.Notifications.Workspace ActiveWorkspace =>
+        public Workspace ActiveWorkspace =>
             ActiveMonitor.Workspaces.Elements[(int)ActiveMonitor.Workspaces.Focused];
 
         //[ObservableProperty]

@@ -1,18 +1,18 @@
-﻿using ManagedShell.Common.Helpers;
+﻿using ManagedShell.Common.Enums;
+using ManagedShell.Common.Helpers;
 using ManagedShell.Interop;
 using ManagedShell.UWPInterop;
 using ManagedShell.WindowsTasks;
+using Shell11.Common.Configuration;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Windows.Media;
-using System;
 using System.Linq;
-using Shell11.Common.Configuration;
-using ManagedShell.Common.Enums;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Shell11.ViewModels
 {

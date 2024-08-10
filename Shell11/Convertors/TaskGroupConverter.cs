@@ -1,9 +1,5 @@
 ﻿using Shell11.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace Shell11.Convertors

@@ -1,13 +1,8 @@
 ﻿using ManagedShell.Common.Helpers;
 using ManagedShell.WindowsTray;
 using Shell11.Common.Configuration;
-using Shell11.MenuBarExtensions.Shaders;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace Shell11.MenuBarExtensions.Convertors
@@ -47,7 +42,7 @@ namespace Shell11.MenuBarExtensions.Convertors
             }
 
             return null;
-            
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

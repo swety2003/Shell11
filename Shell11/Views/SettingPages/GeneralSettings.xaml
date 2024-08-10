@@ -12,78 +12,81 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <StackPanel>
-        <TextBlock Text="General" />
+    <ScrollViewer>
 
-        <Border
-            Margin="0,2"
-            Padding="0"
-            Style="{StaticResource Style_SectionBorderStyle}">
+        <StackPanel>
+            <TextBlock Text="General" />
 
-            <DockPanel Margin="12,0" VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        Margin="8,0,16,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        DockPanel.Dock="Left"
-                        FontFamily="{StaticResource IconFontFamily}"
-                        FontSize="24">
-                        &#xF2B7;
-                    </TextBlock>
+            <Border
+                Margin="0,2"
+                Padding="0"
+                Style="{StaticResource Style_SectionBorderStyle}">
 
-                    <StackPanel>
-
-                        <TextBlock FontSize="{StaticResource LargeFontSize}" Text="语言" />
-
+                <DockPanel Margin="12,0" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock
-                            FontSize="{StaticResource MediumFontSize}"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="_" />
+                            Margin="8,0,16,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Left"
+                            FontFamily="{StaticResource IconFontFamily}"
+                            FontSize="24">
+                            &#xF2B7;
+                        </TextBlock>
 
+                        <StackPanel>
+
+                            <TextBlock FontSize="{StaticResource LargeFontSize}" Text="语言" />
+
+                            <TextBlock
+                                FontSize="{StaticResource MediumFontSize}"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="_" />
+
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
 
-                <ComboBox HorizontalAlignment="Right" SelectedIndex="0">
-                    <ComboBoxItem Content="简体中文" />
-                </ComboBox>
-            </DockPanel>
-        </Border>
-        <Border
-            Margin="0,2"
-            Padding="0"
-            Style="{StaticResource Style_SectionBorderStyle}">
+                    <ComboBox HorizontalAlignment="Right" SelectedIndex="0">
+                        <ComboBoxItem Content="简体中文" />
+                    </ComboBox>
+                </DockPanel>
+            </Border>
+            <Border
+                Margin="0,2"
+                Padding="0"
+                Style="{StaticResource Style_SectionBorderStyle}">
 
-            <DockPanel Margin="12,0" VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        Margin="8,0,16,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        DockPanel.Dock="Left"
-                        FontFamily="{StaticResource IconFontFamily}"
-                        FontSize="24">
-                        &#xE793;
-                    </TextBlock>
-
-                    <StackPanel>
-
-                        <TextBlock FontSize="{StaticResource LargeFontSize}" Text="主题" />
-
+                <DockPanel Margin="12,0" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock
-                            FontSize="{StaticResource MediumFontSize}"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="_" />
+                            Margin="8,0,16,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Left"
+                            FontFamily="{StaticResource IconFontFamily}"
+                            FontSize="24">
+                            &#xE793;
+                        </TextBlock>
 
+                        <StackPanel>
+
+                            <TextBlock FontSize="{StaticResource LargeFontSize}" Text="主题" />
+
+                            <TextBlock
+                                FontSize="{StaticResource MediumFontSize}"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="_" />
+
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
 
-                <ComboBox HorizontalAlignment="Right" SelectedIndex="{Binding Source={x:Static Settings.Instance}, Path=ColorTheme}">
-                    <ComboBoxItem Content="Light" />
-                    <ComboBoxItem Content="Dark" />
-                </ComboBox>
-            </DockPanel>
-        </Border>
+                    <ComboBox HorizontalAlignment="Right" SelectedIndex="{Binding Source={x:Static Settings.Instance}, Path=ColorTheme}">
+                        <ComboBoxItem Content="Light" />
+                        <ComboBoxItem Content="Dark" />
+                    </ComboBox>
+                </DockPanel>
+            </Border>
 
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

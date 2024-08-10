@@ -10,83 +10,86 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <StackPanel>
+    <ScrollViewer>
 
-        <Border
-            Margin="0,2"
-            Padding="0"
-            Style="{StaticResource Style_SectionBorderStyle}">
-
-            <Button
-                Height="64"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Stretch"
-                Background="Transparent"
-                BorderThickness="0">
-                <DockPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="8,0,16,0"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            DockPanel.Dock="Left"
-                            FontFamily="{StaticResource IconFontFamily}"
-                            FontSize="24">
-                            &#xE943;
-                        </TextBlock>
-
-                        <StackPanel>
-
-                            <TextBlock FontSize="{StaticResource LargeFontSize}" Text="开发者模式" />
-
-                            <TextBlock
-                                FontSize="{StaticResource MediumFontSize}"
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="_" />
-
-                        </StackPanel>
-                    </StackPanel>
-
-                    <ui:ToggleSwitch HorizontalAlignment="Right" IsOn="{Binding ElementName=dev_area, Path=IsEnabled}" />
-                </DockPanel>
-            </Button>
-        </Border>
-        <StackPanel x:Name="dev_area">
+        <StackPanel>
 
             <Border
                 Margin="0,2"
                 Padding="0"
                 Style="{StaticResource Style_SectionBorderStyle}">
 
-                <DockPanel Margin="12,0" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="8,0,16,0"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            DockPanel.Dock="Left"
-                            FontFamily="{StaticResource IconFontFamily}"
-                            FontSize="24">
-                            &#xE90F;
-                        </TextBlock>
-
-                        <StackPanel>
-
-                            <TextBlock FontSize="{StaticResource LargeFontSize}" Text="重载提示" />
-
+                <Button
+                    Height="64"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    Background="Transparent"
+                    BorderThickness="0">
+                    <DockPanel>
+                        <StackPanel Orientation="Horizontal">
                             <TextBlock
-                                FontSize="{StaticResource MediumFontSize}"
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="_" />
+                                Margin="8,0,16,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                DockPanel.Dock="Left"
+                                FontFamily="{StaticResource IconFontFamily}"
+                                FontSize="24">
+                                &#xE943;
+                            </TextBlock>
 
+                            <StackPanel>
+
+                                <TextBlock FontSize="{StaticResource LargeFontSize}" Text="开发者模式" />
+
+                                <TextBlock
+                                    FontSize="{StaticResource MediumFontSize}"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="_" />
+
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
 
-                    <ui:ToggleSwitch HorizontalAlignment="Right" IsOn="{Binding NeedRestart}" />
-                </DockPanel>
+                        <ui:ToggleSwitch HorizontalAlignment="Right" IsOn="{Binding ElementName=dev_area, Path=IsEnabled}" />
+                    </DockPanel>
+                </Button>
             </Border>
+            <StackPanel x:Name="dev_area">
+
+                <Border
+                    Margin="0,2"
+                    Padding="0"
+                    Style="{StaticResource Style_SectionBorderStyle}">
+
+                    <DockPanel Margin="12,0" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="8,0,16,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                DockPanel.Dock="Left"
+                                FontFamily="{StaticResource IconFontFamily}"
+                                FontSize="24">
+                                &#xE90F;
+                            </TextBlock>
+
+                            <StackPanel>
+
+                                <TextBlock FontSize="{StaticResource LargeFontSize}" Text="重载提示" />
+
+                                <TextBlock
+                                    FontSize="{StaticResource MediumFontSize}"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="_" />
+
+                            </StackPanel>
+                        </StackPanel>
+
+                        <ui:ToggleSwitch HorizontalAlignment="Right" IsOn="{Binding NeedRestart}" />
+                    </DockPanel>
+                </Border>
+            </StackPanel>
+
+
         </StackPanel>
-
-
-    </StackPanel>
+    </ScrollViewer>
 </UserControl>

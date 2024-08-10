@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
-using System.IO;
-using ManagedShell;
+﻿using ManagedShell;
 using ManagedShell.Common.Helpers;
 using ManagedShell.WindowsTasks;
+using System.ComponentModel;
+using System.IO;
 
 namespace AppGrabber
 {

@@ -4,7 +4,6 @@ using Shell11.MenuBarExtensions.ViewModels;
 using System;
 using System.Composition;
 using System.Windows.Controls;
-using WinRT.Interop;
 
 namespace Shell11.MenuBarExtensions
 {

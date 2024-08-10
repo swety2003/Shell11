@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using ManagedShell;
+﻿using ManagedShell;
 using ManagedShell.AppBar;
 using Shell11.Common.Application.Contracts;
 using Shell11.Common.Configuration;
 using Shell11.Interfaces;
 using Shell11.Models;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Shell11.Services
 {
@@ -16,14 +16,15 @@ namespace Shell11.Services
 
         public List<AppBarWindow> Windows { get; } = new List<AppBarWindow>();
 
-        protected readonly IApplication _cairoApplication;
+        protected readonly IApplication _Application;
         protected readonly ShellManager _shellManager;
         protected readonly IWindowManager _windowManager;
         private readonly PropertyChangedEventHandler handler;
 
-        protected AppBarWindowService(IApplication cairoApplication, ShellManagerService shellManagerService, IWindowManager windowManager)
+        protected AppBarWindowService(IApplication cairoApplication, ShellManagerService shellManagerService,
+            IWindowManager windowManager)
         {
-            _cairoApplication = cairoApplication;
+            _Application = cairoApplication;
             _shellManager = shellManagerService.ShellManager;
             _windowManager = windowManager;
 
@@ -37,9 +38,11 @@ namespace Shell11.Services
 
         public virtual void Dispose()
         {
+            Windows.Clear();
             Settings.UnSubscribe(handler);
         }
 
+        #region window behavior
         public void HandleScreenAdded(AppBarScreen screen)
         {
             if (EnableService && (EnableMultiMon || screen.Primary))
@@ -56,6 +59,16 @@ namespace Shell11.Services
             }
         }
 
+        protected void CloseWindow(AppBarWindow window)
+        {
+            if (!window.IsClosing)
+            {
+                window.AllowClose = true;
+                window.Close();
+            }
+        }
+
+        protected abstract void OpenWindow(AppBarScreen screen);
         public void RefreshWindows(WindowManagerEventArgs args)
         {
             // update screens of stale windows
@@ -84,6 +97,9 @@ namespace Shell11.Services
             }
         }
 
+        #endregion
+
+        #region handle setting change
         protected void HandleEnableMultiMonChanged(bool newValue)
         {
             EnableMultiMon = newValue;
@@ -181,19 +197,9 @@ namespace Shell11.Services
                 Windows.Remove(windowToClose);
             }
         }
-
-        protected void CloseWindow(AppBarWindow window)
-        {
-            if (!window.IsClosing)
-            {
-                window.AllowClose = true;
-                window.Close();
-            }
-        }
-
-        protected abstract void OpenWindow(AppBarScreen screen);
-
         public abstract void HandleSettingChange(string setting);
+
+        #endregion
 
     }
 }

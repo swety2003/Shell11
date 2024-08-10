@@ -3,12 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using iNKORE.UI.WPF.Modern.Controls;
 using Shell11.Models;
 using Shell11.Services;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Shell11.ViewModels
 {
@@ -50,8 +46,8 @@ namespace Shell11.ViewModels
             foreach (string part in parts)
             {
                 fullPath = string.IsNullOrEmpty(fullPath) ? part : $"{fullPath}/{part}";
-                NavigationHelper.TitleMap.TryGetValue(fullPath,out var name);
-                navItems.Add(new NavItem(name??part, fullPath));
+                NavigationHelper.TitleMap.TryGetValue(fullPath, out var name);
+                navItems.Add(new NavItem(name ?? part, fullPath));
             }
 
             return navItems;
@@ -65,7 +61,7 @@ namespace Shell11.ViewModels
             if (parameter is string key)
             {
                 key = key.ToLower();
-                if (currentPath==key)
+                if (currentPath == key)
                 {
                     return;
                 }
@@ -73,7 +69,7 @@ namespace Shell11.ViewModels
                 NavPaths = ParseNavItems(key);
 
                 var page = navigationService.GetPage(key.ToLower());
-                if (page!=null)
+                if (page != null)
                 {
                     Content = page;
                 }

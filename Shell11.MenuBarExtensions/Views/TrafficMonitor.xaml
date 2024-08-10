@@ -23,7 +23,7 @@
             <MenuItem>
                 <MenuItem.Header>
 
-                    <Border Margin="0,-1,0,0">
+                    <Border Margin="0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
                                 Margin="0,0,4,0"
@@ -34,6 +34,8 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="10"
+                                LineHeight="10"
+                                LineStackingStrategy="BlockLineHeight"
                                 TextAlignment="Right">
                                 <Run>
                                     <Run.Text>
@@ -71,11 +73,6 @@
                 <MenuItem.Header>
 
                     <Border Margin="0">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseDown">
-                                <i:InvokeCommandAction Command="{Binding OpenTaskmgr}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
 
                         <StackPanel
                             Margin="0"
@@ -85,9 +82,9 @@
                             UseLayoutRounding="True">
 
                             <TextBlock
-                                Width="9"
+                                Width="6"
                                 Margin="2,0"
-                                FontSize="9"
+                                FontSize="6"
                                 LineHeight="6"
                                 LineStackingStrategy="BlockLineHeight"
                                 Text="RAM"
@@ -122,9 +119,9 @@
                                 BorderThickness="1" />
 
                             <TextBlock
-                                Width="9"
+                                Width="6"
                                 Margin="2,0"
-                                FontSize="9"
+                                FontSize="6"
                                 LineHeight="6"
                                 LineStackingStrategy="BlockLineHeight"
                                 Text="CPU"

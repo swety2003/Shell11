@@ -1,6 +1,4 @@
-﻿using ManagedShell.Common.Enums;
-using ManagedShell;
-using System.ComponentModel;
+﻿using ManagedShell;
 using Shell11.Common.Configuration;
 
 namespace Shell11.Common.Application.Contracts

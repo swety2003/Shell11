@@ -1,13 +1,13 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using AppGrabber;
+﻿using AppGrabber;
 using ManagedShell.Common.Helpers;
 using Shell11.Common.Application.Contracts;
 using Shell11.Common.Configuration;
 using Shell11.Views;
+using System;
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Shell11.Controls;
 
@@ -215,7 +215,7 @@ public partial class QuickLaunchButton : IConfigurationChangeAware
     public void HandleSettingChange(string setting)
     {
 
-        if (setting!=null)
+        if (setting != null)
         {
             switch (setting)
             {

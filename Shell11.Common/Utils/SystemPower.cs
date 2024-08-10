@@ -1,11 +1,6 @@
 ﻿using iNKORE.UI.WPF.Modern.Controls;
 using ManagedShell.Common.Helpers;
 using Shell11.Common.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace Shell11.Common.Utils
@@ -44,7 +39,7 @@ namespace Shell11.Common.Utils
 
         public static void ShowShutdownConfirmation()
         {
-            ShowActionConfirmation("确定要关机吗？","提示","确定","取消"
+            ShowActionConfirmation("确定要关机吗？", "提示", "确定", "取消"
                 , PowerHelper.Shutdown);
         }
 

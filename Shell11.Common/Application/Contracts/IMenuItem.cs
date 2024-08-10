@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace Shell11.Common.Application.Contracts
 {
@@ -21,7 +16,7 @@ namespace Shell11.Common.Application.Contracts
 
     public class MenuItemData : IMenuItem
     {
-        public MenuItemData(string header,ICommand command = null)
+        public MenuItemData(string header, ICommand command = null)
         {
             Header = header;
             Command = command;
@@ -29,11 +24,11 @@ namespace Shell11.Common.Application.Contracts
 
         public string Header { get; private set; } = "header";
 
-        public ICommand Command { get; private set; } 
+        public ICommand Command { get; private set; }
 
         public bool Separator => false;
 
-        public IList<IMenuItem> Items { get; } =new List<IMenuItem>();
+        public IList<IMenuItem> Items { get; } = new List<IMenuItem>();
     }
     public class SeparatorData : IMenuItem
     {

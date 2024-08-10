@@ -64,8 +64,6 @@ namespace Komorebi.Shell11Extensions.KomorebiHelper
 
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-
-
                             if (WhiteList.Contains(data.Event.Type))
                             {
                                 handler.Handle(vm, data.State.Monitors);

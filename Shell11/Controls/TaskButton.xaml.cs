@@ -1,19 +1,18 @@
-﻿using ManagedShell.Interop;
+﻿using ManagedShell.Common.Enums;
+using ManagedShell.Common.Helpers;
+using ManagedShell.Interop;
+using ManagedShell.WindowsTasks;
+using Shell11.Common.Configuration;
+using Shell11.ViewModels;
+using Shell11.Views;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using ManagedShell.Common.Enums;
-using ManagedShell.Common.Helpers;
-using ManagedShell.WindowsTasks;
-using System.Collections.ObjectModel;
-using Shell11.Views;
-using Shell11.Common.Configuration;
-using Shell11.ViewModels;
-using System.Threading.Tasks;
-using Shell11.Common.Utils;
 
 namespace Shell11.Controls
 {

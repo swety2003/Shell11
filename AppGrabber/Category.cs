@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Windows.Data;
 
 namespace AppGrabber

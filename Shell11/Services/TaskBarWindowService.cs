@@ -4,32 +4,20 @@ using Shell11.Common.Application.Contracts;
 using Shell11.Common.Configuration;
 using Shell11.Interfaces;
 using Shell11.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Shell11.Services
 {
     public class TaskbarWindowService : AppBarWindowService
     {
-        //private readonly IAppGrabber _appGrabber;
-        private readonly IDesktopManager _desktopManager;
         private readonly IAppGrabber appGrabber;
 
         public TaskbarWindowService(IApplication cairoApplication,
             ShellManagerService shellManagerService,
             IWindowManager windowManager,
-            IDesktopManager desktopManager
-            , IAppGrabber appGrabber
+            IAppGrabber appGrabber
             )
             : base(cairoApplication, shellManagerService, windowManager)
         {
-            //_appGrabber = appGrabber;
-            _desktopManager = desktopManager;
             this.appGrabber = appGrabber;
             EnableMultiMon = Settings.Instance.EnableTaskbarMultiMon;
             EnableService = Settings.Instance.EnableTaskBar;
@@ -75,7 +63,7 @@ namespace Shell11.Services
         protected override void OpenWindow(AppBarScreen screen)
         {
             var appbarmode = Settings.Instance.AutoHideTaskBar ? AppBarMode.AutoHide : AppBarMode.Normal;
-            TaskBarWindow newTaskbar = new (_cairoApplication, _shellManager, _windowManager, _desktopManager,
+            TaskBarWindow newTaskbar = new(_Application, _shellManager, _windowManager,
                 appGrabber,
                 screen,
                 AppBarEdge.Bottom, appbarmode);

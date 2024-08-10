@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ManagedShell.Interop;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
-using ManagedShell.Interop;
 
 namespace Shell11.Controls
 {
@@ -131,12 +131,12 @@ namespace Shell11.Controls
                     else
                     {
                         // scale, preserving aspect ratio and center
-                        double controlAspectRatio = (double) Rect.Width / Rect.Height;
+                        double controlAspectRatio = (double)Rect.Width / Rect.Height;
 
                         if (aspectRatio > controlAspectRatio)
                         {
                             // wide
-                            int height = (int) (Rect.Width / aspectRatio);
+                            int height = (int)(Rect.Width / aspectRatio);
 
                             props.rcDestination.Top += (Rect.Height - height) / 2;
                             props.rcDestination.Bottom = props.rcDestination.Top + height;
@@ -144,7 +144,7 @@ namespace Shell11.Controls
                         else if (aspectRatio < controlAspectRatio)
                         {
                             // tall
-                            int width = (int) (Rect.Height * aspectRatio);
+                            int width = (int)(Rect.Height * aspectRatio);
 
                             props.rcDestination.Left += (Rect.Width - width) / 2;
                             props.rcDestination.Right = props.rcDestination.Left + width;

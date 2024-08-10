@@ -1,17 +1,9 @@
-﻿using ManagedShell.Common.Logging;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Composition;
-using System.IO;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Composition.Hosting;
-using System.Runtime.Loader;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Shell11.Common.Application.Contracts;
+using System.Composition.Hosting;
+using System.IO;
+using System.Reflection;
+using System.Runtime.Loader;
 
 namespace Shell11.Common.DependencyInjection
 {
@@ -50,7 +42,7 @@ namespace Shell11.Common.DependencyInjection
             {
                 var name = Path.GetFileName(item);
                 var dll = Directory.GetFiles(item, pattern)
-                    .Where(x => Path.GetFileNameWithoutExtension(x)==name).FirstOrDefault();
+                    .Where(x => Path.GetFileNameWithoutExtension(x) == name).FirstOrDefault();
                 if (dll != null)
                 {
                     var assembly = LoadPlugin(dll);

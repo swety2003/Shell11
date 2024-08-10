@@ -61,9 +61,9 @@
                             rect = new Rect(new Point(left, 0), new Size(child.DesiredSize.Width, finalSize.Height));
                             left += child.DesiredSize.Width;
 
-                            if (rect.Right>center_start)
+                            if (rect.Right > center_start)
                             {
-                                rect = new Rect(rect.TopLeft, new Point(center_start,rect.BottomRight.Y));
+                                rect = new Rect(rect.TopLeft, new Point(center_start, rect.BottomRight.Y));
                             }
                             break;
                         case HorizontalAlignment.Center:
@@ -76,7 +76,7 @@
 
                             if (rect.Left < center_end)
                             {
-                                rect = new Rect( new Point(center_end, 0),rect.BottomRight);
+                                rect = new Rect(new Point(center_end, 0), rect.BottomRight);
                             }
                             break;
                         default: break;

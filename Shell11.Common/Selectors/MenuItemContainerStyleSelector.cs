@@ -1,11 +1,6 @@
 ﻿using Shell11.Common.Application.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Shell11.Common.Selectors
 {

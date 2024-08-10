@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Threading;
-using ManagedShell.AppBar;
+﻿using ManagedShell.AppBar;
 using ManagedShell.Common.Helpers;
 using Microsoft.Extensions.Logging;
 using Shell11.Common.Application.Contracts;
 using Shell11.Interfaces;
 using Shell11.Models;
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Threading;
 
 namespace Shell11.Services
 {

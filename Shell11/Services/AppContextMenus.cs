@@ -5,11 +5,7 @@ using Shell11.Common.Application.Contracts;
 using Shell11.Common.Dialogs;
 using Shell11.Common.Utils;
 using Shell11.Views;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -43,9 +39,6 @@ namespace Shell11.Services
 
             LogoMenuItems = collection;
         }
-
-
-
         static async Task ExitApp()
         {
             IApplication app = Application.Current as IApplication;
@@ -81,8 +74,6 @@ namespace Shell11.Services
             }
 
         }
-
-
 
         static void OpenSystemSettings() =>
             ShellHelper.StartProcess("ms-settings://");

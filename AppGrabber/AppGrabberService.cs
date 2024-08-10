@@ -513,7 +513,7 @@ namespace AppGrabber
 
             if (app.IsStoreApp)
             { }
-                //CairoMessage.Show(DisplayString.sProgramsMenu_UWPInfo, app.Name, app.GetIconImageSource(IconSize.Jumbo), true);
+            //CairoMessage.Show(DisplayString.sProgramsMenu_UWPInfo, app.Name, app.GetIconImageSource(IconSize.Jumbo), true);
             else
                 ShellHelper.ShowFileProperties(app.Path);
         }

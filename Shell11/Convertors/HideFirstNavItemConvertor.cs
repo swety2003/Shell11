@@ -1,10 +1,6 @@
 ﻿using Shell11.Models;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
@@ -16,7 +12,7 @@ namespace Shell11.Convertors
         {
             if (value is NavItem ni)
             {
-                if (ni.fullPath.IndexOf("/")==-1)
+                if (ni.fullPath.IndexOf("/") == -1)
                 {
                     return Visibility.Collapsed;
                 }

@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace Shell11.ViewModels
 {
-    public partial class GeneralSettingsViewModel : ObservableObject, IConfigurationChangeAware,IDisposable
+    public partial class GeneralSettingsViewModel : ObservableObject, IConfigurationChangeAware, IDisposable
     {
         private bool disposedValue;
         private PropertyChangedEventHandler handler;
@@ -22,7 +22,7 @@ namespace Shell11.ViewModels
             switch (setting)
             {
                 case "ColorTheme":
-                    if (Settings.Instance.ColorTheme==0)
+                    if (Settings.Instance.ColorTheme == 0)
                     {
                         ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
                     }

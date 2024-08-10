@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AppGrabber;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Shell11.Common.Application.Contracts;
@@ -6,8 +7,6 @@ using Shell11.Common.Configuration;
 using Shell11.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -22,9 +21,9 @@ namespace Shell11
     {
         private readonly ILogger<App> logger;
         private readonly IInitializationService _initializationService;
-        internal static string StartupPath => 
+        internal static string StartupPath =>
             Path.GetDirectoryName((Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()).Location);
-        internal static string CairoApplicationDataFolder => 
+        internal static string CairoApplicationDataFolder =>
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Shell11");
 
         private bool IsShuttingDown;
@@ -62,7 +61,7 @@ namespace Shell11
 
             Dispatcher.Invoke(Shutdown, DispatcherPriority.Normal);
 
-
+            Host.Services.GetService<IAppGrabber>()?.Save();
             Settings.Save();
         }
 
@@ -94,7 +93,7 @@ namespace Shell11
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            MessageBox.Show(e.ToString(), "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(e.Exception.ToString(), "错误", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 

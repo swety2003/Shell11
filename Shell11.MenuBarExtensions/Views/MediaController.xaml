@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ct="clr-namespace:Shell11.Common.Controls;assembly=Shell11.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:Shell11.MenuBarExtensions.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
@@ -33,8 +34,7 @@
                             Margin="8,0,0,0"
                             VerticalAlignment="Center"
                             Text="{Binding SongTitle, FallbackValue=NULL}"
-                            TextTrimming="CharacterEllipsis"
-                            TextWrapping="Wrap" />
+                            TextTrimming="CharacterEllipsis" />
                     </DockPanel>
                 </MenuItem.Header>
                 <MenuItem.ItemContainerStyle>
@@ -108,7 +108,17 @@
                                         </Style>
                                     </UniformGrid.Resources>
                                     <Button Command="{Binding BackCommand}" Content="&#xE622;" />
-                                    <Button Command="{Binding PlayPauseCommand}" Content="&#xE62E;" />
+                                    <Button Command="{Binding PlayPauseCommand}" Content="&#xE62E;">
+                                        <i:Interaction.Triggers>
+                                            <i:DataTrigger Binding="{Binding Playing}" Value="true">
+                                                <i:ChangePropertyAction PropertyName="Content" Value="&#xE62E;" />
+                                            </i:DataTrigger>
+                                            <i:DataTrigger Binding="{Binding Playing}" Value="false">
+                                                <i:ChangePropertyAction PropertyName="Content" Value="&#xF5B0;" />
+
+                                            </i:DataTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
                                     <Button Command="{Binding ForwardCommand}" Content="&#xE623;" />
                                 </UniformGrid>
                             </StackPanel>

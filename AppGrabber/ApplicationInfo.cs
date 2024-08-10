@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using ManagedShell.Common.Enums;
+using ManagedShell.Common.Helpers;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
-using ManagedShell.Common.Enums;
-using ManagedShell.Common.Helpers;
 
 namespace AppGrabber
 {

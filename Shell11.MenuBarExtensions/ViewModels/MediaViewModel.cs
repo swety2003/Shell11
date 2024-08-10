@@ -1,10 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +11,6 @@ using System.Windows.Media.Imaging;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
 using WindowsMediaController;
-using static WindowsMediaController.MediaManager;
 
 namespace Shell11.MenuBarExtensions.ViewModels
 {
@@ -56,17 +52,17 @@ namespace Shell11.MenuBarExtensions.ViewModels
         MediaManager.MediaSession? activeSession;
 
         [RelayCommand]
-        private async void Back()
+        private async Task Back()
         {
             if (activeSession == null)
                 return;
 
             await activeSession.ControlSession.TrySkipPreviousAsync();
-            UpdateUI();
+            //UpdateUI();
         }
 
         [RelayCommand]
-        private async void PlayPause()
+        private async Task PlayPause()
         {
             if (activeSession == null)
                 return;
@@ -77,31 +73,39 @@ namespace Shell11.MenuBarExtensions.ViewModels
                 await activeSession.ControlSession.TryPauseAsync();
             else if (controlsInfo.IsPlayEnabled == true)
                 await activeSession.ControlSession.TryPlayAsync();
-            UpdateUI();
+            //UpdateUI();
         }
 
         [RelayCommand]
-        private async void Forward()
+        private async Task Forward()
         {
             if (activeSession == null)
                 return;
 
             await activeSession.ControlSession?.TrySkipNextAsync();
 
-            UpdateUI();
+            //UpdateUI();
         }
 
-        async void UpdateUI()
+        async Task UpdateUI()
         {
             if (activeSession != null)
             {
-                var mediaProperties = await activeSession.ControlSession.TryGetMediaPropertiesAsync();
+                try
+                {
+
+                    var mediaProperties = await activeSession.ControlSession.TryGetMediaPropertiesAsync();
 
 
-                SongTitle = mediaProperties.AlbumTitle;
-                CoverSource = await Helper.GetThumbnail(mediaProperties.Thumbnail);
-                Artist = mediaProperties.Artist;
-                Id = activeSession.Id;
+                    SongTitle = string.IsNullOrEmpty(mediaProperties.AlbumTitle) ? activeSession.Id : mediaProperties.AlbumTitle;
+                    Artist = mediaProperties.Artist;
+                    Id = activeSession.Id;
+                    CoverSource = await Helper.GetThumbnail(mediaProperties.Thumbnail);
+                }
+                catch (Exception ex)
+                {
+                    // todo 
+                }
 
             }
         }
@@ -119,7 +123,7 @@ namespace Shell11.MenuBarExtensions.ViewModels
         {
             Application.Current.Dispatcher.Invoke(async () =>
             {
-                UpdateUI();
+                await UpdateUI();
             });
         }
 
@@ -132,10 +136,10 @@ namespace Shell11.MenuBarExtensions.ViewModels
 
         private void MediaManager_OnAnySessionClosed(MediaManager.MediaSession mediaSession)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.Invoke(async () =>
             {
                 sessions.Remove(mediaSession);
-                if (mediaSession == activeSession&&sessions.Count==0)
+                if (mediaSession == activeSession && sessions.Count == 0)
                 {
                     SongTitle = "";
                     CoverSource = null;
@@ -145,7 +149,7 @@ namespace Shell11.MenuBarExtensions.ViewModels
                 else
                 {
                     activeSession = sessions.First();
-                    UpdateUI();
+                    await UpdateUI();
                 }
             });
         }
@@ -153,13 +157,13 @@ namespace Shell11.MenuBarExtensions.ViewModels
         private void MediaManager_OnAnySessionOpened(MediaManager.MediaSession mediaSession)
         {
             sessions.Add(mediaSession);
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.Invoke(async () =>
             {
                 Show = Visibility.Visible;
 
                 activeSession = mediaSession;
 
-                UpdateUI();
+                await UpdateUI();
             });
         }
 
@@ -175,14 +179,14 @@ namespace Shell11.MenuBarExtensions.ViewModels
 
         internal static class Helper
         {
-            internal static async Task<BitmapImage?> GetThumbnail(IRandomAccessStreamReference Thumbnail, bool convertToPng = false)
+            internal static async Task<BitmapImage?> GetThumbnail(IRandomAccessStreamReference? thumbnail, bool convertToPng = false)
             {
-                if (Thumbnail == null)
+                if (thumbnail == null)
                     return null;
 
 
-                using var thumbnailStream = await Thumbnail.OpenReadAsync();
-                using var stream = thumbnailStream.AsStreamForRead();
+                using var thumbnailStream = await thumbnail.OpenReadAsync();
+                await using var stream = thumbnailStream.AsStreamForRead();
 
                 stream.Position = 0;
                 BitmapImage result = new BitmapImage();
@@ -192,29 +196,6 @@ namespace Shell11.MenuBarExtensions.ViewModels
                 result.EndInit();
                 result.Freeze();
                 return result;
-
-
-                //var thumbnailStream = Thumbnail.OpenReadAsync().GetAwaiter().GetResult();
-                //byte[] thumbnailBytes = new byte[thumbnailStream.Size];
-                //using (DataReader reader = new DataReader(thumbnailStream))
-                //{
-                //    reader.LoadAsync((uint)thumbnailStream.Size).GetAwaiter().GetResult();
-                //    reader.ReadBytes(thumbnailBytes);
-                //}
-
-                //using var stream = await Thumbnail.OpenReadAsync();
-
-
-                //var image = new BitmapImage();
-
-                //image.BeginInit();
-                //image.CacheOption = BitmapCacheOption.OnLoad;
-                //image.StreamSource = stream.AsStreamForRead();
-                //image.EndInit();
-                //image.Freeze();
-                //return image;
-
-                return null;
             }
         }
     }

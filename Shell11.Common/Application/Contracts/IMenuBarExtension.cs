@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace Shell11.Common.Application.Contracts
 {
-    public interface IMenuBarExtension:INotifyPropertyChanged
+    public interface IMenuBarExtension : INotifyPropertyChanged
     {
         string NavKey { get; }
         string Title { get; }
@@ -16,7 +16,7 @@ namespace Shell11.Common.Application.Contracts
         UserControl? StartControl(WeakReference<IMenuBar> hostref);
     }
 
-    public abstract partial class menuBarExtension :ObservableObject, IMenuBarExtension
+    public abstract partial class menuBarExtension : ObservableObject, IMenuBarExtension
     {
         [ObservableProperty]
         bool isEnabled = true;

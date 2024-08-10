@@ -1,5 +1,4 @@
 ﻿using ManagedShell.Common.SupportingClasses;
-using ManagedShell.ShellFolders;
 
 namespace Shell11.Interfaces
 {

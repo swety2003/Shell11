@@ -3,7 +3,7 @@
 
     public interface IInitializationService
     {
-        void LoadExtensions();
+        //void LoadExtensions();
 
         void SetupWindowServices();
     }

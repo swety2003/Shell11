@@ -6,7 +6,6 @@ using ManagedShell.Interop;
 using ManagedShell.WindowsTasks;
 using Shell11.Common.Application.Contracts;
 using Shell11.Common.Configuration;
-using Shell11.Common.Utils;
 using Shell11.Interfaces;
 using Shell11.ViewModels;
 using System;
@@ -15,7 +14,6 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using Walterlv.Demo.Interop;
 
 namespace Shell11.Views
 {
@@ -25,7 +23,7 @@ namespace Shell11.Views
     public partial class TaskBarWindow : AppBarWindow
     {
         private IApplication application;
-        private IDesktopManager _desktopManager;
+        //private IDesktopManager _desktopManager;
         private ShellManager _shellManager;
         private IWindowManager _windowManager;
         private IAppGrabber appGrabber;
@@ -42,25 +40,23 @@ namespace Shell11.Views
         public TaskBarWindow(IApplication Application,
             ShellManager shellManager,
             IWindowManager windowManager,
-            IDesktopManager desktopManager,
+            //IDesktopManager desktopManager,
             IAppGrabber appGrabber,
             AppBarScreen screen,
             AppBarEdge edge, AppBarMode mode, double height = 52)
             : base(shellManager.AppBarManager, shellManager.ExplorerHelper, shellManager.FullScreenHelper, screen, edge, mode, height)
         {
             InitializeComponent();
-            this.application = Application;
-            _desktopManager = desktopManager;
+            application = Application;
             this.appGrabber = appGrabber;
             _shellManager = shellManager;
-            this._windowManager = windowManager;
+            _windowManager = windowManager;
 
 
             AutoHideShowDelayMs = Settings.Instance.AutoHideShowDelayMs;
 
             if (!Screen.Primary
-                && !Settings.Instance.EnableMenuBarMultiMon
-                )
+                && !Settings.Instance.EnableMenuBarMultiMon)
             {
                 ProcessScreenChanges = true;
             }
@@ -69,7 +65,7 @@ namespace Shell11.Views
                 ProcessScreenChanges = false;
             }
 
-            DataContext = new TaskBarWindowViewModel(desktopManager,appGrabber, shellManager, screen, windowManager);
+            DataContext = new TaskBarWindowViewModel(appGrabber, shellManager, screen, windowManager);
 
             setupTaskbar();
 
@@ -178,16 +174,9 @@ namespace Shell11.Views
         private async void TaskBarWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             await Task.Delay(200);
-            Left = (Screen.WorkingArea.Width/ DpiScale - this.Width) / 2;
+            Left = (Screen.WorkingArea.Width / DpiScale - this.Width) / 2;
         }
 
-        private void SetDesktopPosition()
-        {
-            // if we are showing but not reserving space, tell the desktop to adjust here
-            // since we aren't changing the work area, it doesn't do this on its own
-            if (AppBarMode == AppBarMode.None && Screen.Primary)
-                _desktopManager.ResetPosition(false);
-        }
 
 
         private void setupTaskbar()

@@ -45,6 +45,12 @@
                         <Image Source="/Assets/windowsobject.ico" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
+                <ui:NavigationViewItem Content="Applications" Tag="appgrabber">
+
+                    <ui:NavigationViewItem.Icon>
+                        <Image Source="/Assets/pipelines.ico" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
                 <ui:NavigationViewItem Content="MenuBar" Tag="MenuBar">
 
                     <ui:NavigationViewItem.Icon>
@@ -54,7 +60,7 @@
                 <ui:NavigationViewItem Content="TaskBar" Tag="TaskBar">
 
                     <ui:NavigationViewItem.Icon>
-                        <Image Source="/Assets/testplans.ico" />
+                        <Image Source="/Assets/desktop.ico" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem Content="Advanced" Tag="Advanced">
@@ -102,7 +108,7 @@
                                         Command="{Binding ElementName=proxy, Path=DataContext.DoNavigateCommand}"
                                         CommandParameter="{Binding fullPath}"
                                         Cursor="Hand"
-                                        FontSize="{StaticResource LargeTitleFontSize}">
+                                        FontSize="26">
 
                                         <TextBlock VerticalAlignment="Center" Text="{Binding name, Mode=OneWay}" />
                                     </Button>
@@ -138,13 +144,11 @@
                         Message="实验性版本，大部分功能未完善！"
                         Severity="Warning" />
                 </StackPanel>
-                <ui:ScrollViewerEx Grid.Row="1" VerticalScrollBarVisibility="Visible">
-
-                    <ui:TransitioningContentControl
-                        Name="content_areaa"
-                        Margin="0,0,16,0"
-                        Content="{Binding Content}" />
-                </ui:ScrollViewerEx>
+                <ui:TransitioningContentControl
+                    Name="content_areaa"
+                    Grid.Row="1"
+                    Margin="0,0,16,0"
+                    Content="{Binding Content}" />
                 <!--<ContentPresenter Content="{Binding Content}" Grid.Row="1"/>-->
             </Grid>
         </ui:NavigationView>

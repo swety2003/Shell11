@@ -1,12 +1,7 @@
-﻿using ManagedShell.WindowsTasks;
+﻿using ManagedShell.Common.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows;
-using ManagedShell.Common.Logging;
+using System.Windows.Data;
 
 namespace Shell11.Convertors
 {

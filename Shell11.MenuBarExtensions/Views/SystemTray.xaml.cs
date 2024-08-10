@@ -2,10 +2,8 @@
 using ManagedShell.Interop;
 using ManagedShell.WindowsTray;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Shell11.Common.Application.Contracts;
 using Shell11.Common.Application.Structs;
-using Shell11.Common.Interfaces;
 using Shell11.MenuBarExtensions.ViewModels;
 using Shell11.MenuBarExtensions.Views.Settings;
 using Shell11.Services;
@@ -21,7 +19,7 @@ namespace Shell11.MenuBarExtensions.Views
     /// <summary>
     /// SystemTray.xaml 的交互逻辑
     /// </summary>
-    public partial class SystemTray : UserControl,IDropTarget
+    public partial class SystemTray : UserControl, IDropTarget
     {
         private readonly NotificationArea _notificationArea;
         private readonly WeakReference<IMenuBar> weakReference;
@@ -73,7 +71,7 @@ namespace Shell11.MenuBarExtensions.Views
         public void SetTrayHostSizeData()
         {
             _notificationArea.SetTrayHostSizeData(GetTrayHostSizeData());
-            
+
         }
 
         void IDropTarget.DragOver(IDropInfo dropInfo)
@@ -90,31 +88,25 @@ namespace Shell11.MenuBarExtensions.Views
 
         void IDropTarget.Drop(IDropInfo dropInfo)
         {
-
             var source = dropInfo.Data as NotifyIcon;
             var target = dropInfo.TargetItem as NotifyIcon;
             if (source != null && target != null)
             {
                 if (source.IsPinned != target.IsPinned)
                 {
-
                     if (target.IsPinned)
                     {
-
                         List<string> list = _notificationArea.PinnedNotifyIcons.ToList();
-                        var index = list.IndexOf(target.Identifier);
-                        if (index != -1)
+                        var targetIndex = list.IndexOf(target.Identifier);
+                        //var removeIndex = list.IndexOf(source.Identifier);
+                        if (targetIndex != -1)
                         {
-
-                            source.Pin(index);
+                            source.Pin(targetIndex + 1);
                         }
-
                     }
                     else
                     {
-                        //List<string> list = _notificationArea.PinnedNotifyIcons.ToList();
-                        //var index = list.IndexOf(target.ToString());
-                        source.Unpin();;
+                        source.Unpin(); ;
                     }
                 }
                 else
@@ -123,11 +115,23 @@ namespace Shell11.MenuBarExtensions.Views
                     {
 
                         List<string> list = _notificationArea.PinnedNotifyIcons.ToList();
-                        var index = list.IndexOf(target.Identifier); 
-                        if (index != -1)
-                        {
+                        var removeIndex = list.IndexOf(source.Identifier);
+                        var targetIndex = list.IndexOf(target.Identifier);
 
-                            source.Pin(index);
+                        if (targetIndex != -1)
+                        {
+                            if (removeIndex < targetIndex)
+                            {
+                                source.Pin(targetIndex + 1);
+                            }
+                            else
+                            {
+                                int remIdx = removeIndex + 1;
+                                if (list.Count + 1 > remIdx)
+                                {
+                                    source.Pin(targetIndex);
+                                }
+                            }
                         }
 
                     }
@@ -154,7 +158,7 @@ namespace Shell11.MenuBarExtensions.Views
         {
             services.AddSingleton<SystemTraySettingsViewModel>();
 
-            services.RegistorForNavigate<SystemTraySettings>(NavKey,"系统托盘设置");
+            services.RegistorForNavigate<SystemTraySettings>(NavKey, "系统托盘设置");
         }
 
         public override UserControl? StartControl(WeakReference<IMenuBar> hostref)

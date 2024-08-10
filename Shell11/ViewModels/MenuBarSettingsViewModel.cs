@@ -5,12 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shell11.Common.Application.Contracts;
 using Shell11.Services;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Security;
 using System.Windows;
 
 namespace Shell11.ViewModels
@@ -22,13 +18,13 @@ namespace Shell11.ViewModels
         private readonly SettingsUIViewModel navHost;
         private IEnumerable<IWindowService> menubarList => host.Services.GetServices<IWindowService>();
 
-        public MenuBarSettingsViewModel(IApplication app,IHost host,SettingsUIViewModel setting_host)
+        public MenuBarSettingsViewModel(IApplication app, IHost host, SettingsUIViewModel setting_host)
         {
             this.app = app;
             this.host = host;
             this.navHost = setting_host;
 
-            Extensions =new ObservableCollection < IMenuBarExtension>( app.MenuBarExtensions);
+            Extensions = new ObservableCollection<IMenuBarExtension>(app.MenuBarExtensions);
         }
 
         public ObservableCollection<IMenuBarExtension> Extensions { get; private set; }
@@ -75,7 +71,7 @@ namespace Shell11.ViewModels
         {
             var source = dropInfo.Data as IMenuBarExtension;
             var target = dropInfo.TargetItem as IMenuBarExtension;
-            if (source!=null && target!=null)
+            if (source != null && target != null)
             {
 
                 var targetIndex = Extensions.IndexOf(target);

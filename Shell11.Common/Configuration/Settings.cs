@@ -5,8 +5,6 @@ using Microsoft.Extensions.Logging;
 using Shell11.Common.Application.Contracts;
 using System.ComponentModel;
 using System.IO;
-using System.Net.Http.Json;
-using System.Security;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -65,7 +63,7 @@ namespace Shell11.Common.Configuration
         [ObservableProperty, JsonPropertyName("enableMenuBar")] bool enableMenuBar = true;
         [ObservableProperty, JsonPropertyName("autoHideMenuBar")] bool autoHideMenuBar = true;
         [ObservableProperty, JsonPropertyName("enableDesktop")] bool enableDesktop = true;
-        [ObservableProperty, JsonPropertyName("enableMenuBarMultiMon")] bool enableMenuBarMultiMon;
+        [ObservableProperty, JsonPropertyName("enableMenuBarMultiMon")] bool enableMenuBarMultiMon = true;
         [ObservableProperty, JsonPropertyName("enableTaskbarMultiMon")] bool enableTaskbarMultiMon;
         [ObservableProperty, JsonPropertyName("taskbarMultiMonMode")] int taskbarMultiMonMode;
         [ObservableProperty, JsonPropertyName("autoHideShowDelayMs")] int autoHideShowDelayMs = 200;
@@ -76,7 +74,8 @@ namespace Shell11.Common.Configuration
         [ObservableProperty, JsonPropertyName("showTaskbarBadges")] bool showTaskbarBadges;
         [ObservableProperty, JsonPropertyName("taskbarMiddleClick")] int taskbarMiddleClick;
         [ObservableProperty, JsonPropertyName("taskbarEdge")] AppBarEdge taskbarEdge;
-        [ObservableProperty, JsonPropertyName("pinnedNotifyIcons")] string[] pinnedNotifyIcons = new string[] 
+        [ObservableProperty, JsonPropertyName("pinnedNotifyIcons")]
+        string[] pinnedNotifyIcons = new string[]
         { "7820ae76-23e3-4229-82c1-e41cb67d5b9c","7820ae75-23e3-4229-82c1-e41cb67d5b9c","7820ae74-23e3-4229-82c1-e41cb67d5b9c","7820ae73-23e3-4229-82c1-e41cb67d5b9c" };
         [ObservableProperty, JsonPropertyName("taskbarGroupingStyle")] int taskbarGroupingStyle = 2;
     }

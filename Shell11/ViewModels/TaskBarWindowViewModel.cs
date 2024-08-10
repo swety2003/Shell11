@@ -15,9 +15,9 @@ using System.ComponentModel;
 
 namespace Shell11.ViewModels
 {
-    internal partial class TaskBarWindowViewModel : ObservableObject,IDisposable, IConfigurationChangeAware
+    internal partial class TaskBarWindowViewModel : ObservableObject, IDisposable, IConfigurationChangeAware
     {
-        private IDesktopManager desktopManager;
+        //private IDesktopManager desktopManager;
         private readonly IAppGrabber appGrabber;
         private ShellManager _shellManager;
         private AppBarScreen screen;
@@ -31,9 +31,9 @@ namespace Shell11.ViewModels
         //[ObservableProperty]
         public Category PinnedPrograms => appGrabber.QuickLaunch;
 
-        public TaskBarWindowViewModel(IDesktopManager desktopManager, IAppGrabber appGrabber, ShellManager shellManager, AppBarScreen screen, IWindowManager windowManager)
+        public TaskBarWindowViewModel(IAppGrabber appGrabber, ShellManager shellManager, AppBarScreen screen, IWindowManager windowManager)
         {
-            this.desktopManager = desktopManager;
+            //this.desktopManager = desktopManager;
             this.appGrabber = appGrabber;
             this._shellManager = shellManager;
             this.screen = screen;

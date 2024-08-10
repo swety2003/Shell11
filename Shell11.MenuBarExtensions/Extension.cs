@@ -1,9 +1,6 @@
 
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Shell11.Common.Application.Contracts;
-using Shell11.Common.DependencyInjection;
-using Shell11.MenuBarExtensions.ViewModels;
 using System;
 using System.Composition;
 

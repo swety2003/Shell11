@@ -16,6 +16,7 @@
     <Button
         x:Name="btn"
         Margin="0"
+        Padding="10"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         HorizontalContentAlignment="Left"
@@ -131,8 +132,7 @@
             <Image
                 Name="imgIcon"
                 Grid.Column="0"
-                Source="{Binding Path=Icon, Mode=OneWay}"
-                Stretch="Fill" />
+                Source="{Binding Path=Icon, Mode=OneWay}" />
             <StackPanel
                 Name="overlayIcon"
                 Grid.Column="0"

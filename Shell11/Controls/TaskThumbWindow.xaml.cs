@@ -1,4 +1,8 @@
-﻿using System;
+﻿using ManagedShell.AppBar;
+using ManagedShell.Common.Helpers;
+using ManagedShell.Interop;
+using Shell11.Common.Configuration;
+using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,10 +10,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
-using ManagedShell.AppBar;
-using ManagedShell.Common.Helpers;
-using ManagedShell.Interop;
-using Shell11.Common.Configuration;
 
 namespace Shell11.Controls;
 

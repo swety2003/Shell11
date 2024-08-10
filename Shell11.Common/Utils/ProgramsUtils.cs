@@ -1,16 +1,4 @@
-﻿using ManagedShell.Common.Enums;
-using ManagedShell.Common.Helpers;
-using ManagedShell.Common.Logging;
-using ManagedShell.ShellFolders.Interfaces;
-using ManagedShell.ShellFolders;
-using System.IO;
-using System.Text;
-using System.Windows;
-using System.Diagnostics;
-using System.Collections.ObjectModel;
-using ManagedShell.WindowsTasks;
-
-namespace Shell11.Common.Utils
+﻿namespace Shell11.Common.Utils
 {
     //public static class ProgramsUtils
     //{

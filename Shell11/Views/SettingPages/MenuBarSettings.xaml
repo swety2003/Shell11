@@ -15,129 +15,132 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <StackPanel>
+    <ScrollViewer>
+
+        <StackPanel>
 
 
-        <Border
-            Margin="0,2"
-            Padding="0"
-            Style="{StaticResource Style_SectionBorderStyle}"
-            Visibility="Collapsed">
-            <ToggleButton
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                HorizontalContentAlignment="Stretch"
-                BorderThickness="0"
-                IsChecked="{Binding Source={x:Static settings:Settings.Instance}, Path=EnableMenuBar}">
-                <DockPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="8,0,16,0"
+            <Border
+                Margin="0,2"
+                Padding="0"
+                Style="{StaticResource Style_SectionBorderStyle}"
+                Visibility="Collapsed">
+                <ToggleButton
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    BorderThickness="0"
+                    IsChecked="{Binding Source={x:Static settings:Settings.Instance}, Path=EnableMenuBar}">
+                    <DockPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="8,0,16,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                DockPanel.Dock="Left"
+                                FontFamily="{StaticResource IconFontFamily}"
+                                FontSize="24">
+                                &#xE66A;
+                            </TextBlock>
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="{StaticResource LargeFontSize}"
+                                Text="启用顶栏" />
+
+                        </StackPanel>
+                        <StackPanel
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            DockPanel.Dock="Left"
-                            FontFamily="{StaticResource IconFontFamily}"
-                            FontSize="24">
-                            &#xE66A;
-                        </TextBlock>
+                            DockPanel.Dock="Right"
+                            Orientation="Horizontal">
 
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontSize="{StaticResource LargeFontSize}"
-                            Text="启用顶栏" />
+                            <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource IconFontFamily}">&#xE76C;</TextBlock>
+                        </StackPanel>
+                    </DockPanel>
+                </ToggleButton>
+            </Border>
 
-                    </StackPanel>
-                    <StackPanel
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        DockPanel.Dock="Right"
-                        Orientation="Horizontal">
+            <FrameworkElement Name="proxy" DataContext="{Binding}" />
 
-                        <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource IconFontFamily}">&#xE76C;</TextBlock>
-                    </StackPanel>
-                </DockPanel>
-            </ToggleButton>
-        </Border>
+            <TextBlock
+                Margin="0,4"
+                FontSize="{StaticResource MediumTitleFontSize}"
+                Text="扩展设置" />
 
-        <FrameworkElement Name="proxy" DataContext="{Binding}" />
+            <ItemsControl
+                Name="items"
+                dd:DragDrop.DropHandler="{Binding}"
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True"
+                dd:DragDrop.UseDefaultDragAdorner="True"
+                ItemsSource="{Binding Extensions}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="0,2"
+                            Padding="0"
+                            Style="{StaticResource Style_SectionBorderStyle}">
 
-        <TextBlock
-            Margin="0,4"
-            FontSize="{StaticResource MediumTitleFontSize}"
-            Text="扩展设置" />
-
-        <ItemsControl
-            Name="items"
-            dd:DragDrop.DropHandler="{Binding}"
-            dd:DragDrop.IsDragSource="True"
-            dd:DragDrop.IsDropTarget="True"
-            dd:DragDrop.UseDefaultDragAdorner="True"
-            ItemsSource="{Binding Extensions}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border
-                        Margin="0,2"
-                        Padding="0"
-                        Style="{StaticResource Style_SectionBorderStyle}">
-
-                        <Button
-                            Height="64"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Stretch"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Command="{Binding ElementName=proxy, Path=DataContext.NavigateToCommand}"
-                            CommandParameter="{Binding}">
-                            <DockPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock
-                                        Margin="8,0,16,0"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Center"
-                                        DockPanel.Dock="Left"
-                                        FontFamily="{StaticResource IconFontFamily}"
-                                        FontSize="24">
-                                        &#xEA86;
-                                    </TextBlock>
-
-                                    <StackPanel>
-
-                                        <TextBlock FontSize="{StaticResource LargeFontSize}" Text="{Binding Title}" />
-
+                            <Button
+                                Height="64"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Command="{Binding ElementName=proxy, Path=DataContext.NavigateToCommand}"
+                                CommandParameter="{Binding}">
+                                <DockPanel>
+                                    <StackPanel Orientation="Horizontal">
                                         <TextBlock
-                                            FontSize="{StaticResource MediumFontSize}"
-                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                            Text="{Binding Description}" />
+                                            Margin="8,0,16,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            DockPanel.Dock="Left"
+                                            FontFamily="{StaticResource IconFontFamily}"
+                                            FontSize="24">
+                                            &#xEA86;
+                                        </TextBlock>
 
+                                        <StackPanel>
+
+                                            <TextBlock FontSize="{StaticResource LargeFontSize}" Text="{Binding Title}" />
+
+                                            <TextBlock
+                                                FontSize="{StaticResource MediumFontSize}"
+                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                Text="{Binding Description}" />
+
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                                <StackPanel
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    DockPanel.Dock="Right"
-                                    Orientation="Horizontal">
-
-                                    <ui:ToggleSwitch
+                                    <StackPanel
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        IsOn="{Binding IsEnabled}"
-                                        TextElement.Foreground="Transparent">
-                                        <i:Interaction.Triggers>
+                                        DockPanel.Dock="Right"
+                                        Orientation="Horizontal">
 
-                                            <i:PropertyChangedTrigger Binding="{Binding IsEnabled}">
-                                                <i:InvokeCommandAction Command="{Binding ElementName=proxy, Path=DataContext.EnableChangedCommand}" CommandParameter="{Binding}" />
-                                            </i:PropertyChangedTrigger>
-                                        </i:Interaction.Triggers>
+                                        <ui:ToggleSwitch
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            IsOn="{Binding IsEnabled}"
+                                            TextElement.Foreground="Transparent">
+                                            <i:Interaction.Triggers>
 
-                                    </ui:ToggleSwitch>
-                                    <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource IconFontFamily}">&#xE76C;</TextBlock>
-                                </StackPanel>
-                            </DockPanel>
-                        </Button>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                                                <i:PropertyChangedTrigger Binding="{Binding IsEnabled}">
+                                                    <i:InvokeCommandAction Command="{Binding ElementName=proxy, Path=DataContext.EnableChangedCommand}" CommandParameter="{Binding}" />
+                                                </i:PropertyChangedTrigger>
+                                            </i:Interaction.Triggers>
 
-    </StackPanel>
+                                        </ui:ToggleSwitch>
+                                        <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource IconFontFamily}">&#xE76C;</TextBlock>
+                                    </StackPanel>
+                                </DockPanel>
+                            </Button>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

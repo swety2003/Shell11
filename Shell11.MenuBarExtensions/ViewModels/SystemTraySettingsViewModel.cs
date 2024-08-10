@@ -3,9 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using ManagedShell.WindowsTray;
 using Shell11.Common.Application.Contracts;
 using Shell11.Common.Configuration;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace Shell11.MenuBarExtensions.ViewModels
 {

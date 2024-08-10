@@ -4,7 +4,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Shell11.Common.Application.Contracts;
 using Shell11.Common.DependencyInjection;
-using Shell11.Common.Interfaces;
 using Shell11.Interfaces;
 using Shell11.Services;
 using Shell11.ViewModels;
@@ -46,26 +45,29 @@ namespace Shell11
 
                     services.AddSingleton<IApplication, App>();
                     services.AddSingleton<IWindowManager, WindowManager>();
-                    services.AddSingleton<IDesktopManager, DesktopManager>();
+                    //services.AddSingleton<IDesktopManager, DesktopManager>();
                     services.AddSingleton<IAppGrabber, AppGrabberService>();
 
                     services.AddSingleton<IWindowService, MenuBarWindowService>();
                     services.AddSingleton<IWindowService, TaskbarWindowService>();
 
-                    services.AddSingleton<INavigationService,NavigationService>();
+                    services.AddSingleton<INavigationService, NavigationService>();
 
                     services.AddSingleton<SettingsUIViewModel>();
+
                     services.AddSingleton<MenuBarSettingsViewModel>();
                     services.AddSingleton<GeneralSettingsViewModel>();
+                    services.AddSingleton<AppGrabberSettingsViewModel>();
 
 
-                    services.RegistorForNavigate<GeneralSettings>("general","通用");
-                    services.RegistorForNavigate<MenuBarSettings>("menubar","菜单栏");
-                    services.RegistorForNavigate<AdvancedSettings>("advanced","高级");
-                    services.RegistorForNavigate<TaskBarSettings>("taskbar","任务栏");
-                    services.RegistorForNavigate<About>("about","关于");
+                    services.RegistorForNavigate<GeneralSettings>("general", "通用");
+                    services.RegistorForNavigate<MenuBarSettings>("menubar", "菜单栏");
+                    services.RegistorForNavigate<AppGrabberSettings>("appgrabber", "应用程序");
+                    services.RegistorForNavigate<AdvancedSettings>("advanced", "高级");
+                    services.RegistorForNavigate<TaskBarSettings>("taskbar", "任务栏");
+                    services.RegistorForNavigate<About>("about", "关于");
 
-                    services.AddTransient(sp=>new SettingsUI { DataContext = sp.GetRequiredService<SettingsUIViewModel>() });
+                    services.AddTransient(sp => new SettingsUI { DataContext = sp.GetRequiredService<SettingsUIViewModel>() });
 
                     //services.AddSingletonView<SettingsUI,SettingsUIViewModel>();
 

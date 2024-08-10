@@ -1,7 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Xml;
-using ManagedShell.Common.Helpers;
+﻿using ManagedShell.Common.Helpers;
 using ManagedShell.Common.Logging;
+using System.Collections.ObjectModel;
+using System.Xml;
 
 namespace AppGrabber
 {

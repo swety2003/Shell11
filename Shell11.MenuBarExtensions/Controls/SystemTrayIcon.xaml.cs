@@ -1,23 +1,12 @@
 ﻿using ManagedShell.Common.Helpers;
 using ManagedShell.Interop;
 using ManagedShell.WindowsTray;
-using Microsoft.Extensions.Hosting;
-using Shell11.MenuBarExtensions.Shaders;
 using Shell11.MenuBarExtensions.Views;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Shell11.MenuBarExtensions.Controls
@@ -146,7 +135,7 @@ namespace Shell11.MenuBarExtensions.Controls
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
-            var trayIcon = (sender as FrameworkElement).DataContext as NotifyIcon; 
+            var trayIcon = (sender as FrameworkElement).DataContext as NotifyIcon;
 
             Host?.SetTrayHostSizeData();
 
